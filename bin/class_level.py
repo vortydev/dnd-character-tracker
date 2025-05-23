@@ -28,7 +28,7 @@ class ClassLevel():
     
     def to_dict(self):
         return {
-            "type": ClassLevelType.BASE,
+            "type": ClassLevelType.BASE.value,
             "level": self.level,
             "class_type": self.class_type.value,
             "features": [f.name for f in self.features],
@@ -38,7 +38,7 @@ class ClassLevel():
     @staticmethod
     def from_dict(data: dict) -> "ClassLevel":
         class_type = ClassType(data["class_type"])
-        subclass_val = data.get("subclass")
+        subclass_val = data.get("subclass", None)
         features = [FeatureRegistry.get(name, FeatureType.SUBCLASS if subclass_val else FeatureType.CLASS, class_type) for name in data.get("features", [])]
         return ClassLevel(
             lvl=data["level"],

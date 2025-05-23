@@ -36,15 +36,20 @@ def load_class_features() -> list[ClassFeature]:
     class_feats: list[ClassFeature] = []
     print("\n===== Class Features =====")
 
-    # === Wizard ===
-    print("> Creating Wizard Class features")
-    from feature_list.class_features.wizard_features import wiz_feats
-    class_feats.extend(wiz_feats)
+    # === Fighter ===
+    print("> Creating Fighter Class features")
+    from feature_list.class_features.fighter_features import fig_feats
+    class_feats.extend(fig_feats)
 
     # === Sorcerer ===
     print("> Creating Sorcerer Class features")
     from feature_list.class_features.sorcerer_features import sorc_feats
     class_feats.extend(sorc_feats)
+
+    # === Wizard ===
+    print("> Creating Wizard Class features")
+    from feature_list.class_features.wizard_features import wiz_feats
+    class_feats.extend(wiz_feats)
 
     print(f"📦 Loaded {len(class_feats)} Class features.")
     return class_feats
@@ -55,15 +60,20 @@ def load_subclass_features() -> list[SubclassFeature]:
     subclass_feats: list[SubclassFeature] = []
     print("\n===== Subclass Features =====")
 
-    # === Wizard ===
-    print("> Creating Wizard Subclass features")
-    from feature_list.subclass_features.wizard_school_features import school_evocation
-    subclass_feats.extend(school_evocation)
+    # === Fighter ===
+    print("> Creating Fighter Subclass features")
+    from feature_list.subclass_features.fighter_martial_archetype_features import ma_champion
+    subclass_feats.extend(ma_champion)
 
     # === Sorcerer ===
     print("> Creating Sorcerer Subclass features")
     from feature_list.subclass_features.sorcerer_origin_features import draconic_bloodline
     subclass_feats.extend(draconic_bloodline)
+
+    # === Wizard ===
+    print("> Creating Wizard Subclass features")
+    from feature_list.subclass_features.wizard_school_features import school_evocation
+    subclass_feats.extend(school_evocation)
 
     print(f"📦 Loaded {len(subclass_feats)} Subclass features.")
     return subclass_feats

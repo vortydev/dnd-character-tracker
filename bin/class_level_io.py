@@ -1,7 +1,7 @@
 # class_level_io.py
 import os
 import json
-from class_level import ClassLevelType, ClassLevel, ClassLevelSpellcaster
+from class_level import ClassLevelType, ClassLevel, ClassLevelSpellcaster, ClassLevelSorcerer
 
 # Resolve the /data directory relative to this file
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -21,9 +21,11 @@ def load_class_levels_from_file(path: str = DEFAULT_PATH) -> list[ClassLevel]:
             raw_data = json.load(f)
             class_levels = []
             for d in raw_data:
-                if d["type"] == ClassLevelType.SPELLCASTER.value:
+                cl_type = d["type"]
+                if cl_type == ClassLevelType.SPELLCASTER.value:
                     class_levels.append(ClassLevelSpellcaster.from_dict(d))
-                # WIP
+                elif cl_type == ClassLevelType.SORCERER.value:
+                    class_levels.append(ClassLevelSorcerer.from_dict(d))
                 else:
                     class_levels.append(ClassLevel.from_dict(d))
             return class_levels

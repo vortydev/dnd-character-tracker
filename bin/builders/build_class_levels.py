@@ -11,15 +11,15 @@ from class_level_io import save_class_levels_to_file
 def load_class_level_list() -> list[ClassLevel]:
     """Load array of defined ClassLevel objects."""
     cl = []
-    
-    # === Wizard ===
+
+    # === Fighter ===
     # Class
-    from class_levels.wizard_class_levels import wizard_cl
-    cl.extend(wizard_cl)
+    from class_levels.fighter_class_levels import fighter_cl
+    cl.extend(fighter_cl)
 
     # Subclass
-    from class_levels.wizard_subclass_levels import wizard_scl
-    cl.extend(wizard_scl)
+    from class_levels.fighter_subclass_levels import fighter_scl
+    cl.extend(fighter_scl)
 
     # === Sorcerer ===
     # Class
@@ -29,6 +29,15 @@ def load_class_level_list() -> list[ClassLevel]:
     # Subclass
     from class_levels.sorcerer_subclass_levels import sorcerer_scl
     cl.extend(sorcerer_scl)
+
+    # === Wizard ===
+    # Class
+    from class_levels.wizard_class_levels import wizard_cl
+    cl.extend(wizard_cl)
+
+    # Subclass
+    from class_levels.wizard_subclass_levels import wizard_scl
+    cl.extend(wizard_scl)
     
     return cl
 

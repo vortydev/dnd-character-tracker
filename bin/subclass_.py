@@ -4,8 +4,34 @@ from enum import Enum
 # ===== Subclasses =====
 # WIP
 class SubclassType(Enum):
-    # === Wizard Schools ===
-    # PHB Arcane Traditions
+    # === FIGHTER Martial Archetypes ===
+    # Player's Handbook
+    BATTLE_MASTER = "Battle Master"
+    CHAMPION = "Champion"
+    ELDRITCH_KNIGHT = "Eldritch Knight"
+
+    # Xanathar's Guide to Everything
+    ARCANE_ARCHER = "Arcane Archer"
+    CAVALIER = "Cavalier"
+    SAMURAI = "Samurai"
+
+    # Tasha's Cauldron of Everything
+    PSI_WARRIOR = "Psi Warrior"
+    RUNE_KNIGHT = "Rune Knight"
+
+    # Sword Coast Adventurer's Guide
+    BANNERET = "Banneret"
+
+    # Explorer's Guide to Wildemount
+    ECHO_KNIGHT = "Echo Knight"
+
+
+    # === SORCERER Sorcerous Origins ===
+    DRACONIC_BLOODLINE = "Draconic Bloodline"
+
+
+    # === WIZARD Arcane Traditions ===
+    # Player's Handbook
     ABJURATION = "School of Abjuration"
     CONJURATION = "School of Conjuration"
     DIVINATION = "School of Divination"
@@ -21,6 +47,3 @@ class SubclassType(Enum):
     ORDER_OF_SCRIBES = "Order of Scribes"
     GRAVITURGY_MAGIC = "Graviturgy Magic"
     CHRONURGY_MAGIC = "Chronurgy Magic"
-
-    # === Sorcerous Origins ===
-    DRACONIC_BLOODLINE = "Draconic Bloodline"

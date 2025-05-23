@@ -1,6 +1,7 @@
 # class_.py
 from typing import Optional, Dict, List
 from enum import Enum
+from collections import defaultdict
 
 from subclass_ import SubclassType
 from ability import AbilityType, Skill
@@ -23,11 +24,49 @@ class ClassType(Enum):
     WIZARD = "Wizard"
     ARTIFICER = "Artificer"
 
+
+# === Mapping ===
 # WIP
+SUBCLASS_MAP = {
+    # Fighter
+    SubclassType.BATTLE_MASTER: ClassType.FIGHTER,
+    SubclassType.CHAMPION: ClassType.FIGHTER,
+    SubclassType.ELDRITCH_KNIGHT: ClassType.FIGHTER,
+    SubclassType.ARCANE_ARCHER: ClassType.FIGHTER,
+    SubclassType.CAVALIER: ClassType.FIGHTER,
+    SubclassType.SAMURAI: ClassType.FIGHTER,
+    SubclassType.PSI_WARRIOR: ClassType.FIGHTER,
+    SubclassType.RUNE_KNIGHT: ClassType.FIGHTER,
+    SubclassType.BANNERET: ClassType.FIGHTER,
+    SubclassType.ECHO_KNIGHT: ClassType.FIGHTER,
+
+    # Wizard
+    SubclassType.ABJURATION: ClassType.WIZARD,
+    SubclassType.CONJURATION: ClassType.WIZARD,
+    SubclassType.DIVINATION: ClassType.WIZARD,
+    SubclassType.ENCHANTMENT: ClassType.WIZARD,
+    SubclassType.EVOCATION: ClassType.WIZARD,
+    SubclassType.ILLUSION: ClassType.WIZARD,
+    SubclassType.NECROMANCY: ClassType.WIZARD,
+    SubclassType.TRANSMUTATION: ClassType.WIZARD,
+    SubclassType.BLADESINGING: ClassType.WIZARD,
+    SubclassType.WAR_MAGIC: ClassType.WIZARD,
+    SubclassType.ORDER_OF_SCRIBES: ClassType.WIZARD,
+    SubclassType.GRAVITURGY_MAGIC: ClassType.WIZARD,
+    SubclassType.CHRONURGY_MAGIC: ClassType.WIZARD,
+}
+
+
+SUBCLASSES_BY_CLASS = defaultdict(list)
+for sc, c in SUBCLASS_MAP.items():
+    SUBCLASSES_BY_CLASS[c].append(sc)
+
+
 SUBCLASS_MIN_LEVEL = {
-    ClassType.WIZARD: 2,
     ClassType.FIGHTER: 3,
-    # etc.
+    ClassType.SORCERER: 1,
+    ClassType.WIZARD: 2,
+    # WIP
 }
 
 def validate_subclass_assignment(class_type: ClassType, level: int, subclass: SubclassType):
