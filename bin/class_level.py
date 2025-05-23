@@ -4,6 +4,7 @@ from typing import Optional, Dict, List
 from class_ import ClassType, SubclassType
 from class_feature import ClassFeature
 from feature_registry import FeatureRegistry
+from feature_types import FeatureType
 from spell_slots_tables import get_class_level_spell_slots
 
 
@@ -19,7 +20,7 @@ class ClassLevelType(Enum):
 class ClassLevel():
     """Base ClassLevel object for any class."""
     def __init__(self, lvl: int, class_type: ClassType,
-                 features: List[ClassFeature] = [], subclass: Optional[SubclassType] = None):
+        features: List[ClassFeature] = [], subclass: Optional[SubclassType] = None):
         self.level = lvl
         self.class_type = class_type
         self.features = features
@@ -36,11 +37,12 @@ class ClassLevel():
     
     @staticmethod
     def from_dict(data: dict) -> "ClassLevel":
-        features = [FeatureRegistry.get(name) for name in data.get("features", [])]
+        class_type = ClassType(data["class_type"])
         subclass_val = data.get("subclass")
+        features = [FeatureRegistry.get(name, FeatureType.SUBCLASS if subclass_val else FeatureType.CLASS, class_type) for name in data.get("features", [])]
         return ClassLevel(
             lvl=data["level"],
-            class_type=ClassType(data["class_type"]),
+            class_type=class_type,
             features=features,
             subclass=SubclassType(subclass_val) if subclass_val else None,
         )
@@ -76,7 +78,7 @@ class ClassLevelSpellcaster(ClassLevel):
             subclass=base.subclass,
             known_cantrips=data.get("known_cantrips", 0),
             known_spells=data.get("known_spells", 0),
-            spell_slots=data.get("spell_slots", {}),
+            # spell_slots=data.get("spell_slots", {}),
         )
     
 
@@ -109,7 +111,7 @@ class ClassLevelSorcerer(ClassLevelSpellcaster):
             subclass=base.subclass,
             known_cantrips=base.known_cantrips,
             known_spells=base.known_spells,
-            spell_slots=base.spell_slots,
+            # spell_slots=base.spell_slots,
             sorcery_points=data.get("sorcery_points", 0),
         )
     

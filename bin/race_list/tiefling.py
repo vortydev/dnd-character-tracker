@@ -13,11 +13,11 @@ from feature_io import load_features_from_file
 from feature_registry import FeatureRegistry
 
 # Load spells
-spells = load_spells_from_file("spells.json")
+spells = load_spells_from_file()
 SpellRegistry.load_bulk(spells)
 
 # Load features
-features = load_features_from_file("features.json")
+features = load_features_from_file()
 FeatureRegistry.load_bulk(features)
 
 

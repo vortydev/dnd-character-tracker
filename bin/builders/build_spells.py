@@ -1,4 +1,8 @@
 # build_spells.py
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from spell import Spell
 from spell_registry import SpellRegistry
 from spell_io import save_spells_to_file

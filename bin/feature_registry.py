@@ -4,11 +4,11 @@ from feature import Feature
 from feature_types import FeatureType
 from race_feature import RaceFeature
 from race_types import RaceType
-from class_feature import ClassFeature
-from class_ import ClassType
+from class_feature import ClassFeature, SubclassFeature
+from class_ import ClassType, SubclassType
 
 class FeatureRegistry:
-    _feats: Dict[Tuple[str, str, Optional[Union[RaceType, ClassType]]], Feature] = {}
+    _feats: Dict[Tuple[str, str, Optional[Union[RaceType, ClassType, SubclassType]]], Feature] = {}
 
     @classmethod
     def register(cls, feat: Feature):
@@ -19,12 +19,14 @@ class FeatureRegistry:
             context = feat.race_type
         elif feat_type == FeatureType.CLASS.value and isinstance(feat, ClassFeature):
             context = feat.class_type
+        elif feat_type == FeatureType.SUBCLASS.value and isinstance(feat, SubclassFeature):
+            context = feat.class_type
 
         key = (feat.name.lower(), feat_type, context)
         cls._feats[key] = feat
 
     @classmethod
-    def get(cls, name: str, feat_type: FeatureType = FeatureType.BASE, context: Optional[Union[RaceType, ClassType]] = None) -> Feature:
+    def get(cls, name: str, feat_type: FeatureType = FeatureType.BASE, context: Optional[Union[RaceType, ClassType, SubclassType]] = None) -> Feature:
         key = (name.lower(), feat_type.value, context)
         if key in cls._feats:
             return cls._feats[key]
@@ -36,7 +38,7 @@ class FeatureRegistry:
         raise KeyError(f"Feature '{name}' (type={feat_type}) not found with context {context}")
 
     @classmethod
-    def all(cls) -> Dict[Tuple[str, str, Optional[Union[RaceType, ClassType]]], Feature]:
+    def all(cls) -> Dict[Tuple[str, str, Optional[Union[RaceType, ClassType, SubclassType]]], Feature]:
         return cls._feats
 
     @classmethod

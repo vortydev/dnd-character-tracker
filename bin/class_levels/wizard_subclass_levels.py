@@ -7,7 +7,7 @@ from feature_registry import FeatureRegistry
 from feature_io import load_features_from_file
 
 # Load features
-feats = load_features_from_file("features.json")
+feats = load_features_from_file()
 FeatureRegistry.load_bulk(feats)
 
 wizard_scl = [] # Empty array

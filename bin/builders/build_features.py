@@ -1,4 +1,8 @@
 # build_features.py
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from feature import Feature
 from class_feature import ClassFeature, SubclassFeature
 from race_feature import RaceFeature

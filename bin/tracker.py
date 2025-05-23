@@ -280,19 +280,19 @@ def main_menu():
 if __name__ == "__main__":
     try:
         # Load spells
-        spells = load_spells_from_file("spells.json")
+        spells = load_spells_from_file()
         SpellRegistry.load_bulk(spells)
 
         # Load features
-        features = load_features_from_file("features.json")
+        features = load_features_from_file()
         FeatureRegistry.load_bulk(features)
 
         # Load races
-        races = load_races_from_file("races.json")
+        races = load_races_from_file()
         RaceRegistry.load_bulk(races)
 
         # Load class levels
-        class_levels = load_class_levels_from_file("class_levels.json")
+        class_levels = load_class_levels_from_file()
         ClassLevelRegistry.load_bulk(class_levels)
 
         # TODO Load classes

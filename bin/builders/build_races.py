@@ -1,4 +1,8 @@
 # build_races.py
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from race import Race
 from race_registry import RaceRegistry
 from race_io import save_races_to_file

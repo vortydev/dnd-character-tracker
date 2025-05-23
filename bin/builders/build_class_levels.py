@@ -1,4 +1,8 @@
 # build_class_levels.py
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from class_level import ClassLevel
 from class_level_registry import ClassLevelRegistry
 from class_level_io import save_class_levels_to_file

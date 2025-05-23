@@ -196,8 +196,4 @@ pyrightconfig.json
 
 
 # ===== Project-specific =====
-characters.json
-class_levels.json
-features.json
-races.json
-spells.json
+data/*.json
