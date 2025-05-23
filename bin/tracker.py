@@ -10,6 +10,7 @@ from spell_io import load_spells_from_file
 from spell_registry import SpellRegistry
 
 from feature import Feature
+from feature_types import FeatureType
 from feature_io import load_features_from_file
 from feature_registry import FeatureRegistry
 
@@ -29,14 +30,15 @@ characters: list[Character] = []
 # === Character Menu ===
 def characters_menu():
     while True:
-        choice = menu(title=f"Characters Menu ({len(characters)} loaded)",
-                      options=[
-                          "List Characters", 
-                          "Create Character", 
-                          "Edit Character", 
-                          "Remove Character", 
-                          "Save Characters"
-                        ])
+        choice = menu(
+            title=f"Characters Menu ({len(characters)} loaded)",
+            options=[
+                "List Characters", 
+                "Create Character", 
+                "Edit Character", 
+                "Remove Character", 
+                "Save Characters"
+            ])
 
         if choice == 1:
             char_list()
@@ -91,15 +93,19 @@ def char_create():
     unique_subraces = {sr.name: sr for sr in subrace_objects}.values()
 
     subrace_options = [None] + sorted(unique_subraces, key=lambda s: s.name)  # None first
-    for idx, sr in enumerate(subrace_options, 1):
-        label = sr.name if sr else "None"
-        print(f"{idx}. {label}")
-
-    sub_input = input("Choose subrace (number or leave blank): ").strip()
-    if sub_input.isdigit() and 1 <= int(sub_input) <= len(subrace_options):
-        subrace_obj = subrace_options[int(sub_input) - 1]
-    else:
+    if not subrace_options or len(subrace_options) == 1:
+        print("No subraces available.")
         subrace_obj = None
+    else:
+        for idx, sr in enumerate(subrace_options, 1):
+            label = sr.name if sr else "None"
+            print(f"{idx}. {label}")
+
+        sub_input = input("Choose subrace (number or leave blank): ").strip()
+        if sub_input.isdigit() and 1 <= int(sub_input) <= len(subrace_options):
+            subrace_obj = subrace_options[int(sub_input) - 1]
+        else:
+            subrace_obj = None
 
     race = Race(race_type, subrace_obj)
     char = Character(name=name, health=health, ability_scores=scores, race=race)
@@ -257,14 +263,151 @@ def spell_view():
     pause()
 
 
+# === Features Menu ===
+def features_menu():
+    while True:
+        choice = menu("🧰 Features Menu", ["List Features by Type", "View Feature Details"])
+
+        if choice == 1:
+            ft = choose_feature_type()
+            list_features_by_type(ft)
+            pause()
+
+        elif choice == 2:
+            feature_view_submenu()
+        
+        elif choice == -1:
+            break
+
+
+def feature_view_submenu():
+    ft = choose_feature_type()
+    if ft == -1:
+        return
+
+    # Group and label features with context | subcontext | name
+    menu_items = []
+
+    for (_, typ, _), feat in FeatureRegistry.all().items():
+        if typ != ft.value:
+            continue
+
+        label_parts = []
+
+        # Context (class, race, etc.)
+        if hasattr(feat, "class_type"):
+            label_parts.append(feat.class_type.value)
+        elif hasattr(feat, "race_type"):
+            label_parts.append(feat.race_type.value)
+        else:
+            label_parts.append("General")
+
+        # Subcontext (subclass or subrace)
+        if hasattr(feat, "subclass_type"):
+            label_parts.append(feat.subclass_type.value)
+        elif hasattr(feat, "subrace"):
+            label_parts.append(feat.subrace.name)
+
+        # Final name
+        label_parts.append(feat.name)
+
+        menu_items.append((" | ".join(label_parts), feat))
+
+    if not menu_items:
+        print("❌ No features found for this type.")
+        pause()
+        return
+
+    # Sort alphabetically by label
+    menu_items = sorted(menu_items, key=lambda x: x[0])
+
+    # Format labels with aligned numbers
+    labels = [
+        f"{label}" for i, (label, _) in enumerate(menu_items)
+    ]
+
+    index = menu("Choose Feature", labels, pad=True)
+    if index == -1:
+        return
+
+    selected_feat = menu_items[index - 1][1]
+    print_feature_info(selected_feat)
+    pause()
+    
+
+def choose_feature_type() -> FeatureType:
+    """Prompt user to select a feature type. Returns the FeatureType or -1 if canceled."""
+    type_counts = {ft: 0 for ft in FeatureType}
+    for (_, typ, _), feat in FeatureRegistry.all().items():
+        for ft in FeatureType:
+            if typ == ft.value:
+                type_counts[ft] += 1
+
+    labels = [
+        f"{ft.value} ({count} feature{'s' if count != 1 else ''})"
+        for ft, count in type_counts.items()
+        if count > 0
+    ]
+    valid_types = [ft for ft, count in type_counts.items() if count > 0]
+
+    if not valid_types:
+        print("❌ No features loaded.")
+        return -1
+
+    index = menu("Choose Feature Type", labels)
+    return -1 if index == -1 else valid_types[index - 1]
+
+
+def list_features_by_type(ftype: FeatureType):
+    """List features grouped by context (RaceType, ClassType, etc.) and sorted alphabetically."""
+    # Group features by context
+    grouped: dict[str, list[Feature]] = {}
+    for (_, typ, context), feat in FeatureRegistry.all().items():
+        if typ == ftype.value:
+            key = str(context.name if context else "General")
+            grouped.setdefault(key, []).append(feat)
+
+    if not grouped:
+        print("No features found for this type.")
+        return
+
+    print(f"\n📂 {ftype.value} Features Grouped by Context:\n")
+    for group_name in sorted(grouped):
+        feats = sorted(grouped[group_name], key=lambda f: f.name)
+        print(f"🔸 {group_name}")
+        for feat in feats:
+            print(f"  • {feat.name}")
+        print()
+
+
+def print_feature_info(feat: Feature):
+    print(f"\n📌 {feat.name}")
+    print(f"Type: {feat.to_dict().get('type')}")
+
+    if hasattr(feat, "class_type") and hasattr(feat, "subclass_type"):
+        print(f"Class: {feat.class_type.name.capitalize()}")
+        print(f"Subclass: {feat.subclass_type.name.capitalize()}")
+    elif hasattr(feat, "class_type"):
+        print(f"Class: {feat.class_type.name.capitalize()}")
+    elif hasattr(feat, "race_type"):
+        print(f"Race: {feat.race_type.name.capitalize()}")
+        if hasattr(feat, "subrace"):
+            print(f"Subrace: {feat.subrace.name.capitalize()}")
+
+    print(f"\n{feat.description}")
+
+
+
 # === Main Menu ===
 def main_menu():
     while True:
         choice = menu(title="Main Menu",
                       options=[
                         f"Characters ({len(characters)} loaded)",
+                        f"Classes (not yet implemented)",
                         f"Races ({len(RaceRegistry.all())} registered)",
                         f"Spells ({len(SpellRegistry.all())} registered)",
+                        f"Features ({len(FeatureRegistry.all())} registered)",
                       ],
                       disable_back=True,
                       )
@@ -272,9 +415,13 @@ def main_menu():
         if choice == 1:
             characters_menu()
         elif choice == 2:
-            races_menu()
+            print("⚠️ Not yet implemented!")
         elif choice == 3:
+            races_menu()
+        elif choice == 4:
             spells_menu()
+        elif choice == 5:
+            features_menu()
 
 
 if __name__ == "__main__":

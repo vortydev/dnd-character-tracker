@@ -34,6 +34,9 @@ class ClassFeature(Feature):
             subfeatures=base.subfeatures,
             class_type=ClassType(data["class_type"]),
         )
+    
+    def get_context(self) -> Optional[str]:
+        return self.class_type.value
 
 
 class SubclassFeature(ClassFeature):
@@ -66,3 +69,6 @@ class SubclassFeature(ClassFeature):
             class_type=ClassType(data["class_type"]),
             subclass_type=SubclassType(data["subclass_type"])
         )
+    
+    def get_context(self) -> Optional[str]:
+        return self.subclass_type.value

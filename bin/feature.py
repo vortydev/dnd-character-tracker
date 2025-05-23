@@ -30,3 +30,6 @@ class Feature():
             description=data["description"],
             subfeatures=subfeatures,
         )
+    
+    def get_context(self) -> Optional[str]:
+        return None

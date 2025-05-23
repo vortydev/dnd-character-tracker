@@ -31,3 +31,6 @@ class RaceFeature(Feature):
             subfeatures=base.subfeatures,
             race_type=RaceType(data["race_type"]),
         )
+    
+    def get_context(self) -> Optional[str]:
+        return self.race_type.value

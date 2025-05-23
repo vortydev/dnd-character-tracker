@@ -3,7 +3,7 @@ from enum import Enum
 
 class FeatureType(Enum):
     BASE = "Feature"
-    CLASS = "Class Feature"
-    SUBCLASS = "Subclass Feature"
-    RACE = "Race Feature"
-    BACKGROUND = "Background Feature"
+    CLASS = "Class"
+    SUBCLASS = "Subclass"
+    RACE = "Race"
+    BACKGROUND = "Background"
