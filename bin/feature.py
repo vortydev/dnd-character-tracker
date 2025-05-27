@@ -33,3 +33,57 @@ class Feature():
     
     def get_context(self) -> Optional[str]:
         return None
+    
+    def get_html(self) -> str:
+        """Returns the Feature as an HTML string."""
+        html = f'<div class="dnd-feature" data-feature-type="{self.to_dict()["type"]}">\
+                <h4 class="dnd-feature-name">{self.name}</h4>'
+        
+        desc = self.description.splitlines()
+        for d in desc:
+            if d.startswith("TABLE"):
+                html += convert_into_html_table(d, "dnd-feature-table")
+            else:
+                html += f'<p class="dnd-feature-desc">{d}</p>'
+
+        # TODO Subfeatures
+        
+        html += '</div>'
+
+
+def convert_into_html_table(str: str, html_class: str) -> str:
+    """Converts a given string as an HTML table."""
+    # Prepare the table parts
+    str = str.replace('TABLE', '')
+    header, body = str.strip().split(':', 1)
+
+    table = f'<table class="{html_class}">'
+
+    # Headers
+    thead = '<thead><tr>'
+    header_parts = remove_braces(header).split(',')
+    for hp in header_parts:
+        thead += f'<th>{hp.strip()}</th>'
+    thead += '</tr></thead>'
+    table += thead
+
+    # Content
+    tbody = '<tbody>'
+    rows = body.split(';')
+    for row in rows:
+        row_parts = remove_braces(row).split(',')
+        tr = '<tr>'
+        for rp in row_parts:
+            tr += f'<td>{rp.strip()}</td>'
+        tr += '</tr>'
+        tbody += tr
+
+    tbody += '</tbody>'
+    table += tbody
+
+    table += '</table>'
+    return table
+
+
+def remove_braces(str: str) -> str:
+    return str.replace('[', '').replace(']', '').strip()
