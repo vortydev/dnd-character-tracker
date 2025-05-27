@@ -1,0 +1,775 @@
+/* ##### COLORS ##### */
+:root {
+    --app-primary: #af6300;
+    --app-primary-shade: #925300;
+    --app-primary-shadow: #af630040;
+    --app-secondary: #414040;
+    --app-secondary-shade: #303030;
+    --app-secondary-shadow: #41404040;
+    --app-green: #28ac31;
+    --app-green-shade: #24962b;
+    --app-green-shadow: #28ac3140;
+    --app-grey: #696969;
+    --app-red: #ce3b31;
+    --app-red-shade: #aa322a;
+    --app-black: #231515;
+    --app-purple: #470094;
+    --app-purple-shade: #310066;
+    --app-purple-shadow: #47009440;
+    --app-blue: #5690c5;
+    --app-blue-shade: #4b7ba8;
+    --app-blue-shadow: #5690c540;
+    --app-orange: #d46f11;
+    --app-orange-shade: #b45f11;
+    --app-orange-shadow: #d46f1140;
+}
+
+::selection {
+    color: white;
+    background-color: var(--app-primary);
+}
+
+/* Primary */
+.app-primary {
+    background-color: var(--app-primary) !important;
+}
+
+.app-primary-text {
+    color: var(--app-primary) !important;
+}
+
+/* Secondary */
+.app-secondary {
+    background-color: var(--app-secondary) !important;
+}
+
+.app-secondary-text {
+    color: var(--app-secondary) !important;
+}
+
+/* Green */
+.app-green-text {
+    color: var(--app-green) !important;
+}
+
+/* Grey */
+.app-grey-text {
+    color: var(--app-grey) !important;
+}
+
+/* Red */
+.app-red-text,
+.app-danger-text {
+    color: var(--app-red) !important;
+}
+
+/* Purple */
+.app-purple {
+    background-color: var(--app-purple) !important;
+}
+
+.app-purple-text {
+    color: var(--app-purple) !important;
+}
+
+/* Blue */
+.app-blue-text {
+    color: var(--app-blue) !important;
+}
+
+/* Orange */
+.app-orange-text {
+    color: #d46f11;
+}
+
+
+/* ##### AESTHETICS ##### */
+.hide,
+.hidden {
+    display: none !important;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.underline-primary {
+    text-decoration: underline .1rem var(--app-primary);
+}
+
+.underline-secondary {
+    text-decoration: underline .1rem var(--app-secondary);
+}
+
+.underline-bleu,
+.underline-blue {
+    text-decoration: underline .1rem var(--app-blue);
+}
+
+.underline-mauve,
+.underline-purple {
+    text-decoration: underline .1rem var(--app-purple);
+}
+
+.unselectable {
+    user-select: none;
+}
+
+hr {
+    height: .125rem;
+    color: var(--app-grey);
+}
+
+.border-round {
+    border-radius: 1rem;
+}
+
+/* Tabs (margin-left) */
+.tab-1 {
+    margin-left: 2rem;
+}
+
+.tab-2 {
+    margin-left: 4rem;
+}
+
+.tab-3 {
+    margin-left: 6rem;
+}
+.tab-4 {
+    margin-left: 8rem;
+}
+
+/* Text size */
+.text-big {
+    font-size: 1.25rem;
+}
+
+.text-bigger {
+    font-size: 1.5rem;
+}
+
+.text-biggerer {
+    font-size: 1.75rem;
+}
+
+.text-huge {
+    font-size: 2rem;
+}
+
+.text-small {
+    font-size: 0.75rem;
+}
+
+.text-smaller {
+    font-size: 0.5rem;
+}
+
+/* Icon spacing */
+.page-h1 svg {
+    margin-right: .75rem;
+}
+
+.page-h2 svg {
+    margin-right: .5rem;
+}
+
+.page-h3 svg {
+    margin-right: .25rem;
+}
+
+
+/* ##### BUTTONS ##### */
+.btn {
+    cursor: pointer;
+}
+
+.btn:not(#sidebarToggle) svg {
+    margin-right: 0.5rem;
+}
+
+.btn-icon svg {
+    margin-right: 0 !important;
+}
+
+.btn:disabled {
+    background-color: var(--app-grey) !important;
+    border-color: var(--app-grey) !important;
+    cursor: default;
+}
+
+/* Sizes */
+.btn-full {
+    width: 100%;
+}
+
+.btn-big {
+    font-size: 1.25rem;
+}
+
+.btn-bigger {
+    font-size: 1.5rem;
+}
+
+.btn-biggerer {
+    font-size: 1.75rem;
+}
+
+.btn-huge {
+    font-size: 2rem;
+}
+
+.btn-small {
+    font-size: 0.9rem;
+}
+
+/* Couleur primaire */
+.btn-primary {
+    color: white !important;
+    background-color: var(--app-primary) !important;
+    border-color: var(--app-primary) !important;
+}
+.btn-primary:hover {
+    background-color: var(--app-primary-shade) !important;
+    border-color: var(--app-primary-shade) !important;
+}
+.btn-primary:focus,
+.btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.25rem var(--app-primary-shadow) !important;
+}
+
+/* Couleur primaire - Outline */
+.btn-outline-primary {
+    border-color: var(--app-primary) !important;
+    color: var(--app-primary) !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--app-primary) !important;
+    border-color: var(--app-primary) !important;
+    color: white !important;
+}
+.btn-outline-primary:hover:active {
+    background-color: var(--app-primary-shade) !important;
+    border-color: var(--app-primary-shade) !important;
+}
+
+/* Couleur secondaire */
+.btn-secondary {
+    color: white !important;
+    background-color: var(--app-secondary) !important;
+    border-color: var(--app-secondary) !important;
+}
+.btn-secondary:hover {
+    background-color: var(--app-secondary-shade) !important;
+    border-color: var(--app-secondary-shade) !important;
+}
+.btn-secondary:focus,
+.btn-outline-secondary:focus {
+    box-shadow: 0 0 0 0.25rem var(--app-secondary-shadow) !important;
+}
+
+/* Couleur secondaire - Outline */
+.btn-outline-secondary {
+    border-color: var(--app-secondary) !important;
+    color: var(--app-secondary) !important;
+}
+.btn-outline-secondary:hover {
+    background-color: var(--app-secondary) !important;
+    border-color: var(--app-secondary) !important;
+    color: white !important;
+}
+.btn-outline-secondary:hover:active {
+    background-color: var(--app-secondary-shade) !important;
+    border-color: var(--app-secondary-shade) !important;
+}
+
+/* Purple */
+.btn-purple {
+    color: white !important;
+    background-color: var(--app-purple) !important;
+    border-color: var(--app-purple) !important;
+}
+.btn-purple:hover {
+    background-color: var(--app-purple-shade) !important;
+    border-color: var(--app-purple-shade) !important;
+}
+.btn-purple:focus {
+    box-shadow: 0 0 0 0.25rem var(--app-purple-shadow) !important;
+}
+
+/* Green */
+.btn-green {
+    color: white !important;
+    background-color: var(--app-green) !important;
+    border-color: var(--app-green) !important;
+}
+
+.btn-green:hover {
+    background-color: var(--app-green-shade) !important;
+    border-color: var(--app-green-shade) !important;
+}
+
+.btn-green:focus {
+    box-shadow: 0 0 0 0.25rem var(--app-green-shadow) !important;
+}
+
+/* Grey */
+.btn-lightgrey {
+    color: black;
+    background-color: lightgrey;
+    border-color: lightgrey;
+}
+
+.btn-lightgrey:hover,
+.btn-lightgrey:active {
+    background-color: #b6b6b6 !important;
+    border-color: #b6b6b6 !important;
+}
+
+.btn-lightgrey:focus {
+    box-shadow: 0 0 0 0.25rem #b6b6b6;
+}
+
+/* Blue */
+.btn-blue {
+    color: white !important;
+    background-color: var(--app-blue);
+    border-color: var(--app-blue);
+}
+
+.btn-blue:hover,
+.btn-blue:active {
+    background-color: var(--app-blue-shade) !important;
+    border-color: var(--app-blue-shade) !important;
+}
+
+.btn-blue:focus,
+.btn-outline-blue:focus {
+    box-shadow: 0 0 0 0.25rem var(--app-blue-shadow);
+}
+
+.btn-outline-blue {
+    border-color: var(--app-blue) !important;
+    color: var(--app-blue) !important;
+}
+.btn-outline-blue:hover {
+    background-color: var(--app-blue) !important;
+    border-color: var(--app-blue) !important;
+    color: white !important;
+}
+.btn-outline-blue:hover:active {
+    background-color: var(--app-blue-shade) !important;
+    border-color: var(--app-blue-shade) !important;
+}
+
+/* Orange */
+.btn-orange {
+    color: white !important;
+    background-color: var(--app-orange);
+    border-color: var(--app-orange);
+}
+
+.btn-orange:hover,
+.btn-orange:active {
+    background-color: var(--app-orange-shade) !important;
+    border-color: var(--app-orange-shade) !important;
+}
+
+.btn-orange:focus {
+    box-shadow: 0 0 0 0.25rem var(--app-orange-shadow);
+}
+
+
+/* Button alignement */
+.centerSingleBtn {
+    margin-inline: auto !important;
+}
+
+[class*="btnBar"] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+[class*="btnBar"] > *:not(:last-child) {
+    margin-right: .75rem;
+}
+
+.btnBar-c {
+    justify-content: center;
+    align-items: center;
+}
+
+.btnBar-v {
+    flex-direction: column;
+}
+
+.btnBar-v > *:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: .75rem;
+}
+
+/* MOBILE */
+@media (max-width: 1200px) {
+    [class*="btnBar"] {
+        flex-direction: column;
+    }
+
+    [class*="btnBar"] > a,
+    [class*="btnBar"] > button {
+        width: 100%;
+        margin-right: 0 !important;
+    }
+
+    [class*="btnBar"] > a:not(:last-child),
+    [class*="btnBar"] > button:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}
+
+
+/* ##### INPUTS ##### */
+/* Cursors */
+a,
+select,
+input[type="file"],
+input[type="radio"],
+input[type="checkbox"],
+.nav-link {
+    cursor: pointer;
+}
+
+select:disabled,
+input:disabled,
+textarea:disabled {
+    cursor: default;
+}
+
+.form-calendar {
+    cursor: text;
+}
+
+/* Links */
+a {
+    color: var(--app-primary);
+    text-decoration: none;
+    transition: all .2s;
+}
+
+a:hover {
+    color: var(--app-primary-shade);
+}
+
+/* Focus */
+.form-control:focus,
+.form-select:focus,
+.form-calendar:focus {
+    border-color: var(--app-primary) !important;
+    box-shadow: 0 0 0 0.25rem var(--app-primary-shadow) !important;
+}
+
+.form-calendar:focus-visible {
+    outline: 0;
+}
+
+/* Inputs */
+.form-control.fit {
+    width: fit-content;
+}
+
+.form-control.full {
+    width: 100%;
+}
+
+.form-control.f1 {
+    width: 10rem;
+}
+
+.form-control.f2 {
+    width: 20rem;
+}
+
+.form-control.f3 {
+    width: 30rem;
+}
+
+.form-control.resize {
+    min-width: 30rem;
+    max-width: 50rem;
+    width:auto;
+}
+
+.form-split {
+    width: 100%; 
+    display: flex; 
+    justify-content: space-between;
+}
+
+.form-split > div {
+    width: 48%;
+}
+
+.form-checkbox {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: .25rem;
+}
+
+.form-checkbox input[type="checkbox"] {
+    transform: scale(1.25);
+    margin-left: .5rem;
+}
+
+.form-checkbox h5 {
+    margin: 0;
+}
+
+.form-input-text {
+    padding-left: .25rem;
+}
+
+.border-fit {
+    width: fit-content;
+}
+
+.dropdown-item:active {
+    color: #1e2125;
+    text-decoration: none;
+    background-color: #e9e1df;
+}
+
+.dropdown-item:focus-visible {
+    outline: none;
+}
+
+
+/* ##### CUSTOM TOGGLE ##### */
+.switch {
+    position: relative;
+    display: block;
+    width: 3.75rem;
+    height: 2.125rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .25s;
+    transition: .25s;
+}
+
+.slider:hover {
+    background-color: #aaa;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.625rem;
+    width: 1.625rem;
+    left: .25rem;
+    bottom: .25rem;
+    background-color: white;
+    -webkit-transition: .25s;
+    transition: .25s;
+}
+
+input:checked+.slider {
+    background-color: var(--app-primary);
+}
+
+input:focus+.slider {
+    box-shadow: none;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(1.625rem);
+    -ms-transform: translateX(1.625rem);
+    transform: translateX(1.625rem);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 2rem;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Smaller toggle */
+.switch.sm {
+    scale: 0.75;
+}
+
+/* .switch.sm .slider:before {
+    height: 1.5rem;
+    width: 1.5rem;
+} */
+
+.switch.sm input:checked+.slider:before {
+    -webkit-transform: translateX(1.45rem);
+    -ms-transform: translateX(1.45rem);
+    transform: translateX(1.45rem);
+}
+
+/* Dark version */
+.switch.dark .slider {
+    background-color: #696969;
+}
+
+.switch.dark .slider:hover {
+    background-color: #888;
+}
+
+.switch.dark input:checked+.slider {
+    background-color: var(--app-blue);
+}
+
+.switch.dark.warn input:checked+.slider {
+    background-color: var(--app-orange);
+}
+
+
+/* ##### SEARCH BAR ##### */
+#searchInput {
+    /*background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    /*background-position: 10px 12px; /* Position the search icon */
+    /*background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 100%; /* Increase font-size */
+    padding: 12px 20px 12px 12px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+#searchUL {
+    /* Remove default list styling */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#searchUL li a {
+    border: 1px solid #ddd; /* Add a border to all links */
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6; /* Grey background color */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove default text underline */
+    font-size: 100%; /* Increase the font-size */
+    color: black; /* Add a black text color */
+    display: flex;
+    justify-content: space-between;
+}
+
+#searchUL li a:hover:not(.header) {
+    background-color: #eee; /* Add a hover effect to all links, except for headers */
+}
+
+#searchUL li:first-child a {
+    border-radius: .25rem .25rem 0 0;
+}
+
+#searchUL li:last-child a {
+    border-radius: 0 0 .25rem .25rem;
+}
+
+#searchUL li:first-child:last-child a {
+    border-radius: .25rem;
+}
+
+.hover-warning {
+    background-color: #d46f1140 !important;
+}
+
+.hover-warning:hover {
+    background-color: #d46f1160 !important;
+}
+
+#searchUL li a svg {
+    color: var(--app-grey);
+    transition: inherit;
+}
+
+#searchUL li a:hover svg {
+    color: var(--app-dark);
+}
+
+
+/* ##### SIDEBAR ##### */
+.sb-sidenav-menu .nav-link svg {
+    transition: .15s;
+}
+
+.sb-sidenav-menu .nav-link:hover svg {
+    color: white;
+}
+
+.sb-sidenav-menu .nav-link.current {
+    text-decoration: underline .125rem var(--app-primary);
+}
+
+
+/* ##### NAVBAR ##### */
+#sidebarToggle {
+    box-shadow: none;
+}
+
+#sidebarToggle:hover,
+#navbarDropdown:hover {
+    color: white !important;
+}
+
+
+/* ##### FOOTER ##### */
+#version {
+    width: auto;
+    margin-left: auto;
+}
+
+
+/* ##### FLEX ##### */
+[class*="flex"] {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-center {
+    align-items: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-fit {
+    width: fit-content;
+}
+
+.flex-full {
+    width: 100%;
+}
+
+.fit {
+    width: fit-content;
+}

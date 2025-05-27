@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Index</title>
+{% endblock %}
+
+{% block main %}
+
+<div class="row mt-4">
+    <div class="col-xl-12 col-md-12">
+        <h1 class="text-center">Index</h1>
+
+        <div class="btnBar-c mt-4">
+            <a href="{{root}}/features" class="btn btn-green">✨ Features</a>
+            <a href="{{root}}/spells" class="btn btn-blue">🪄 Spells</a>
+        </div>
+        
+    </div>
+</div>
+
+<script nonce="{{ csp_nonce }}">
+    var csrf_token = "{{csrf_token}}";
+    var root = "{{root}}";
+</script>
+    
+{% endblock %}

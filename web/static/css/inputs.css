@@ -1,0 +1,147 @@
+/* ##### INPUTS ##### */
+/* Cursors */
+a,
+select,
+input[type="file"],
+input[type="radio"],
+input[type="checkbox"],
+.nav-link {
+    cursor: pointer;
+}
+
+select:disabled,
+input:disabled,
+textarea:disabled {
+    cursor: default;
+}
+
+.form-calendar {
+    cursor: text;
+}
+
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all .2s;
+}
+
+a:hover {
+    color: var(--red-color);
+}
+
+a:visited {
+    color: var(--purple-color);
+}
+
+
+/* Focus */
+.form-control {
+    transition: all .2s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-calendar:focus {
+    border-color: var(--udes-web-fie) !important;
+    box-shadow: 0 0 0 0.25rem var(--udes-web-fie-trans) !important;
+}
+
+.form-calendar:focus-visible {
+    outline: 0;
+}
+
+
+/* Dropdown */
+.dropdown-item:active {
+    color: var(--black-color);
+    text-decoration: none;
+    background-color: var(--light-grey-color);
+}
+
+.dropdown-item:focus-visible {
+    outline: none;
+}
+
+
+/* ##### CUSTOM TOGGLE ##### */
+.switch {
+    position: relative;
+    display: block;
+    width: 3.75rem;
+    height: 2.125rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--udes-cool-grey);
+    -webkit-transition: .25s;
+    transition: .25s;
+}
+
+.slider:hover {
+    background-color: var(--udes-gris);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.625rem;
+    width: 1.625rem;
+    left: .25rem;
+    bottom: .25rem;
+    background-color: white;
+    -webkit-transition: .25s;
+    transition: .25s;
+}
+
+input:checked+.slider {
+    background-color: var(--udes-primaire);
+}
+
+input:focus+.slider {
+    box-shadow: none;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(1.625rem);
+    -ms-transform: translateX(1.625rem);
+    transform: translateX(1.625rem);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 2rem;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Smaller toggle */
+.switch.sm {
+    scale: 0.75;
+}
+
+/* .switch.sm .slider:before {
+    height: 1.5rem;
+    width: 1.5rem;
+} */
+
+.switch.sm input:checked+.slider:before {
+    -webkit-transform: translateX(1.45rem);
+    -ms-transform: translateX(1.45rem);
+    transform: translateX(1.45rem);
+}

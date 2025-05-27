@@ -1,0 +1,44 @@
+/*!
+    * Start Bootstrap - SB Admin v7.0.5 (https://startbootstrap.com/template/sb-admin)
+    * Copyright 2013-2022 Start Bootstrap
+    * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
+    */
+    // 
+// Scripts
+// 
+
+window.addEventListener('DOMContentLoaded', event => {
+
+    // Toggle the side navigation
+    const sidebarToggle = document.body.querySelector('#sidebarToggle');
+    if (sidebarToggle) {
+        // Uncomment Below to persist sidebar toggle between refreshes
+        if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+            document.body.classList.toggle('sb-sidenav-toggled');
+        }
+
+        // Add event listener for button click
+        sidebarToggle.addEventListener('click', event => {
+            event.preventDefault();
+            document.body.classList.toggle('sb-sidenav-toggled');
+            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+        });
+    }
+});
+
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+function findByData(key, value) {
+    return document.querySelector(`[data-${key}="${value}"]`);
+}
+
+function showElem(el, state, className = "hidden") {
+    if (!el) return;
+    state ? el.classList.remove(className) : el.classList.add(className);
+}

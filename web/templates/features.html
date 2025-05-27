@@ -1,119 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Features</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dnd.css') }}">
-</head>
-<body>
-    <h1>All Features</h1>
+{% extends 'base.html' %}
 
-    <details>
-        <summary><h2 class="section-title">Base Features</h2></summary>
-        <section id="baseFeatureContainer"></section>
-    </details>
+{% block head %}
+<title>Features</title>
+<script nonce="{{ csp_nonce }}" src="{{root}}/js/features.js"></script>
+{% endblock %}
 
-    <hr>
+{% block main %}
+<h1>All Features</h1>
 
-    <details>
-        <summary><h2 class="section-title">Race Features</h2></summary>
-        <section id="raceFeatureContainer"></section>
-    </details>
+<details>
+    <summary><h2 class="section-title">Base Features</h2></summary>
+    <section id="baseFeatureContainer"></section>
+</details>
 
-    <hr>
+<hr>
 
-    <details>
-        <summary><h2 class="section-title">Class Features</h2></summary>
-        <section id="classFeatureContainer"></section>
-    </details>
+<details>
+    <summary><h2 class="section-title">Race Features</h2></summary>
+    <section id="raceFeatureContainer"></section>
+</details>
 
-    <hr>
+<hr>
 
-    <details>
-        <summary><h2 class="section-title">Subclass Features</h2></summary>
-        <section id="subclassFeatureContainer"></section>
-    </details>
-</body>
+<details>
+    <summary><h2 class="section-title">Class Features</h2></summary>
+    <section id="classFeatureContainer"></section>
+</details>
+
+<hr>
+
+<details>
+    <summary><h2 class="section-title">Subclass Features</h2></summary>
+    <section id="subclassFeatureContainer"></section>
+</details>
 
 <script>
-function openIfHasContent(container, delayMs = 0) {
-    const details = container.closest("details");
-    if (!details) return;
-
-    const hasContent = container.innerHTML.trim() !== "" &&
-                       !container.innerHTML.includes("No features available");
-
-    if (hasContent) {
-        setTimeout(() => {
-            details.setAttribute("open", "");
-        }, delayMs);
-    }
-}
-
-function renderFeatureList(container, list, delayMs = 0) {
-    if (list.length === 0) {
-        container.innerHTML = "<i>No features available.</i>";
-        return;
-    }
-
-    const grouped = {};
-    for (const f of list) {
-        const ctx = f.context || "General";
-        if (!grouped[ctx]) grouped[ctx] = [];
-        grouped[ctx].push(f.html);
-    }
-
-    const sortedKeys = Object.keys(grouped).sort((a, b) => a.localeCompare(b));
-
-    container.innerHTML = sortedKeys.map(ctx => {
-        const content = grouped[ctx].join("");
-        return `
-            <details class="feature-context-group">
-                <summary><h3 class="section-title feature-context">${ctx}</h3></summary>
-                ${content}
-            </details>
-        `;
-    }).join("");
-
-    // Open section if it has content
-    openIfHasContent(container, delayMs);
-
-    // Also auto-open each context group, staggered a bit
-    const contextGroups = container.querySelectorAll(".feature-context-group");
-    contextGroups.forEach((ctxDetail, i) => {
-        setTimeout(() => {
-            ctxDetail.setAttribute("open", "");
-        }, delayMs + (i * 75));
-    });
-}
-
-function loadFeaturesFromAPI() {
-    const baseFeatureContainer = document.getElementById("baseFeatureContainer");
-    const raceFeatureContainer = document.getElementById("raceFeatureContainer");
-    const classFeatureContainer = document.getElementById("classFeatureContainer");
-    const subclassFeatureContainer = document.getElementById("subclassFeatureContainer");
-
-    fetch("/api/features/get")
-        .then(response => {
-            if (!response.ok) throw new Error("Network response was not ok");
-            return response.json();
-        })
-        .then(data => {
-            const delayStep = 500; // ms between each section opening
-            renderFeatureList(baseFeatureContainer, data.base_feats, delayStep * 0);
-            renderFeatureList(raceFeatureContainer, data.race_feats, delayStep * 1);
-            renderFeatureList(classFeatureContainer, data.class_feats, delayStep * 2);
-            renderFeatureList(subclassFeatureContainer, data.subclass_feats, delayStep * 3);
-        })
-        .catch(error => {
-            console.error("Error loading features:", error);
-            alert("Failed to load features.");
-        });
-}
-
 document.addEventListener("DOMContentLoaded", loadFeaturesFromAPI);
-
 </script>
-
-</html>
+{% endblock %}
