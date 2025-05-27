@@ -1,0 +1,70 @@
+details.feature-context-group summary::before,
+.feature-context {
+    color: #444;
+}
+
+.feature-context-group {
+    margin: 1em 0;
+}
+
+.dnd-subfeatures {
+    margin-left: 1em;
+}
+
+/* Table */
+.dnd-feature-table {
+    /* width: 100%; */
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1em 0;
+    font-size: 0.95em;
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    overflow: hidden;
+}
+
+.dnd-feature-table thead {
+    background-color: #ddd;
+}
+
+.dnd-feature-table th,
+.dnd-feature-table td {
+    border: 1px solid #ccc;
+    padding: 0.5em 0.75em;
+}
+
+.dnd-feature-table th {
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Round corners on thead */
+.dnd-feature-table thead tr:first-child th:first-child {
+    border-top-left-radius: 0.45em;
+}
+.dnd-feature-table thead tr:first-child th:last-child {
+    border-top-right-radius: 0.45em;
+}
+
+/* Round corners on last row of tbody */
+.dnd-feature-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 0.45em;
+}
+.dnd-feature-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 0.45em;
+}
+
+/* Body cell styling */
+.dnd-feature-table tbody td {
+    text-align: center;
+}
+
+/* Zebra striping and hover */
+.dnd-feature-table tbody tr:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+
+.dnd-feature-table tbody tr:hover {
+    background-color: #eee;
+}

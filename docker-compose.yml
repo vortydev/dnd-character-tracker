@@ -1,0 +1,18 @@
+services:
+  flask:
+    container_name: ct-flask
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    ports:
+      - "${FLASK_PORT}:${FLASK_PORT}"
+    volumes:
+      - ./bin:/app/bin  # optional: sync live changes during dev
+      - ./data:/app/data
+    environment:
+      TZ: ${TZ}
+      PYTHONUNBUFFERED: 1
+      APP_VERSION: ${APP_VERSION}
+      FLASK_SECRET: ${FLASK_SECRET_KEY}
+      FLASK_PORT: ${FLASK_PORT}
+      LOGIN_ACTIVATED: ${LOGIN_ACTIVATED}

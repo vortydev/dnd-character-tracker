@@ -34,3 +34,6 @@ class RaceFeature(Feature):
     
     def get_context(self) -> Optional[str]:
         return self.race_type.value
+    
+    def get_html(self):
+        return super().get_html()

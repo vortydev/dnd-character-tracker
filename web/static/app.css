@@ -1,0 +1,24 @@
+/* Accordion */
+details summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details[open] summary::before {
+    content: "▼";
+}
+details:not([open]) summary::before {
+    content: "▶";
+}
+
+.section-title {
+    margin: 0;
+}

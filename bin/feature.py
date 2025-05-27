@@ -39,6 +39,7 @@ class Feature():
         html = f'<div class="dnd-feature" data-feature-type="{self.to_dict()["type"]}">\
                 <h4 class="dnd-feature-name">{self.name}</h4>'
         
+        # Main description
         desc = self.description.splitlines()
         for d in desc:
             if d.startswith("TABLE"):
@@ -46,9 +47,15 @@ class Feature():
             else:
                 html += f'<p class="dnd-feature-desc">{d}</p>'
 
-        # TODO Subfeatures
+        # Subfeatures
+        if self.subfeatures:
+            html += '<div class="dnd-subfeatures">'
+            for sf in self.subfeatures:
+                html += sf.get_html()
+            html += '</div>'
         
         html += '</div>'
+        return html
 
 
 def convert_into_html_table(str: str, html_class: str) -> str:

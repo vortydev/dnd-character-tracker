@@ -37,6 +37,9 @@ class ClassFeature(Feature):
     
     def get_context(self) -> Optional[str]:
         return self.class_type.value
+    
+    def get_html(self):
+        return super().get_html()
 
 
 class SubclassFeature(ClassFeature):
@@ -71,4 +74,7 @@ class SubclassFeature(ClassFeature):
         )
     
     def get_context(self) -> Optional[str]:
-        return self.subclass_type.value
+        return f"{self.class_type.value} - {self.subclass_type.value}"
+
+    def get_html(self):
+        return super().get_html()
