@@ -18,9 +18,9 @@ def init_registries():
     features = load_features_from_file()
     FeatureRegistry.load_bulk(features)
 
-    # # === SpellRegistry ===
-    # spells = load_spells_from_file()
-    # SpellRegistry.load_bulk(spells)
+    # === SpellRegistry ===
+    spells = load_spells_from_file()
+    SpellRegistry.load_bulk(spells)
 
     # # === RaceRegistry ===
     # races = load_races_from_file()

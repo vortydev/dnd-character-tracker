@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Spells</title>
+<script nonce="{{ csp_nonce }}" src="{{root}}/js/spells.js"></script>
+{% endblock %}
+
+{% block main %}
+<h1>All Spells</h1>
+
+<!-- Spell level tabs -->
+<ul class="nav nav-tabs mt-3" id="spellTabs" role="tablist"></ul>
+
+<!-- Spell level panes -->
+<div class="tab-content" id="spellTabsContent"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", loadSpellsFromAPI);
+</script>
+{% endblock %}

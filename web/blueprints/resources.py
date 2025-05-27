@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, jsonify
 
 from config import ROOT
 
-from registries import FeatureRegistry
+from registries import FeatureRegistry, SpellRegistry
 from bin.feature_types import FeatureType
 
 resources_bp = Blueprint('resources_bp', __name__)
@@ -45,3 +45,16 @@ def api_get_features():
         "class_feats": sort_by_context(class_feats),
         "subclass_feats": sort_by_context(subclass_feats),
     })
+
+
+# ===== Spells =====
+@resources_bp.route(root+'/spells', methods=['GET'])
+def page_spells():
+    return render_template('spells.html', root=root)
+
+@resources_bp.route(root+'/api/spells/get', methods=['GET'])
+def api_get_spells():
+    spell_list: list[dict[str]] = []
+    for _, spell in SpellRegistry.all().items():
+        spell_list.append(spell.to_dict())
+    return jsonify({"spell_list": spell_list})

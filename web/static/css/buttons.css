@@ -1,6 +1,7 @@
 /* ##### BUTTONS ##### */
 .btn {
     cursor: pointer;
+    transition: 0.2s all ease-out;
 }
 
 .btn:not(#sidebarToggle) svg {
@@ -183,7 +184,7 @@
 }
 
 [class*="btnBar"] > *:not(:last-child) {
-    margin-right: .75rem;
+    margin-right: 1em;
 }
 
 .btnBar-c {
@@ -197,7 +198,7 @@
 
 .btnBar-v > *:not(:last-child) {
     margin-right: 0;
-    margin-bottom: .75rem;
+    margin-bottom: 1rem;
 }
 
 /* MOBILE */

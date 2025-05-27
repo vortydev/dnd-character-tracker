@@ -13,8 +13,7 @@ COPY data/ /app/data/
 ENV PYTHONPATH=/app:/app/bin
 
 # Install dependencies
-# RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Run the app
 CMD ["python", "app.py"]

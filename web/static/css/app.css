@@ -59,6 +59,11 @@
     text-decoration: underline;
 }
 
+.underline-primary {
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+}
+
 .unselectable {
     user-select: none;
 }
@@ -70,6 +75,11 @@ hr {
 
 .border-round {
     border-radius: 1rem;
+}
+
+/* Text */
+.text-bold {
+    font-weight: bold;
 }
 
 /* Tabs (margin-left) */

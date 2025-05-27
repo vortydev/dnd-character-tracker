@@ -1,3 +1,58 @@
+/* Damage types */
+.damage-dice {
+    font-weight: bold;
+    color: var(--black-color);
+}
+
+.damage-acid         { color: #78A303; }
+.damage-cold         { color: #3399CC; }
+.damage-fire         { color: #EE5500; }
+.damage-force        { color: #AA3030; }
+.damage-healing      { color: #30BBBB; }
+.damage-lightning    { color: #3366CC; }
+.damage-necrotic     { color: #40B050; }
+.damage-poison       { color: #44BB00; }
+.damage-radiant      { color: #CCAA00; }
+.damage-thunder      { color: #8844BB; }
+.damage-psychic      { color: #CC77AA; }
+
+.damage-physical     { color: #8C8C8C; }
+.damage-piercing     { color: #8C8C8C; }
+.damage-bludgeoning  { color: #8C8C8C; }
+.damage-slashing     { color: #8C8C8C; }
+
+.healing {
+    color: #30BBBB;
+    font-weight: bold;
+}
+
+.advantage {
+    color: var(--green-color);
+    font-weight: bold;
+}
+
+.disadvantage {
+    color: var(--red-color);
+    font-weight: bold;
+}
+
+.resistance {
+    color: #a4b0be;
+    font-weight: bold;
+}
+
+.immune {
+    color: #ffdd57;
+    font-weight: bold;
+}
+
+.vulnerable {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+
+/* Features */
 .feature-context {
     color: var(--dark-grey-color);
 }
@@ -8,7 +63,7 @@
 
 .dnd-feature {
     margin-top: 1em;
-    width: fit-content;
+    width: 100%;
 }
 
 .dnd-feature-desc {
@@ -86,4 +141,51 @@
 
 .dnd-feature-table tbody tr:hover {
     background-color: #eee;
+}
+
+
+/* ===== Spells ===== */
+#spellTabs .nav-link {
+    font-size: 1.25em;
+}
+
+#spellTabs .nav-link:not(.active) {
+    color: var(--blue-color);
+}
+
+/* Spell Table */
+.spell-row {
+    cursor: pointer;
+}
+
+#spellTabs table tbody tr:nth-of-type(4n + 1),
+#spellTabs table tbody tr:nth-of-type(4n + 2) {
+    background-color: #fdfdfd;
+}
+
+#spellTabs table tbody tr:nth-of-type(4n + 3),
+#spellTabs table tbody tr:nth-of-type(4n + 4) {
+    background-color: #f5f5f5;
+}
+
+.spell-row:hover td {
+    background-color: var(--blue-color-shadow);
+}
+
+.spell-row.open td {
+    background-color: var(--blue-color);
+    color: white;
+}
+
+.spell-row.open:hover {
+    background-color: var(--blue-color); /* no hover change */
+}
+
+.spell-details-row td {
+    /* background-color: #f9f9f9; */
+    font-size: 0.95em;
+}
+
+.spell-details-row td p:last-child {
+    margin-bottom: 0;
 }

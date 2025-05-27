@@ -25,20 +25,3 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 });
-
-function debounce(func, delay) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), delay);
-    };
-}
-
-function findByData(key, value) {
-    return document.querySelector(`[data-${key}="${value}"]`);
-}
-
-function showElem(el, state, className = "hidden") {
-    if (!el) return;
-    state ? el.classList.remove(className) : el.classList.add(className);
-}
