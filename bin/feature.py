@@ -49,7 +49,7 @@ class Feature():
 
         # Subfeatures
         if self.subfeatures:
-            html += '<div class="dnd-subfeatures">'
+            html += '<div class="dnd-subfeatures grid-auto">'
             for sf in self.subfeatures:
                 html += sf.get_html()
             html += '</div>'

@@ -61,7 +61,7 @@ function loadFeaturesFromAPI() {
             return response.json();
         })
         .then(data => {
-            const delayStep = 500; // ms between each section opening
+            const delayStep = 0; // ms between each section opening
             renderFeatureList(baseFeatureContainer, data.base_feats, delayStep * 0);
             renderFeatureList(raceFeatureContainer, data.race_feats, delayStep * 1);
             renderFeatureList(classFeatureContainer, data.class_feats, delayStep * 2);

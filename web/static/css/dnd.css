@@ -1,14 +1,33 @@
-details.feature-context-group summary::before,
 .feature-context {
-    color: #444;
+    color: var(--dark-grey-color);
 }
 
 .feature-context-group {
     margin: 1em 0;
 }
 
+.dnd-feature {
+    margin-top: 1em;
+    width: fit-content;
+}
+
+.dnd-feature-desc {
+    margin-bottom: 0;
+}
+
+.grid-auto .dnd-feature {
+    margin-top: 0 !important;
+}
+
 .dnd-subfeatures {
-    margin-left: 1em;
+    border: 0.2em solid var(--primary-color);
+    border-radius: 0.5em;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.dnd-subfeatures .dnd-subfeatures {
+    border-color: var(--grey-color-shade);
 }
 
 /* Table */
