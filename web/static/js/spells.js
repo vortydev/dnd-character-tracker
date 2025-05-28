@@ -6,6 +6,7 @@ function loadSpellsFromAPI() {
         })
         .then(data => {
             renderSpellTabsAndTables(data.spell_list);
+            openSpellURL();
         })
         .catch(error => {
             console.error("Error loading spells:", error);
@@ -177,4 +178,39 @@ function ordinal(n) {
     if (n === 2) return "nd";
     if (n === 3) return "rd";
     return "th";
+}
+
+function openSpellURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetLevel = urlParams.get('level');
+    const targetSpell = urlParams.get('spell');
+
+    if (targetLevel !== null) {
+        const tabTrigger = document.querySelector(`#level${targetLevel}-tab`);
+        if (tabTrigger) {
+            const tab = new bootstrap.Tab(tabTrigger);
+            tab.show();
+        }
+    }
+
+    if (targetSpell) {
+        const highlightDelay = 250
+        const highlightExpiry = 3000
+        setTimeout(() => {
+            const spellId = `spell-desc-${targetSpell.replace(/[^\w-]/g, "_").toLowerCase()}`;
+            const detailsRow = document.getElementById(spellId);
+            const mainRow = detailsRow?.previousElementSibling;
+
+            if (detailsRow && mainRow) {
+                detailsRow.style.display = "table-row";
+                mainRow.classList.add("open");
+                mainRow.scrollIntoView({ behavior: "smooth", block: "center" });
+                mainRow.classList.add("highlighted");
+
+                setTimeout(() => {
+                    mainRow.classList.remove("highlighted");
+                }, highlightExpiry);
+            }
+        }, highlightDelay); // slight delay to allow tab content to render
+    }
 }

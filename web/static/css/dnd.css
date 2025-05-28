@@ -170,7 +170,7 @@
 .immune {
     color: var(--dnd-immunity-color);
 }
-.immunity::selection {
+.immune::selection {
     color: var(--black-color);
     background-color: var(--dnd-immunity-color);
 }
@@ -195,20 +195,47 @@
 
 
 /* Features */
+details.dnd-feature-section {
+    background-color: var(--light-grey-color-shadow);
+    border-radius: 1em;
+    padding: 1em;
+}
+
+.section-title {
+    margin: 0;
+    color: var(--primary-color);
+    transition: all 0.2s ease-out;
+}
+
+.section-title:hover {
+    color: var(--primary-color-shade);
+}
+
 .feature-context {
     color: var(--dark-grey-color);
+    transition: all 0.2s ease-out;
+}
+
+.feature-context:hover {
+    color: var(--dark-grey-color-shade);
 }
 
 .feature-context-group {
     margin: 1em 0;
 }
 
+.feature-context-group:last-child {
+    margin-bottom: 0;
+}
+
 .dnd-feature {
+    display: block;
     margin-top: 1em;
     width: 100%;
 }
 
 .dnd-feature-desc {
+    display: block;
     margin-bottom: 0;
 }
 
@@ -301,10 +328,11 @@
 }
 
 .spell-row td {
-    transition: 0.2s all ease-out;
+    transition:
+        background-color 0.2s ease-out,
+        color 0.2s ease-out;
 }
 
-/* WIP */
 .spell-row:nth-of-type(4n + 1) td,
 .spell-row:nth-of-type(4n + 2) td {
     background-color: #fdfdfd;
@@ -335,4 +363,30 @@
 
 .spell-details-row td p:last-child {
     margin-bottom: 0;
+}
+
+.spell-row.highlighted td {
+    background-color: var(--purple-color) !important;
+    /* transition: background-color 1s ease; */
+}
+
+
+/* Race */
+.race-block summary h2,
+.subrace-block summary h3 {
+    display: inline;
+    cursor: pointer;
+}
+
+.race-lore p,
+.subrace-lore p {
+    margin-bottom: 0.5em;
+}
+
+.race-features, .subrace-features, .subrace-spells {
+    margin-left: 1.5em;
+}
+
+ul {
+    padding-left: 1.25em;
 }

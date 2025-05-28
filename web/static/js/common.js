@@ -184,3 +184,8 @@ function highlightCurrency(text) {
     );
     return text;
 }
+
+
+function formatObjectNameForURL(str) {
+    return str.replace(/[^\w-]/g, "_").toLowerCase();
+}

@@ -4,6 +4,7 @@ from config import ROOT
 
 from registries import FeatureRegistry, SpellRegistry, RaceRegistry
 from bin.feature_types import FeatureType
+from bin.spell import Spell
 
 resources_bp = Blueprint('resources_bp', __name__)
 root = ROOT
@@ -68,6 +69,22 @@ def page_races():
 @resources_bp.route(root+'/api/races/get', methods=['GET'])
 def api_get_races():
     race_list: list[dict[str]] = []
+    spells_ref: dict[int, list[str]] = {}
+
+    # Load the list of races
     for _, race in RaceRegistry.all().items():
         race_list.append(race.to_dict())
-    return jsonify({"race_list": race_list})
+        build_spells_ref(spells_ref, race.spells)
+        if race.subrace:
+            build_spells_ref(spells_ref, race.subrace.spells)
+
+    return jsonify({"race_list": race_list, "spells_ref": spells_ref})
+
+
+def build_spells_ref(spells_ref: dict[int, list[str]], spells: dict[int, list[Spell]]):
+    for _, spell_list in spells.items():
+        for s in spell_list:
+            if s.level not in spells_ref.keys():
+                spells_ref.update({s.level: []})
+            if s.name not in spells_ref[s.level]:
+                spells_ref[s.level].append(s.name)

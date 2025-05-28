@@ -26,6 +26,7 @@ def load_tiefling_base():
     # Base tiefling
     tiefling_base = Race(
         name=RaceType.TIEFLING,
+        description="To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling. And to twist the knife, tieflings know that this is because a pact struck generations ago infused the essence of Asmodeus, overlord of the Nine Hells (and many of the other powerful devils serving under him) into their bloodline. Their appearance and their nature are not their fault but the result of an ancient sin, for which they and their children and their children's children will always be held accountable.",
         subrace=None,
         speed=30,
         size=Size.MEDIUM,
@@ -37,7 +38,6 @@ def load_tiefling_base():
             ]
         },
         info={
-            "Lore": "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling. And to twist the knife, tieflings know that this is because a pact struck generations ago infused the essence of Asmodeus, overlord of the Nine Hells (and many of the other powerful devils serving under him) into their bloodline. Their appearance and their nature are not their fault but the result of an ancient sin, for which they and their children and their children's children will always be held accountable.",
             "Age": "Tieflings mature at the same rate as humans but live a few years longer.",
             "Alignment": "Tieflings might not have an innate tendency toward evil, but many of them end up there. Evil or not, an independent nature inclines many tieflings toward a chaotic alignment.",
         },
@@ -51,18 +51,16 @@ def load_bloodline_tieflings():
     # === Player's Handbook ===
     # Tiefling - Asmodeus
     bloodline_asmodeus = Subrace(
-        name="Asmodeus",
+        name="Bloodline of Asmodeus",
         parent_race=RaceType.TIEFLING,
+        description="The tieflings connected to Nessus command the power of fire and darkness, guided by a keener than normal intellect, as befits those linked to Asmodeus himself.",
         ability_score_increase={AbilityType.INT: 1},
         feats={ 1: [FeatureRegistry.get("Infernal Legacy", FeatureType.RACE, RaceType.TIEFLING)] },
         spells={
             0: [SpellRegistry.get("Thaumaturgy")], 
             3: [SpellRegistry.get("Hellish Rebuke")], 
             5: [SpellRegistry.get("Darkness")]
-        },
-        info={
-            "Lore": "The tieflings connected to Nessus command the power of fire and darkness, guided by a keener than normal intellect, as befits those linked to Asmodeus himself.",
-        },
+        }
     )
 
     # === Mordenkainen's Tome of Foes ===

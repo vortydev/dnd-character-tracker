@@ -21,19 +21,19 @@ textarea:disabled {
 
 
 /* Links */
-a {
-    color: var(--primary-color);
-    text-decoration: none;
+a:not(.btn) {
+    color: var(--primary-color) !important;
+    /* text-decoration: none; */
     transition: all .2s;
 }
 
-a:hover {
-    color: var(--red-color);
+a:hover:not(.btn) {
+    color: var(--orange-color) !important;
 }
 
-a:visited {
-    color: var(--purple-color);
-}
+/* a:visited {
+    color: var(--purple-color) !important;
+} */
 
 
 /* Focus */

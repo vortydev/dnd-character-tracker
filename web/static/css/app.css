@@ -157,11 +157,6 @@ details:not([open]) summary::before {
     content: "▶";
 }
 
-.section-title {
-    margin: 0;
-    color: var(--primary-color);
-}
-
 
 /* ##### FOOTER ##### */
 #version {
