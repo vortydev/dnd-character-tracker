@@ -82,7 +82,7 @@ function highlightDamageTypes(text) {
         if (value) {
             const valueSpan = `<span class="damage-dice damage-${typeLower}">${value}</span>`;
             const typeText = fullMatch.replace(value, "").trim();
-            return `${leadingSpace}${valueSpan} <span class="damage-${typeLower}">${typeText}</span>`;
+            return `${leadingSpace}<span class="damage-${typeLower}">${valueSpan} ${typeText}</span>`;
         } else {
             return `${leadingSpace}<span class="damage-${typeLower}">${fullMatch.trim()}</span>`;
         }
@@ -96,13 +96,13 @@ function highlightDamageTypes(text) {
     // Highlight advantage / disadvantage
     text = highlightAdvantage(text);
 
-    // WIP Highligt healing terms
+    // Highlight healing terms
     text = hightlightHealingTerms(text);
 
-    // WIP Match [type] to [damage type] damage for vulnerabilies, resistances and immunities
+    // Highlight vulnerabilies, resistances and immunities
     text = highlightResistanceTerms(text, damageTypes);
 
-    // Highlight gold piece values
+    // Highlight currencies
     text = highlightCurrency(text);
 
     return text;
@@ -129,13 +129,19 @@ function hightlightHealingTerms(text) {
         "healing", "regains hit points", "regain hit points", "regain hp", "regains hp", "temporary hit points"
     ];
 
-    // Highlight healing terms
     healingTerms.forEach(term => {
-        const regex = new RegExp(`\\b(${term})\\b`, "gi");
-        text = text.replace(regex, `<span class="healing">$1</span>`);
+        // Capture leading whitespace and an optional dice/number before the term
+        const regex = new RegExp(`(\\s*)(\\d+d\\d+|\\d+)?\\s*\\b(${term})\\b`, "gi");
+
+        text = text.replace(regex, (match, leadingSpace, dice, keyword) => {
+            const diceSpan = dice ? `<span class="healing-dice">${dice}</span> ` : "";
+            return `${leadingSpace}<span class="healing">${diceSpan}${keyword}</span>`;
+        });
     });
+
     return text;
 }
+
 
 /**
  * Highlight resistance terms in a string
@@ -144,39 +150,27 @@ function hightlightHealingTerms(text) {
  * @returns {String}
  */
 function highlightResistanceTerms(text, damageTypes) {
-    // Normalize status keywords
-    const statusMap = {
-        "resistant": "resistance",
-        "resistance": "resistance",
-        "immune": "immune",
-        "vulnerable": "vulnerable"
-    };
+    const statusKeywords = [
+        { keywords: ["resistance", "resistant"], key: "resistance", emoji: "🛡️" },
+        { keywords: ["immune", "immunity"], key: "immune", emoji: "🚫" },
+        { keywords: ["vulnerable", "vulnerability"], key: "vulnerable", emoji: "💥" }
+    ];
 
-    text = text.replace(
-        /\b(resistant|resistance|immune|vulnerable)\s+to\s+(\w+)( damage)/gi,
-        (match, rawStatus, type, suffix) => {
-            const statusKey = rawStatus.toLowerCase();
-            const normalizedStatus = statusMap[statusKey];
-            const typeLower = type.toLowerCase();
+    const flatKeywords = statusKeywords.flatMap(entry => entry.keywords);
+    const keywordRegex = new RegExp(`\\b(${flatKeywords.join("|")})\\b(?=\\s+\\S)`, "gi");
 
-            if (!normalizedStatus || !damageTypes.includes(typeLower)) {
-                return match;
-            }
-
-            const emoji = normalizedStatus === "immune"
-                ? "🛡️🛡️"
-                : normalizedStatus === "vulnerable"
-                    ? "💥"
-                    : "🛡️";
-
-            const typeSpan = `<span class="damage-${typeLower}">${type}${suffix}</span>`;
-            const labelSpan = `<span class="${normalizedStatus}">${emoji} <strong>${rawStatus}</strong></span>`;
-
-            return `${labelSpan} to ${typeSpan}`;
+    return text.replace(keywordRegex, (match, rawStatus) => {
+        const entry = statusKeywords.find(e => e.keywords.includes(rawStatus.toLowerCase()));
+        if (!entry) {
+            // console.log(`[🔴 Error] Could not resolve status for: "${rawStatus}"`);
+            return match;
         }
-    );
-    return text;
+
+        // console.log(`[✅ Match] ${rawStatus}`);
+        return `<span class="${entry.key}">${entry.emoji}${rawStatus}</span>`;
+    });
 }
+
 
 /**
  * Highlight currencies in a string
@@ -186,7 +180,7 @@ function highlightResistanceTerms(text, damageTypes) {
 function highlightCurrency(text) {
     text = text.replace(
         /\b((?:\d{1,3}(?:[ ,.]?\d{3})*|\d+(?:[.,]\d+)?))\s*gp\b/gi,
-        (match, value) => `<span class="gold">${value} gp</span>`
+        (match, value) => `<span class="currency-gold">${value} gp</span>`
     );
     return text;
 }

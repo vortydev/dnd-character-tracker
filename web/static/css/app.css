@@ -1,11 +1,10 @@
 /* ##### COLORS ##### */
 :root {
+    --black-color: #231515;
+    --white-color: white;
     --primary-color: #741c16;
     --primary-color-shade: #551410;
     --primary-color-shadow: #741c1640;
-    --green-color: #00A759;
-    --green-color-shade: #447c5a;
-    --green-color-shadow: #00A75940;
     --grey-color: #888;
     --grey-color-shade: #777;
     --grey-color: #88888840;
@@ -18,18 +17,18 @@
     --red-color: #ce3b31;
     --red-color-shade: #aa322a;
     --red-color-shadow: #ce3b3140;
-    --black-color: #231515;
     --purple-color: #805286;
     --purple-color-shade: #6e4774;
     --purple-color-shadow: #80528640;
     --blue-color: #5690c5;
     --blue-color-shade: #4b7ba8;
     --blue-color-shadow: #5690c540;
+    --green-color: #00A759;
+    --green-color-shade: #447c5a;
+    --green-color-shadow: #00A75940;
     --orange-color: #b45e2f;
     --orange-color-shade: #8f4b0c;
     --orange-color-shadow: #b45e2f40;
-    --white-color: white;
-    --gold-color: #e5a939;
 }
 
 ::selection {

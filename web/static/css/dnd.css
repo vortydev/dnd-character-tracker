@@ -1,60 +1,195 @@
+/* ===== DND COLORS ===== */
+:root {
+    /* Damage types */
+    --dnd-acid-color: #78A303;
+    --dnd-cold-color: #3399CC;
+    --dnd-fire-color: #EE5500;
+    --dnd-force-color: #AA3030;
+    --dnd-healing-color: #30BBBB;
+    --dnd-lightning-color: #3366CC;
+    --dnd-necrotic-color: #40B050;
+    --dnd-poison-color: #44BB00;
+    --dnd-radiant-color: #CCAA00;
+    --dnd-thunder-color: #8844BB;
+    --dnd-psychic-color: #CC77AA;
+    --dnd-physical-color: #8C8C8C;
+
+    /* Statuses */
+    --dnd-resistance-color: #a4b0be;
+    --dnd-immunity-color: #b4a4be;
+    --dnd-vulnerable-color: #ff6b6b;
+
+    /* Currency */
+    --dnd-gold-color: #e5a939;
+}
+
 /* Damage types */
+/* [class^="damage-"] {} */
 .damage-dice {
     font-weight: bold;
     color: var(--black-color);
 }
-
-.damage-acid         { color: #78A303; }
-.damage-cold         { color: #3399CC; }
-.damage-fire         { color: #EE5500; }
-.damage-force        { color: #AA3030; }
-.damage-healing      { color: #30BBBB; }
-.damage-lightning    { color: #3366CC; }
-.damage-necrotic     { color: #40B050; }
-.damage-poison       { color: #44BB00; }
-.damage-radiant      { color: #CCAA00; }
-.damage-thunder      { color: #8844BB; }
-.damage-psychic      { color: #CC77AA; }
-
-.damage-physical     { color: #8C8C8C; }
-.damage-piercing     { color: #8C8C8C; }
-.damage-bludgeoning  { color: #8C8C8C; }
-.damage-slashing     { color: #8C8C8C; }
-
-
-.healing {
-    color: #30BBBB;
-    /* font-weight: bold; */
+.damage-dice::selection {
+    color: var(--white-color);
+    background-color: var(--dark-grey-color);
 }
 
+.damage-acid { 
+    color: var(--dnd-acid-color); 
+}
+.damage-acid::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-acid-color);
+}
+
+.damage-cold { 
+    color: var(--dnd-cold-color); 
+}
+.damage-cold::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-cold-color);
+}
+
+.damage-fire { 
+    color: var(--dnd-fire-color); 
+}
+.damage-fire::selection {
+    color: var(--white-color);
+    background-color: var(--dnd-fire-color);
+}
+
+.damage-force { 
+    color: var(--dnd-force-color); 
+}
+.damage-force::selection {
+    color: var(--white-color);
+    background-color: var(--dnd-force-color);
+}
+
+.damage-lightning { 
+    color: var(--dnd-lightning-color); 
+}
+.damage-lightning::selection {
+    color: var(--white-color);
+    background-color: var(--dnd-lightning-color);
+}
+
+.damage-necrotic { 
+    color: var(--dnd-necrotic-color); 
+}
+.damage-necrotic::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-necrotic-color);
+}
+
+.damage-poison { 
+    color: var(--dnd-poison-color); 
+}
+.damage-poison::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-poison-color);
+}
+
+.damage-radiant { 
+    color: var(--dnd-radiant-color); 
+}
+.damage-radiant::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-radiant-color);
+}
+
+.damage-thunder { 
+    color: var(--dnd-thunder-color); 
+}
+.damage-thunder::selection {
+    color: var(--white-color);
+    background-color: var(--dnd-thunder-color);
+}
+
+.damage-psychic { 
+    color: var(--dnd-psychic-color); 
+}
+.damage-psychic::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-psychic-color);
+}
+
+.damage-physical,
+.damage-piercing,
+.damage-bludgeoning,
+.damage-slashing {
+    color: var(--dnd-physical-color);
+}
+.damage-physical::selection,
+.damage-piercing::selection,
+.damage-bludgeoning::selection,
+.damage-slashing::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-physical-color);
+}
+
+/* Healing */
+[class^="healing"] {
+    color: var(--dnd-healing-color);
+}
+[class^="healing"]::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-healing-color);
+}
+.healing-dice {
+    font-weight: bold;
+}
+
+/* Statuses */
 .advantage {
     color: var(--green-color);
     font-weight: bold;
+}
+.advantage::selection {
+    color: var(--white-color);
+    background-color: var(--green-color);
 }
 
 .disadvantage {
     color: var(--red-color);
     font-weight: bold;
 }
+.disadvantage::selection {
+    color: var(--white-color);
+    background-color: var(--red-color);
+}
 
 .resistance {
-    color: #a4b0be;
-    font-weight: bold;
+    color: var(--dnd-resistance-color);
+}
+.resistance::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-resistance-color);
 }
 
 .immune {
-    color: #ffdd57;
-    font-weight: bold;
+    color: var(--dnd-immunity-color);
+}
+.immunity::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-immunity-color);
 }
 
 .vulnerable {
-    color: #ff6b6b;
-    font-weight: bold;
+    color: var(--dnd-vulnerable-color);
+}
+.vulnerable::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-vulnerable-color);
 }
 
-.gold {
-    color: var(--gold-color);
-    /* font-weight: bold; */
+/* Currency */
+.currency-gold {
+    color: var(--dnd-gold-color);
+}
+.currency-gold::selection {
+    color: var(--black-color);
+    background-color: var(--dnd-gold-color);
 }
 
 
@@ -165,14 +300,18 @@
     cursor: pointer;
 }
 
+.spell-row td {
+    transition: 0.2s all ease-out;
+}
+
 /* WIP */
-.spell-row:nth-of-type(4n + 1),
-.spell-row:nth-of-type(4n + 2) {
+.spell-row:nth-of-type(4n + 1) td,
+.spell-row:nth-of-type(4n + 2) td {
     background-color: #fdfdfd;
 }
 
-.spell-row:nth-of-type(4n + 3),
-.spell-row:nth-of-type(4n + 4) {
+.spell-row:nth-of-type(4n + 3) td,
+.spell-row:nth-of-type(4n + 4) td {
     background-color: #f5f5f5;
 }
 
