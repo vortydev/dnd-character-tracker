@@ -1,6 +1,6 @@
 # race_registry.py
 from typing import Dict
-from race import Race, RaceType, Subrace
+from race import Race, RaceType
 
 class RaceRegistry:
     _races: Dict[str, Race] = {}
@@ -38,4 +38,4 @@ class RaceRegistry:
         Generate a unique registry key from the race and optional subrace.
         Example: "Tiefling:Zariel" or "Human:None"
         """
-        return f"{name.value}:{subrace_name or 'None'}"
+        return f"{name.value}{':'+subrace_name if subrace_name else ''}"

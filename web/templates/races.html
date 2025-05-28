@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Races</title>
+<script nonce="{{ csp_nonce }}" src="{{root}}/js/races.js"></script>
+{% endblock %}
+
+{% block main %}
+<h1>All Races</h1>
+
+<div class="btnBar mt-3 mb-4">
+    <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
+</div>
+
+<details>
+    <summary><h2 class="section-title">Races</h2></summary>
+    <section id="baseFeatureContainer" class="mt-2"></section>
+</details>
+
+<script>
+    // TODO
+    document.addEventListener("DOMContentLoaded", loadRacesFromAPI);
+</script>
+{% endblock %}

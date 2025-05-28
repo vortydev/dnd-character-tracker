@@ -48,16 +48,20 @@ class Subrace:
         }
 
     @staticmethod
-    def from_dict(data: dict) -> "Subrace":
+    def from_dict(data: dict, registries: dict[str]=None) -> "Subrace":
+        registries = registries or {}
+        spell_registry: SpellRegistry = registries.get("spells", SpellRegistry)
+        feature_registry: FeatureRegistry = registries.get("features", FeatureRegistry)
+
         spells_dict = {
             int(k): [
-                SpellRegistry.get(s["name"]) if isinstance(s, dict) else SpellRegistry.get(s)
+                spell_registry.get(s["name"]) if isinstance(s, dict) else spell_registry.get(s)
                 for s in v
             ]
             for k, v in data.get("spells", {}).items()
         }
         features_dict = {
-            int(k): [FeatureRegistry.get(f, FeatureType.RACE) for f in v]
+            int(k): [feature_registry.get(f, FeatureType.RACE) for f in v]
             for k, v in data.get("features", {}).items()
         }
         return Subrace(
@@ -142,7 +146,7 @@ class Race:
         }
 
     @staticmethod
-    def from_dict(data: dict):
+    def from_dict(data: dict, registries: dict[str]=None):
         """
         Deserialize a Race object from a saved dictionary.
         Args:
@@ -150,20 +154,24 @@ class Race:
         Returns:
             Race: A new Race instance.
         """
+        registries = registries or {}
+        spell_registry: SpellRegistry = registries.get("spells", SpellRegistry)
+        feature_registry: FeatureRegistry = registries.get("features", FeatureRegistry)
+
         spells_dict = {
             int(k): [
-                SpellRegistry.get(s["name"]) if isinstance(s, dict) else SpellRegistry.get(s)
+                spell_registry.get(s["name"]) if isinstance(s, dict) else spell_registry.get(s)
                 for s in v
             ]
             for k, v in data.get("spells", {}).items()
         }
         features_dict = {
-            int(k): [FeatureRegistry.get(f, FeatureType.RACE) for f in v]
+            int(k): [feature_registry.get(f, FeatureType.RACE) for f in v]
             for k, v in data.get("features", {}).items()
         }
         return Race(
             name=RaceType(data["name"]),
-            subrace=Subrace.from_dict(data["subrace"]) if data.get("subrace") else None,
+            subrace=Subrace.from_dict(data["subrace"], registries) if data.get("subrace") else None,
             speed=data.get("speed", 30),
             size=data.get("size", "Medium"),
             ability_score_increase={

@@ -22,11 +22,11 @@ def init_registries():
     spells = load_spells_from_file()
     SpellRegistry.load_bulk(spells)
 
-    # # === RaceRegistry ===
-    # races = load_races_from_file()
-    # RaceRegistry.load_bulk(races)
+    # === RaceRegistry ===
+    races = load_races_from_file(registries={"features": FeatureRegistry, "spells": SpellRegistry})
+    RaceRegistry.load_bulk(races)
 
-    # # === ClassLevelRegistry ===
+    # === ClassLevelRegistry ===
     # cl = load_class_levels_from_file()
     # ClassLevelRegistry.load_bulk(cl)
 

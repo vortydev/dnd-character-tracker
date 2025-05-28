@@ -4,6 +4,10 @@
     transition: 0.2s all ease-out;
 }
 
+a.btn {
+    padding-bottom: 0.4em;
+}
+
 .btn:not(#sidebarToggle) svg {
     margin-right: 0.5rem;
 }
@@ -105,9 +109,9 @@
 
 /* Grey */
 .btn-light-grey {
-    color: var(--black-color);
-    background-color: var(--light-grey-color);
-    border-color: var(--light-grey-color);
+    color: var(--black-color) !important;
+    background-color: var(--light-grey-color) !important;
+    border-color: var(--light-grey-color) !important;
 }
 
 .btn-light-grey:hover,
@@ -117,7 +121,7 @@
 }
 
 .btn-light-grey:focus {
-    box-shadow: 0 0 0 0.25rem var(--light-grey-color-shadow);
+    box-shadow: 0 0 0 0.25rem var(--light-grey-color-shadow) !important;
 }
 
 /* Blue */

@@ -8,8 +8,12 @@
 {% block main %}
 <h1>All Spells</h1>
 
+<div class="btnBar mt-3 mb-4">
+    <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
+</div>
+
 <!-- Spell level tabs -->
-<ul class="nav nav-tabs mt-3" id="spellTabs" role="tablist"></ul>
+<ul class="nav nav-tabs" id="spellTabs" role="tablist"></ul>
 
 <!-- Spell level panes -->
 <div class="tab-content" id="spellTabsContent"></div>
