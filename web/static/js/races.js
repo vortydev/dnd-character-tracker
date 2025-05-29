@@ -32,14 +32,7 @@ function prepareAndRenderRaces(raceList, spellsRef) {
     for (const race of raceList) {
         const raceName = race.name;
 
-        if (race.subrace) {
-            // Insert the first occurence of the race
-            if (!raceMap[raceName]) {
-                let baseRace = structuredClone(race);
-                delete baseRace.subrace;
-                raceMap[raceName] = baseRace;
-            }
-            
+        if (race.subrace) {            
             if (!subraceMap[raceName]) subraceMap[raceName] = [];
             subraceMap[raceName].push(race);
         } 
@@ -62,20 +55,22 @@ function renderRaceGroup(baseRace, subraces, spellsRef) {
 
     const subraceBlocks = subraces.map(race => {
         let subraceBlock = `
-        <details class="subrace-block mt-3">
-            <summary><h3 class="section-title">${race.subrace.name}</h3></summary>
+        <details class="subrace-block feature-context-group" open>
+            <summary><h4 class="section-title feature-context">${race.subrace.name}</h4></summary>
             ${renderSubraceCard(race, spellsRef)}
         </details>
         `;
         return subraceBlock;
-    }).join("");
+    }).join("<hr>");
 
     const raceBlock = `
     <details class="dnd-feature-section" open>
         <summary><h2 class="section-title underline-primary">${baseRace.name}</h2></summary>
-        ${baseRace.description ? `<i class="dnd-feature-desc mt-2">${baseRace.description}</i>` : ""}
         ${mainRaceBlock}
-        ${subraceBlocks}
+        <div class="dnd-feature">
+            <h3 class="dnd-feature-name">Subraces</h3>
+            ${subraceBlocks}
+        </div>
     </details>
     `;
 
@@ -94,60 +89,68 @@ function renderRaceCard(race, spellsRef) {
         .map(([k, v]) => `<li><strong>${k} :</strong> ${v}</li>`)
         .join("");
 
-    // TODO Speed, Size, Features, Spells
-    const features = Object.entries(race.feats || {}).map(([lvl, list]) =>
-        list.length ? `<li><strong>Level ${lvl} :</strong> ${list.join(", ")}</li>` : ""
-    ).join("");
+    const features = race.feats ? getFeatureList(race.feats) : null;
+    const spells = race.spells.label ? getLinkedSpellList(race.spells, spellsRef) : null;
 
-    const spells = getLinkedSpellList(race.spells, spellsRef);
+    let subFeats = `
+        ${features || spells ? `
+        <section class="dnd-subfeatures grid-auto">
+            ${features ? `<div class="dnd-feature"><h4 class="dnd-feature-name">Features</h4>${features}</div>` : ""}
+            ${spells ? `<div class="dnd-feature"><h4 class="dnd-feature-name">Spells</h4>${spells}</div>` : ""}
+        </section>
+        ` : ""}
+    `;
 
     let raceInfo = `
+    ${race.description ? `<i class="dnd-feature-desc mt-2">${race.description}</i>` : ""}
     <section class="dnd-feature race-info">
-        <h4 class="dnd-feature-name">Details</h4>
-        <ul>
+        <ul class="dnd-feature-list">
             ${asi ? `<li><strong>Ability Score Increase:</strong> ${asi}</li>` : ""}
             ${infoHtml}
             ${race.size ? `<li><strong>Size :</strong> ${race.size}</li>` : ""}
-            ${race.speed ? `<li><strong>Speed :</strong> ${race.speed}</li>` : ""}
+            ${race.speed ? `<li><strong>Speed :</strong> ${race.speed} feet</li>` : ""}
             ${languages ? `<li><strong>Languages :</strong> ${languages}</li>` : ""}
         </ul>
     </section>
-
-    ${features ? `<section class="dnd-feature"><h4 class="dnd-feature-name">Features</h4><ul>${features}</ul></section>` : ""}
-    ${spells ? `<section class="dnd-feature"><h4 class="dnd-feature-name">Spells</h4>${spells}</section>` : ""}
-    `;
-
-    let raceSection = `
-    
+    ${subFeats}
     `;
 
     return raceInfo;
 }
 
-function renderSubraceCard(race, spellsRef) {
+function renderSubraceCard(race, spellsRef) {    
     const sub = race.subrace;
+    // console.log("Subrace:", sub);
+
     const asi = Object.entries(sub?.ability_score_increase || {})
-        .map(([k, v]) => `${k} +${v}`)
+        .map(([k, v]) => `${k.toUpperCase()} +${v}`)
         .join(", ");
 
-    const lore = sub?.info?.Lore ? `<p><strong>Lore:</strong> ${sub.info.Lore}</p>` : "";
+    const infoHtml = Object.entries(sub.info || {})
+        .map(([k, v]) => `<li><strong>${k} : </strong> ${v}</li>`)
+        .join("");
 
-    const features = Object.entries(race.feats || {}).map(([lvl, list]) =>
-        list.length ? `<li><strong>Level ${lvl}:</strong> ${list.join(", ")}</li>` : ""
-    ).join("");
+    const features = race.feats ? getFeatureList(sub.feats) : null;
+    const spells = sub.spells ? getLinkedSpellList(sub.spells, spellsRef) : null;
 
-    const spells = Object.entries(race.spells || {}).map(([lvl, list]) =>
-        list.length ? `<li><strong>Level ${lvl}:</strong> ${list.join(", ")}</li>` : ""
-    ).join("");
+    let subFeats = `
+        ${features || spells ? `
+        <section class="dnd-subfeatures grid-auto">
+            ${features ? `<div class="dnd-feature subrace-features"><h5>Features</h5>${features}</div>` : ""}
+            ${spells ? `<div class="dnd-feature subrace-spells"><h5>Spells</h5>${spells}</div>` : ""}
+        </section>
+        ` : ""}
+    `;
 
     let subraceInfo =  `
-    <section class="subrace-info">
-        ${lore}
-        ${asi ? `<p><strong>Ability Score Increase:</strong> ${asi}</p>` : ""}
+    ${sub.description ? `<i class="dnd-feature-desc mt-2">${sub.description}</i>` : ""}
+    <section class="dnd-feature subrace-info">
+        <ul>
+            ${asi ? `<li><strong>Ability Score Increase:</strong> ${asi}</li>` : ""}
+            ${infoHtml}
+        </ul>
     </section>
-
-    ${features ? `<section class="subrace-features"><h4>Features</h4><ul>${features}</ul></section>` : ""}
-    ${spells ? `<section class="subrace-spells"><h4>Spells</h4><ul>${spells}</ul></section>` : ""}
+    ${subFeats}
     `;
 
     return subraceInfo;
@@ -159,9 +162,7 @@ function getLinkedSpellList(spellMap, spellsRef) {
     const spellSection = Object.entries(spellMap).map(([level, spellList]) => {
         if (!spellList.length) return "";
 
-        const spellLinks = spellList.map(spellName => {
-            console.log("Spell name:", spellName);
-            
+        const spellLinks = spellList.map(spellName => {            
             const refLevel = findSpellLevelInRefs(spellName, spellsRef);
             const url = `/spells?level=${refLevel}&spell=${formatObjectNameForURL(spellName)}`;
             return `<a href="${url}">${spellName}</a>`;
@@ -171,7 +172,7 @@ function getLinkedSpellList(spellMap, spellsRef) {
         return `<li><strong>${label}</strong> ${spellLinks}</li>`;
     }).join("");
 
-    return `<ul class="spell-list">${spellSection}</ul>`;
+    return `<ul class="dnd-feature-list">${spellSection}</ul>`;
 }
 
 function findSpellLevelInRefs(spellName, spellsRef) {
@@ -181,8 +182,25 @@ function findSpellLevelInRefs(spellName, spellsRef) {
     return "0"; // fallback
 }
 
+function getFeatureList(featsMap) {
+    if (!featsMap || typeof featsMap !== 'object') return "";
+    const features = getLinkedFeatureList(featsMap, "race");
+    return features;
+}
 
-// TODO
-function buildFeaturesPerLevel(data) {
-    return data;
+function getLinkedFeatureList(featuresMap, featType) {
+    if (!featuresMap || typeof featuresMap !== 'object') return "";
+
+    const featureSection = Object.entries(featuresMap).map(([level, featureList]) => {
+        if (!featureList.length) return "";
+
+        const links = featureList.map(name => {
+            const url = `/features?type=${featType}&name=${formatObjectNameForURL(name)}`;
+            return `<a href="${url}">${name}</a>`;
+        }).join(", ");
+
+        return `<li><strong>Level ${level} :</strong> ${links}</li>`;
+    }).join("");
+
+    return `<ul class="dnd-feature-list">${featureSection}</ul>`;
 }

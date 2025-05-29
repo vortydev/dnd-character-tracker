@@ -42,6 +42,10 @@
 
 
 /* ##### AESTHETICS ##### */
+html {
+  scroll-behavior: smooth;
+}
+
 .hide,
 .hidden {
     display: none !important;

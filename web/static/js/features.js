@@ -1,15 +1,27 @@
-function openIfHasContent(container, delayMs = 0) {
-    const details = container.closest("details");
-    if (!details) return;
+function loadFeaturesFromAPI() {
+    const baseFeatureContainer = document.getElementById("baseFeatureContainer");
+    const raceFeatureContainer = document.getElementById("raceFeatureContainer");
+    const classFeatureContainer = document.getElementById("classFeatureContainer");
+    const subclassFeatureContainer = document.getElementById("subclassFeatureContainer");
 
-    const hasContent = container.innerHTML.trim() !== "" &&
-                       !container.innerHTML.includes("No features available");
+    fetch("/api/features/get")
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
+        .then(data => {
+            const delayStep = 0; // ms between each section opening
+            renderFeatureList(baseFeatureContainer, data.base_feats, delayStep * 0);
+            renderFeatureList(raceFeatureContainer, data.race_feats, delayStep * 1);
+            renderFeatureList(classFeatureContainer, data.class_feats, delayStep * 2);
+            renderFeatureList(subclassFeatureContainer, data.subclass_feats, delayStep * 3);
+        })
+        .catch(error => {
+            console.error("Error loading features:", error);
+            alert("Failed to load features.");
+        });
 
-    if (hasContent) {
-        setTimeout(() => {
-            details.setAttribute("open", "");
-        }, delayMs);
-    }
+    openFeatureURL();
 }
 
 function renderFeatureList(container, list, delayMs = 0) {
@@ -38,7 +50,7 @@ function renderFeatureList(container, list, delayMs = 0) {
     }).join("");
 
     // Open section if it has content
-    openIfHasContent(container, delayMs);
+    openIfHasContent(container, delayMs, "feature");
 
     // Also auto-open each context group, staggered a bit
     const contextGroups = container.querySelectorAll(".feature-context-group");
@@ -49,26 +61,33 @@ function renderFeatureList(container, list, delayMs = 0) {
     });
 }
 
-function loadFeaturesFromAPI() {
-    const baseFeatureContainer = document.getElementById("baseFeatureContainer");
-    const raceFeatureContainer = document.getElementById("raceFeatureContainer");
-    const classFeatureContainer = document.getElementById("classFeatureContainer");
-    const subclassFeatureContainer = document.getElementById("subclassFeatureContainer");
+function openFeatureURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const featName = urlParams.get("name");
+    const featType = urlParams.get("type");
 
-    fetch("/api/features/get")
-        .then(response => {
-            if (!response.ok) throw new Error("Network response was not ok");
-            return response.json();
-        })
-        .then(data => {
-            const delayStep = 0; // ms between each section opening
-            renderFeatureList(baseFeatureContainer, data.base_feats, delayStep * 0);
-            renderFeatureList(raceFeatureContainer, data.race_feats, delayStep * 1);
-            renderFeatureList(classFeatureContainer, data.class_feats, delayStep * 2);
-            renderFeatureList(subclassFeatureContainer, data.subclass_feats, delayStep * 3);
-        })
-        .catch(error => {
-            console.error("Error loading features:", error);
-            alert("Failed to load features.");
-        });
+    if (!featName) return;
+
+    const highlightDelay = 250;
+    const highlightExpiry = 3000;
+    const scrollOffset = 10;
+
+    setTimeout(() => {
+        const el = document.getElementById(featName);
+        if (el) {
+            const top = el.getBoundingClientRect().top + window.scrollY - scrollOffset;
+            window.scrollTo({
+                top,
+                behavior: "smooth"
+            });
+
+            setTimeout(() => {
+                el.classList.add("highlighted");
+            }, highlightDelay);
+
+            setTimeout(() => {
+                el.classList.remove("highlighted");
+            }, highlightExpiry);
+        }
+    }, highlightDelay);
 }

@@ -1,4 +1,5 @@
 # feature.py
+import re
 from typing import List, Optional
 from feature_types import FeatureType
 
@@ -36,7 +37,10 @@ class Feature():
     
     def get_html(self) -> str:
         """Returns the Feature as an HTML string."""
-        html = f'<div class="dnd-feature" data-feature-type="{self.to_dict()["type"]}">\
+        def format_object_name_for_url(name: str) -> str:
+            return re.sub(r'\s+', '_', name.strip().lower())
+        
+        html = f'<div id="{format_object_name_for_url(self.name)}" class="dnd-feature" data-feature-type="{self.to_dict()["type"]}">\
                 <h4 class="dnd-feature-name">{self.name}</h4>'
         
         # Main description

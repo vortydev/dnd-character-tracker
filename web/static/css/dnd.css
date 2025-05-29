@@ -232,6 +232,13 @@ details.dnd-feature-section {
     display: block;
     margin-top: 1em;
     width: 100%;
+    border-radius: 1em;
+    transition: background-color 0.4s ease-out, padding 0.5s ease-out;
+}
+
+.dnd-feature.highlighted {
+    padding: 0.5em 0.75em;
+    background-color: var(--purple-color-shadow);
 }
 
 .dnd-feature-desc {
@@ -252,6 +259,10 @@ details.dnd-feature-section {
 
 .dnd-subfeatures .dnd-subfeatures {
     border-color: var(--grey-color-shade);
+}
+
+.dnd-feature-list {
+    margin-bottom: 0;
 }
 
 /* Table */

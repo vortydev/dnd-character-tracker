@@ -261,6 +261,7 @@ def get_tiefling_races():
     """Load a list of defined Tiefling Races"""
     tieflings: list[Race] = [] # Empty array
     tiefling_base = load_tiefling_base()
+    tieflings.append(tiefling_base)
 
     # Tiefling Bloodlines
     bloodline_tieflings = load_bloodline_tieflings()

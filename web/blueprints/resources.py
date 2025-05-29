@@ -73,6 +73,8 @@ def api_get_races():
 
     # Load the list of races
     for _, race in RaceRegistry.all().items():
+        print("Race:", race)
+        print("Feats:", race.feats)
         race_list.append(race.to_dict())
         build_spells_ref(spells_ref, race.spells)
         if race.subrace:

@@ -64,8 +64,8 @@ class Subrace:
             for k, v in data.get("spells", {}).items()
         }
         features_dict = {
-            int(k): [feature_registry.get(f, FeatureType.RACE) for f in v]
-            for k, v in data.get("features", {}).items()
+            int(k): [feature_registry.get(f, FeatureType.RACE, RaceType(data["parent_race"])) for f in v]
+            for k, v in data.get("feats", {}).items()
         }
         return Subrace(
             name=data["name"],
@@ -113,7 +113,7 @@ class Race:
         self.size = size
         self.ability_score_increase = ability_score_increase or {}
         self.feats = feats or {}
-        self.spells = spells
+        self.spells = spells or {}
         self.info = info or {}  # Contains explicit text details from books
         self.languages = languages or []
 
@@ -173,10 +173,14 @@ class Race:
             for k, v in data.get("spells", {}).items()
         }
         features_dict = {
-            int(k): [feature_registry.get(f, FeatureType.RACE) for f in v]
-            for k, v in data.get("features", {}).items()
+            int(k): [
+                feature_registry.get(f, FeatureType.RACE, RaceType(data["name"])) 
+                for f in v
+            ]
+            for k, v in data.get("feats", {}).items()
         }
         langs = [Language(l) for l in data.get("languages", [])]
+
         return Race(
             name=RaceType(data["name"]),
             description=data.get("description", None),

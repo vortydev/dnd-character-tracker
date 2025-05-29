@@ -194,8 +194,9 @@ function openSpellURL() {
     }
 
     if (targetSpell) {
-        const highlightDelay = 250
-        const highlightExpiry = 3000
+        const highlightDelay = 250;
+        const highlightExpiry = 3000;
+
         setTimeout(() => {
             const spellId = `spell-desc-${targetSpell.replace(/[^\w-]/g, "_").toLowerCase()}`;
             const detailsRow = document.getElementById(spellId);
@@ -211,6 +212,6 @@ function openSpellURL() {
                     mainRow.classList.remove("highlighted");
                 }, highlightExpiry);
             }
-        }, highlightDelay); // slight delay to allow tab content to render
+        }, highlightDelay);
     }
 }
