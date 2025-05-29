@@ -41,13 +41,19 @@ function prepareAndRenderRaces(raceList, spellsRef) {
         }
     }
 
-    for (const raceName of Object.keys(raceMap)) {
+    const raceNames = Object.keys(raceMap);
+    raceNames.forEach((raceName, index) => {
         const baseRace = raceMap[raceName];
         const subraces = subraceMap[raceName] || [];
 
         const block = renderRaceGroup(baseRace, subraces, spellsRef);
         container.innerHTML += block;
-    }
+
+        // Add <hr> after each block except the last
+        if (index < raceNames.length - 1) {
+            container.innerHTML += `<hr>`;
+        }
+    });
 }
 
 function renderRaceGroup(baseRace, subraces, spellsRef) {
@@ -55,7 +61,7 @@ function renderRaceGroup(baseRace, subraces, spellsRef) {
 
     const subraceBlocks = subraces.map(race => {
         let subraceBlock = `
-        <details class="subrace-block feature-context-group" open>
+        <details class="subrace-block feature-context-group">
             <summary><h4 class="section-title feature-context">${race.subrace.name}</h4></summary>
             ${renderSubraceCard(race, spellsRef)}
         </details>
@@ -86,11 +92,11 @@ function renderRaceCard(race, spellsRef) {
     const languages = (race.languages || []).join(", ");
 
     const infoHtml = Object.entries(race.info || {})
-        .map(([k, v]) => `<li><strong>${k} :</strong> ${v}</li>`)
+        .map(([k, v]) => `<li><strong>${k} :</strong> ${highlightDamageTypes(v)}</li>`)
         .join("");
 
-    const features = race.feats ? getFeatureList(race.feats) : null;
-    const spells = race.spells.label ? getLinkedSpellList(race.spells, spellsRef) : null;
+    const features = race.feats ? getFeatureList(race.feats) : "";
+    const spells = race.spells.label ? getLinkedSpellList(race.spells, spellsRef) : "";
 
     let subFeats = `
         ${features || spells ? `
@@ -127,11 +133,11 @@ function renderSubraceCard(race, spellsRef) {
         .join(", ");
 
     const infoHtml = Object.entries(sub.info || {})
-        .map(([k, v]) => `<li><strong>${k} : </strong> ${v}</li>`)
+        .map(([k, v]) => `<li><strong>${k} : </strong> ${highlightDamageTypes(v)}</li>`)
         .join("");
 
-    const features = race.feats ? getFeatureList(sub.feats) : null;
-    const spells = sub.spells ? getLinkedSpellList(sub.spells, spellsRef) : null;
+    const features = race.feats ? getFeatureList(sub.feats) : "";
+    const spells = sub.spells ? getLinkedSpellList(sub.spells, spellsRef) : "";
 
     let subFeats = `
         ${features || spells ? `
@@ -158,6 +164,8 @@ function renderSubraceCard(race, spellsRef) {
 
 function getLinkedSpellList(spellMap, spellsRef) {
     if (!spellMap || typeof spellMap !== 'object') return "";
+    
+    if (Object.keys(spellMap).length === 0) return "";
 
     const spellSection = Object.entries(spellMap).map(([level, spellList]) => {
         if (!spellList.length) return "";
@@ -184,6 +192,7 @@ function findSpellLevelInRefs(spellName, spellsRef) {
 
 function getFeatureList(featsMap) {
     if (!featsMap || typeof featsMap !== 'object') return "";
+    if (Object.keys(featsMap).length === 0) return "";
     const features = getLinkedFeatureList(featsMap, "race");
     return features;
 }

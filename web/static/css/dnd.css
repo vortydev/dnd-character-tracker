@@ -263,6 +263,7 @@ details.dnd-feature-section {
 
 .dnd-feature-list {
     margin-bottom: 0;
+    padding-left: 1.25em;
 }
 
 /* Table */
@@ -379,25 +380,4 @@ details.dnd-feature-section {
 .spell-row.highlighted td {
     background-color: var(--purple-color) !important;
     /* transition: background-color 1s ease; */
-}
-
-
-/* Race */
-.race-block summary h2,
-.subrace-block summary h3 {
-    display: inline;
-    cursor: pointer;
-}
-
-.race-lore p,
-.subrace-lore p {
-    margin-bottom: 0.5em;
-}
-
-.race-features, .subrace-features, .subrace-spells {
-    margin-left: 1.5em;
-}
-
-ul {
-    padding-left: 1.25em;
 }

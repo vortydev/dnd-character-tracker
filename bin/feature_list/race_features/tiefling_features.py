@@ -76,25 +76,25 @@ bloodline_zariel_feat_legacy = RaceFeature(
 variant_tief_feat_feral = RaceFeature(
     name="Feral",
     description="Your Intelligence score increases by 1, and your Dexterity score increases by 2. This trait replaces the Ability Score Increase trait.",
-    race_type=RaceType.TIEFLING
+    race_type=RaceType.VARIANT_TIEFLING
 )
 
 variant_tief_feat_devils_tongue = RaceFeature(
     name="Devil's Tongue",
     description="You know the Vicious Mockery cantrip. Once you reach 3rd level, you can cast the Charm Person spell once as a 2nd-level spell. Once you reach 5th level, you can also cast the Enthrall spell once. You must finish a long rest to cast these spells again with this trait. Charisma is your spellcasting ability for these spells. This trait replaces the Infernal Legacy trait.",
-    race_type=RaceType.TIEFLING
+    race_type=RaceType.VARIANT_TIEFLING
 )
 
 variant_tief_feat_hellfire = RaceFeature(
     name="Hellfire",
     description="Once you reach 3rd level, you can cast the Burning Hands spell once as a 2nd-level spell. This trait replaces the Hellish Rebuke spell of the Infernal Legacy trait.",
-    race_type=RaceType.TIEFLING
+    race_type=RaceType.VARIANT_TIEFLING
 )
 
 variant_tief_feat_winged = RaceFeature(
     name="Winged",
     description="You have bat-like wings sprouting from your shoulders. You have a flying speed of 30 feet while you aren't wearing heavy armor. This trait replaces the Infernal Legacy trait.",
-    race_type=RaceType.TIEFLING
+    race_type=RaceType.VARIANT_TIEFLING
 )
 
 

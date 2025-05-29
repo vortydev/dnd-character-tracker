@@ -203,58 +203,64 @@ def load_bloodline_tieflings():
             bloodline_zariel]
 
 
+def load_variant_tiefling_base():
+    # Tiefling - Variant Base
+    tiefling_variant_base = Race(
+        name=RaceType.VARIANT_TIEFLING,
+        description="Since not all tieflings are of the blood of Asmodeus, some have traits that differ from those in the Player's Handbook. The Dungeon Master may permit the following variants for your tiefling character, although Devil's Tongue, Hellfire, and Winged are mutually exclusive.",
+        subrace=None,
+        speed=30,
+        size=Size.MEDIUM,
+        ability_score_increase={AbilityType.DEX: 2, AbilityType.INT: 1},
+        feats={ 1: [FeatureRegistry.get("Feral", FeatureType.RACE, RaceType.VARIANT_TIEFLING)] },
+        info={
+            "Appearance": "Your tiefling might not look like other tieflings. Rather than having the physical characteristics described in the Player's Handbook, choose 1d4 + 1 of the following features: small horns; fangs or sharp teeth; a forked tongue; catlike eyes; six fingers on each hand; goat-like legs; cloven hoofs; a forked tail; leathery or scaly skin; red or dark blue skin; cast no shadow or reflection; exude a smell of brimstone.",
+        },
+        languages=[Language.COMMON, Language.INFERNAL],
+    )
+    return tiefling_variant_base
+
 def load_variant_tieflings():
     """Load Tiefling Variant subraces."""
     # === Sword Coast Adventurer's Guide ===
-    # Tiefling - Variant Base
-    tiefling_variant_base = Subrace(
-        name="Base Variant",
-        parent_race=RaceType.TIEFLING,
-        ability_score_increase={AbilityType.CHA: -2, AbilityType.DEX: 2, AbilityType.INT: 1},
-        feats={ 1: [FeatureRegistry.get("Feral", FeatureType.RACE, RaceType.TIEFLING)] },
-        info={
-            "Variant Note": "Since not all tieflings are of the blood of Asmodeus, some have traits that differ from those in the Player's Handbook. The Dungeon Master may permit the following variants for your tiefling character, although Devil's Tongue, Hellfire, and Winged are mutually exclusive.",
-            "Appearance": "Your tiefling might not look like other tieflings. Rather than having the physical characteristics described in the Player's Handbook, choose 1d4 + 1 of the following features: small horns; fangs or sharp teeth; a forked tongue; catlike eyes; six fingers on each hand; goat-like legs; cloven hoofs; a forked tail; leathery or scaly skin; red or dark blue skin; cast no shadow or reflection; exude a smell of brimstone.",
+    # Tiefling - Variant: Devil's Tongue
+    variant_devils_tongue = Subrace(
+        name="Devil's Tongue",
+        parent_race=RaceType.VARIANT_TIEFLING,
+        description="Some tieflings inherit the charming tongue of devils rather than their fiery legacy.",
+        feats={ 1: [FeatureRegistry.get("Devil's Tongue", FeatureType.RACE, RaceType.VARIANT_TIEFLING)]  },
+        spells={
+            0: [SpellRegistry.get("Vicious Mockery")],
+            3: [SpellRegistry.get("Charm Person")],
+            5: [SpellRegistry.get("Enthrall")],
         }
     )
 
-    # Tiefling - Variant: Devil's Tongue
-    variant_devils_tongue = deepcopy(tiefling_variant_base)
-    variant_devils_tongue.name = "Variant: Devil's Tongue"
-    variant_devils_tongue.feats = { 
-        1: [FeatureRegistry.get("Devil's Tongue", FeatureType.RACE, RaceType.TIEFLING)] 
-    }
-    variant_devils_tongue.spells = {
-        0: [SpellRegistry.get("Vicious Mockery")],
-        3: [SpellRegistry.get("Charm Person")],
-        5: [SpellRegistry.get("Enthrall")],
-    }
-    variant_devils_tongue.info["Lore"] = "Some tieflings inherit the charming tongue of devils rather than their fiery legacy."
-
     # Tiefling - Variant: Hellfire
-    variant_hellfire = deepcopy(tiefling_variant_base)
-    variant_hellfire.name = "Variant: Hellfire"
-    variant_hellfire.feats = { 
-        1: [FeatureRegistry.get("Hellfire", FeatureType.RACE, RaceType.TIEFLING)] 
-    }
-    variant_hellfire.spells = {
-        0: [SpellRegistry.get("Thaumaturgy")], 
-        3: [SpellRegistry.get("Burning Hands")], 
-        5: [SpellRegistry.get("Darkness")],
-    }
-    variant_hellfire.info["Lore"] = "You wield flame as a natural gift of your infernal blood."
+    variant_hellfire = Subrace(
+        name="Hellfire",
+        parent_race=RaceType.VARIANT_TIEFLING,
+        description="You wield flame as a natural gift of your infernal blood.",
+        feats={ 1: [FeatureRegistry.get("Hellfire", FeatureType.RACE, RaceType.VARIANT_TIEFLING)]  },
+        spells={
+            0: [SpellRegistry.get("Thaumaturgy")], 
+            3: [SpellRegistry.get("Burning Hands")], 
+            5: [SpellRegistry.get("Darkness")],
+        }
+    )
 
     # Tiefling - Variant: Winged
-    variant_winged = deepcopy(tiefling_variant_base)
-    variant_winged.name = "Variant: Winged"
-    variant_winged.feats = { 
-        1: [FeatureRegistry.get("Winged", FeatureType.RACE, RaceType.TIEFLING)] 
-    }
-    variant_winged.info["Lore"] = "Bat-like wings grow from your shoulders, granting flight."
+    variant_winged = Subrace(
+        name="Winged",
+        parent_race=RaceType.VARIANT_TIEFLING,
+        description="Bat-like wings grow from your shoulders, granting flight.",
+        feats={ 1: [FeatureRegistry.get("Winged", FeatureType.RACE, RaceType.VARIANT_TIEFLING)]  },
+        info={
+            "Flight": "30 feet"
+        }
+    )
 
-    return [variant_devils_tongue,
-            variant_hellfire,
-            variant_winged]
+    return [variant_devils_tongue, variant_hellfire, variant_winged]
 
 
 def get_tiefling_races():
@@ -269,10 +275,14 @@ def get_tiefling_races():
     for bloodline in bloodline_tieflings:
         tieflings.append(create_subrace_variant(tiefling_base, bloodline))
 
+    # Variant Tiefling
+    variant_tiefling_base = load_variant_tiefling_base()
+    tieflings.append(variant_tiefling_base)
+
     variant_tieflings = load_variant_tieflings()
     print("> Creating Tiefling Variant subraces")
     for variant in variant_tieflings:
-        tieflings.append(create_subrace_variant(tiefling_base, variant))
+        tieflings.append(create_subrace_variant(variant_tiefling_base, variant))
 
     return tieflings
     
