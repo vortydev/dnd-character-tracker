@@ -44,7 +44,7 @@ function renderFeatureList(container, list, delayMs = 0) {
         return `
             <details class="feature-context-group">
                 <summary><h3 class="section-title feature-context">${ctx}</h3></summary>
-                ${highlightDamageTypes(content)}
+                ${applyTextFormatting(content)}
             </details>
         `;
     }).join("");

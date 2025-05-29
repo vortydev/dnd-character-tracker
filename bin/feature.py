@@ -45,11 +45,14 @@ class Feature():
         
         # Main description
         desc = self.description.splitlines()
+        non_table_lines = []
         for d in desc:
             if d.startswith("TABLE"):
                 html += convert_into_html_table(d, "dnd-feature-table")
             else:
-                html += f'<p class="dnd-feature-desc">{d}</p>'
+                non_table_lines.append(d)
+
+        html += format_description_with_list(non_table_lines, "dnd-feature-list")
 
         # Subfeatures
         if self.subfeatures:
@@ -61,6 +64,8 @@ class Feature():
         html += '</div>'
         return html
 
+
+# ===== HTML Helpers =====
 
 def convert_into_html_table(str: str, html_class: str) -> str:
     """Converts a given string as an HTML table."""
@@ -95,6 +100,27 @@ def convert_into_html_table(str: str, html_class: str) -> str:
     table += '</table>'
     return table
 
-
 def remove_braces(str: str) -> str:
     return str.replace('[', '').replace(']', '').strip()
+
+def apply_bold_formatting(text: str) -> str:
+    return re.sub(r'BOLD\[(.+?)\]', r'<strong>\1</strong>', text)
+
+def format_description_with_list(lines: list[str], ul_class: str) -> str:
+    html = ""
+    current_list = []
+
+    for line in lines:
+        line = apply_bold_formatting(line.strip())
+        if line.startswith("- "):
+            current_list.append(f"<li>{line[2:].strip()}</li>")
+        else:
+            if current_list:
+                html += f"""<ul class="{ul_class}">{''.join(current_list)}</ul>"""
+                current_list = []
+            html += f'<p class="dnd-feature-desc">{line}</p>'
+
+    if current_list:
+        html += f"<ul>{''.join(current_list)}</ul>"
+
+    return html

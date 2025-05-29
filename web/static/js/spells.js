@@ -95,7 +95,7 @@ function renderSpellsToTable(spells, containerId) {
                 <td colspan="6">
                     ${spell.description ? formatSpellTextBlock(spell.description, "Description") : ""}
                     ${spell.higher_levels ? formatSpellTextBlock(spell.higher_levels, "At Higher Levels") : ""}
-                    ${spell.material_description.length > 0 ? `<p><strong>Materials :</strong> ${highlightDamageTypes(spell.material_description.join(", "))}</p>` : ""}
+                    ${spell.material_description.length > 0 ? `<p><strong>Materials :</strong> ${applyTextFormatting(spell.material_description.join(", "))}</p>` : ""}
                 </td>
             </tr>
             ` : ""}
@@ -124,7 +124,7 @@ function formatSpellTextBlock(text, label = null) {
     let currentList = [];
 
     for (const line of lines) {
-        const processedLine = highlightDamageTypes(line);
+        const processedLine = applyTextFormatting(line);
         if (line.startsWith("- ")) {
             currentList.push(`<li>${processedLine.substring(2)}</li>`);
         } else {

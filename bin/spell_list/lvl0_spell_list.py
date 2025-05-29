@@ -4,6 +4,20 @@ from common import ActionCost
 from spell import Spell, SpellSchool, SpellComponent
 
 # === Define spells ===
+can_dancing_lights = Spell(
+    name="Dancing Lights",
+    level=0,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.\
+        \nAs a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell's range.",
+    duration="Concentration, up to 1 minute",
+    casting_time="1 action",
+    s_range="120 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["a bit of phosphorus or wychwood, or a glowworm"],
+)
+
 can_friends = Spell(
     name="Friends",
     level=0,
@@ -15,6 +29,20 @@ can_friends = Spell(
     s_range="Self",
     components=[SpellComponent.S, SpellComponent.M],
     material_description=["a small amount of makeup applied to the face as this spell is cast"],
+)
+
+can_light = Spell(
+    name="Light",
+    level=0,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\
+        \nIf you target an object held or worn by a hostile creature, that creature must succeed on a Dexterity saving throw to avoid the spell.",
+    duration="1 hour",
+    casting_time="1 action",
+    s_range="Touch",
+    components=[SpellComponent.V, SpellComponent.M],
+    material_description=["a firefly or phosphorescent moss"],
 )
 
 can_mage_hand = Spell(
@@ -31,6 +59,20 @@ can_mage_hand = Spell(
     components=[SpellComponent.V, SpellComponent.S],
 )
 
+can_message = Spell(
+    name="Message",
+    level=0,
+    school=SpellSchool.TRANSMUTATION,
+    action_cost=ActionCost.ACTION,
+    description="You point your finger toward a creature within range and whisper a message. The target (and only the target) hears the message and can reply in a whisper that only you can hear.\
+        \nYou can cast this spell through solid objects if you are familiar with the target and know it is beyond the barrier. Magical silence, 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood blocks the spell. The spell doesn't have to follow a straight line and can travel freely around corners or through openings.",
+    duration="1 round",
+    casting_time="1 action",
+    s_range="120 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["a short piece of copper wire"],
+)
+
 can_minor_illusion = Spell(
     name="Minor Illusion",
     level=0,
@@ -45,6 +87,25 @@ can_minor_illusion = Spell(
     s_range="30 feet",
     components=[SpellComponent.S, SpellComponent.M],
     material_description=["a bit of fleece"],
+)
+
+can_prestidigitation = Spell(
+    name="Prestidigitation",
+    level=0,
+    school=SpellSchool.TRANSMUTATION,
+    action_cost=ActionCost.ACTION,
+    description="This spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range:\
+        \n- You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor.\
+        \n- You instantaneously light or snuff out a candle, a torch, or a small campfire.\
+        \n- You instantaneously clean or soil an object no larger than 1 cubic foot.\
+        \n- You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.\
+        \n- You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.\
+        \n- You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.\
+        \nIf you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.",
+    duration="Up to 1 hour",
+    casting_time="1 action",
+    s_range="10 feet",
+    components=[SpellComponent.V, SpellComponent.S],
 )
 
 can_ray_of_frost = Spell(
@@ -72,6 +133,30 @@ can_thaumaturgy = Spell(
     components=[SpellComponent.V],
 )
 
+can_true_strike = Spell(
+    name="True Strike",
+    level=0,
+    school=SpellSchool.DIVINATION,
+    action_cost=ActionCost.ACTION,
+    description="You extend your hand and point a finger at a target in range. Your magic grants you a brief insight into the target's defenses. On your next turn, you gain advantage on your first attack roll against the target, provided that this spell hasn't ended.",
+    duration="Concentration, up to 1 round",
+    casting_time="1 action",
+    s_range="30 feet",
+    components=[SpellComponent.S],
+)
+
+can_spare_the_dying = Spell(
+    name="Spare the Dying",
+    level=0,
+    school=SpellSchool.NECROMANCY,
+    action_cost=ActionCost.ACTION,
+    description="You touch a living creature that has 0 hit points. The creature becomes stable. This spell has no effect on undead or constructs.",
+    duration="Instantaneous",
+    casting_time="1 action",
+    s_range="Touch",
+    components=[SpellComponent.V, SpellComponent.S],
+)
+
 can_vicious_mockery = Spell(
     name="Vicious Mockery",
     level=0,
@@ -88,10 +173,16 @@ can_vicious_mockery = Spell(
 
 # === Array of Cantrips ===
 lvl0_spells: List[Spell] = [
+    can_dancing_lights,
     can_friends,
+    can_light,
     can_mage_hand,
+    can_message,
     can_minor_illusion,
+    can_prestidigitation,
     can_ray_of_frost,
+    can_spare_the_dying,
     can_thaumaturgy,
+    can_true_strike,
     can_vicious_mockery,
 ]

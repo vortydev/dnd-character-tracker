@@ -24,7 +24,8 @@ class Subrace:
         ability_score_increase: Optional[Dict[AbilityType, int]] = None,
         feats: Optional[Dict[int, List[RaceFeature]]] = None,
         spells: Optional[Dict[int, List[Spell]]] = None,
-        info: Optional[Dict[str, str]] = None
+        info: Optional[Dict[str, str]] = None,
+        languages: Optional[List[Language]] = None
     ):
         self.name = name
         self.parent_race = parent_race
@@ -33,6 +34,7 @@ class Subrace:
         self.feats = feats or {}
         self.spells = spells or {}
         self.info = info or {}
+        self.languages = languages or []
 
     def to_dict(self):
         return {
@@ -47,7 +49,8 @@ class Subrace:
                 str(level): [spell.name for spell in spell_list]
                 for level, spell_list in self.spells.items()
             },
-            "info": self.info
+            "info": self.info,
+            "languages": [l.value for l in self.languages],
         }
 
     @staticmethod
@@ -67,6 +70,8 @@ class Subrace:
             int(k): [feature_registry.get(f, FeatureType.RACE, RaceType(data["parent_race"])) for f in v]
             for k, v in data.get("feats", {}).items()
         }
+        langs = [Language(l) for l in data.get("languages", [])]
+
         return Subrace(
             name=data["name"],
             parent_race=RaceType(data["parent_race"]),
@@ -74,7 +79,8 @@ class Subrace:
             ability_score_increase={AbilityType(k): v for k, v in data.get("ability_score_increase", {}).items()},
             feats=features_dict,
             spells=spells_dict,
-            info=data.get("info", {})
+            info=data.get("info", {}),
+            languages=langs,
         )
 
 

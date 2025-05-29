@@ -186,7 +186,7 @@ details[open] summary::before {
     content: "🔽";
 }
 details:not([open]) summary::before {
-    content: "▶";
+    content: "▶️";
 }
 
 

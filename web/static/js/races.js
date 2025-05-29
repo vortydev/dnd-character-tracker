@@ -92,7 +92,7 @@ function renderRaceCard(race, spellsRef) {
     const languages = (race.languages || []).join(", ");
 
     const infoHtml = Object.entries(race.info || {})
-        .map(([k, v]) => `<li><strong>${k} :</strong> ${highlightDamageTypes(v)}</li>`)
+        .map(([k, v]) => `<li><strong>${k} :</strong> ${applyTextFormatting(v)}</li>`)
         .join("");
 
     const features = race.feats ? getFeatureList(race.feats) : "";
@@ -133,7 +133,7 @@ function renderSubraceCard(race, spellsRef) {
         .join(", ");
 
     const infoHtml = Object.entries(sub.info || {})
-        .map(([k, v]) => `<li><strong>${k} : </strong> ${highlightDamageTypes(v)}</li>`)
+        .map(([k, v]) => `<li><strong>${k} : </strong> ${applyTextFormatting(v)}</li>`)
         .join("");
 
     const features = race.feats ? getFeatureList(sub.feats) : "";

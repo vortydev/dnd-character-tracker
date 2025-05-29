@@ -55,58 +55,87 @@ function openIfHasContent(container, delayMs = 0, resourceType) {
     }
 }
 
+
+function applyTextFormatting(text) {
+    if (!text) return "";
+
+    text = applyBoldFormatting(text);
+
+    // Highlights
+    text = highlightDamageTypes(text);
+    text = highlightAdvantage(text);
+    text = hightlightHealingTerms(text);
+    text = highlightResistanceTerms(text);
+    text = highlightCurrency(text);
+
+    return text;
+}
+
+function applyBoldFormatting(text) {
+    return text.replace(/BOLD\[(.+?)\]/g, (_, boldText) => {
+        return `<strong>${boldText}</strong>`;
+    });
+}
+
 /**
  * Highlights dice damage, damage types and other keywords in the string
  * @param {String} text String to analyse and highlight keywords in
  * @returns {String}
  */
 function highlightDamageTypes(text) {
-    if (!text) return "";
-
     const damageTypes = [
         "acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic",
         "piercing", "poison", "psychic", "radiant", "slashing", "thunder"
     ];
+    const typeGroup = damageTypes.join("|");
 
-    // Match any damage format: "1d8 cold damage", "5 fire damage", "cold damage"
-    const fullDamageRegex = new RegExp(
-        `(\\s*)(\\b(?:\\d+d\\d+|\\d+)?\\s*(${damageTypes.join("|")})(\\s+damage))`,
-        "gi"
+    // 1. Dice + Type + "damage"
+    text = text.replace(
+        new RegExp(`(\\s*)(\\d+d\\d+|\\d+)\\s+(${typeGroup})\\s+damage\\b`, "gi"),
+        (match, leading, dice, type) => {
+            const lower = type.toLowerCase();
+            return `${leading}<span class="damage-${lower}"><span class="damage-dice damage-${lower}">${dice}</span> ${type} damage</span>`;
+        }
     );
 
-    text = text.replace(fullDamageRegex, (match, leadingSpace, fullMatch, type) => {
-        const typeLower = type.toLowerCase();
-        const valueMatch = fullMatch.match(/\b(\d+d\d+|\d+)\b/);
-        const value = valueMatch ? valueMatch[1] : null;
-
-        if (value) {
-            const valueSpan = `<span class="damage-dice damage-${typeLower}">${value}</span>`;
-            const typeText = fullMatch.replace(value, "").trim();
-            return `${leadingSpace}<span class="damage-${typeLower}">${valueSpan} ${typeText}</span>`;
-        } else {
-            return `${leadingSpace}<span class="damage-${typeLower}">${fullMatch.trim()}</span>`;
+    // 2. Dice + Type (without "damage")
+    text = text.replace(
+        new RegExp(`(\\s*)(\\d+d\\d+|\\d+)\\s+(${typeGroup})(?!\\s+damage)\\b`, "gi"),
+        (match, leading, dice, type) => {
+            const lower = type.toLowerCase();
+            return `${leading}<span class="damage-${lower}"><span class="damage-dice damage-${lower}">${dice}</span> ${type}</span>`;
         }
-    });
+    );
 
-    // Highlight standalone dice (if not already wrapped)
+    // 3. Type + "damage" (not preceded by dice)
+    text = text.replace(
+        new RegExp(`(\\s*)\\b(${typeGroup})\\s+damage\\b`, "gi"),
+        (match, leading, type) => {
+            const lower = type.toLowerCase();
+            return `${leading}<span class="damage-${lower}">${type} damage</span>`;
+        }
+    );
+
+    // 4. Dice only (skip if already wrapped)
     text = text.replace(/\b(\d+d\d+)\b/g, (match) => {
         return text.includes(`>${match}<`) ? match : `<span class="damage-dice">${match}</span>`;
     });
 
-    // Highlight advantage / disadvantage
-    text = highlightAdvantage(text);
-
-    // Highlight healing terms
-    text = hightlightHealingTerms(text);
-
-    // Highlight vulnerabilies, resistances and immunities
-    text = highlightResistanceTerms(text, damageTypes);
-
-    // Highlight currencies
-    text = highlightCurrency(text);
+    // 5. Post-process: Highlight adjacent types via comma/or/and
+    text = text.replace(
+        new RegExp(
+            `(<span class="damage-(${typeGroup})">.*?</span>)(\\s*(?:,|and|or)\\s*)\\b(${typeGroup})\\b(?![^<]*>)`, 
+            "gi"
+        ),
+        (match, firstSpan, firstType, separator, secondType) => {
+            const lower = secondType.toLowerCase();
+            return `${firstSpan}${separator}<span class="damage-${lower}">${secondType}</span>`;
+        }
+    );
 
     return text;
 }
+
 
 /**
  * Highlight Advantage and Disadvantage keywords in a string
@@ -142,14 +171,13 @@ function hightlightHealingTerms(text) {
     return text;
 }
 
-
 /**
  * Highlight resistance terms in a string
  * @param {String} text String to highlight keywords in
  * @param {Array} damageTypes List of damage types
  * @returns {String}
  */
-function highlightResistanceTerms(text, damageTypes) {
+function highlightResistanceTerms(text) {
     const statusKeywords = [
         { keywords: ["resistance", "resistant"], key: "resistance", emoji: "🛡️" },
         { keywords: ["immune", "immunity"], key: "immune", emoji: "🚫" },
@@ -171,7 +199,6 @@ function highlightResistanceTerms(text, damageTypes) {
     });
 }
 
-
 /**
  * Highlight currencies in a string
  * @param {String} text String to highlight keywords in
@@ -184,7 +211,6 @@ function highlightCurrency(text) {
     );
     return text;
 }
-
 
 function formatObjectNameForURL(str) {
     return str.replace(/[^\w-]/g, "_").toLowerCase();

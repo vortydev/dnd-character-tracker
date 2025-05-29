@@ -20,6 +20,7 @@ class SpellComponent(Enum):
     M = "Material"   # The spell requires physical components
     
 
+# LATER Add class spell lists
 class Spell:
     """
     Represents a D&D 5e spell, including school, level, and description.

@@ -42,6 +42,20 @@ lvl1_charm_person = Spell(
     s_range="30 feet",
     components=[SpellComponent.V, SpellComponent.S],
 )
+
+lvl1_cure_wounds = Spell(
+    name="Cure Wounds",
+    level=1,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
+    higher_levels="When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st.",
+    duration="Instantaneous",
+    casting_time="1 action",
+    s_range="Touch",
+    components=[SpellComponent.V, SpellComponent.S],
+)
+
 lvl1_disguise_self = Spell(
     name="Disguise Self",
     level=1,
@@ -65,6 +79,20 @@ lvl1_hellish_rebuke = Spell(
     s_range="60 feet",
     components=[SpellComponent.V, SpellComponent.S],
 )
+
+lvl1_magic_missile = Spell(
+    name="Magic Missile",
+    level=1,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target. The darts all strike simultaneously and you can direct them to hit one creature or several.",
+    higher_levels="When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st.",
+    duration="Instantaneous",
+    casting_time="1 action",
+    s_range="120 feet",
+    components=[SpellComponent.V, SpellComponent.S],
+)
+
 lvl1_ray_of_sickness = Spell(
     name="Ray of Sickness",
     level=1,
@@ -89,6 +117,21 @@ lvl1_searing_smite = Spell(
     s_range="Self",
     components=[SpellComponent.V],
 )
+
+lvl1_tashas_hideous_laughter = Spell(
+    name="Tasha's Hideous Laughter",
+    level=1,
+    school=SpellSchool.ENCHANTMENT,
+    action_cost=ActionCost.ACTION,
+    description="A creature of your choice that you can see within range perceives everything as hilariously funny and falls into fits of laughter if this spell affects it. The target must succeed on a Wisdom saving throw or fall prone, becoming incapacitated and unable to stand up for the duration. A creature with an Intelligence score of 4 or less isn't affected.\
+        \nAt the end of each of its turns, and each time it takes damage, the target can make another Wisdom saving throw. The target has advantage on the saving throw if it's triggered by damage. On a success, the spell ends.",
+    duration="Concentration, up to 1 minute",
+    casting_time="1 action",
+    s_range="30 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["tiny tarts", "a feather that is waved in the air"],
+)
+
 lvl1_tensers_floating_disk = Spell(
     name="Tenser's Floating Disk",
     level=1,
@@ -104,15 +147,33 @@ lvl1_tensers_floating_disk = Spell(
     material_description=["a drop of mercury"],
 )
 
+lvl1_thunderwave = Spell(
+    name="Thunderwave",
+    level=1,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="A wave of thunderous force sweeps out from you. Each creature in a 15-foot cube originating from you must make a Constitution saving throw. On a failed save, a creature takes 2d8 thunder damage and is pushed 10 feet away from you. On a successful save, the creature takes half as much damage and isn't pushed.\
+        \nIn addition, unsecured objects that are completely within the area of effect are automatically pushed 10 feet away from you by the spell's effect, and the spell emits a thunderous boom audible out to 300 feet.",
+    higher_levels="When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d8 for each slot level above 1st.",
+    duration="Instantaneous",
+    casting_time="1 action",
+    s_range="Self (15-foot cube)",
+    components=[SpellComponent.V, SpellComponent.S],
+)
+
 
 # === Array of Level 1 spells ===
 lvl1_spells: List[Spell] = [
     lvl1_armor_of_agathys,
     lvl1_burning_hands,
     lvl1_charm_person,
+    lvl1_cure_wounds,
     lvl1_disguise_self,
     lvl1_hellish_rebuke,
+    lvl1_magic_missile,
     lvl1_ray_of_sickness,
     lvl1_searing_smite,
+    lvl1_tashas_hideous_laughter,
     lvl1_tensers_floating_disk,
+    lvl1_thunderwave
 ]

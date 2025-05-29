@@ -26,7 +26,6 @@ class ClassType(Enum):
 
 
 # === Mapping ===
-# WIP
 SUBCLASS_MAP = {
     # Fighter
     SubclassType.BATTLE_MASTER: ClassType.FIGHTER,
@@ -39,6 +38,9 @@ SUBCLASS_MAP = {
     SubclassType.RUNE_KNIGHT: ClassType.FIGHTER,
     SubclassType.BANNERET: ClassType.FIGHTER,
     SubclassType.ECHO_KNIGHT: ClassType.FIGHTER,
+
+    # WIP Sorcerer
+    SubclassType.DRACONIC_BLOODLINE: ClassType.SORCERER,
 
     # Wizard
     SubclassType.ABJURATION: ClassType.WIZARD,
@@ -80,7 +82,7 @@ def validate_subclass_assignment(class_type: ClassType, level: int, subclass: Su
 # TODO Add subclass
 # TODO Add Tools
 # TODO add skill pools => selected skills in character
-# TODO proficiency bonus
+# TODO proficiency bonus => calculated based on global character level
 # TODO SpellSlot object
 class Class:
     """Represents a playable class with optional subclass."""
@@ -91,6 +93,7 @@ class Class:
                  prof_weapons: Optional[List[WeaponType]] = None,
                  prof_saving_throws: Optional[List[AbilityType]] = None,
                  prof_skills: Optional[List[Skill]] = None,
+                 prof_tools: Optional[List[str]] = None,
                 ):
         self.name = name    # Class name
         self.proficiency_armor = prof_armors or []      # Armor proficiencies

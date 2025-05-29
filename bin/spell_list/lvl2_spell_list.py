@@ -4,6 +4,21 @@ from common import ActionCost
 from spell import Spell, SpellSchool, SpellComponent
 
 # === Define spells ===
+lvl2_alter_self = Spell(
+    name="Alter Self",
+    level=2,
+    school=SpellSchool.TRANSMUTATION,
+    action_cost=ActionCost.ACTION,
+    description="You assume a different form. When you cast the spell, choose one of the following options, the effects of which last for the duration of the spell. While the spell lasts, you can end one option as an action to gain the benefits of a different one.\
+        \n- BOLD[Aquatic Adaptation :] You adapt your body to an aquatic environment, sprouting gills, and growing webbing between your fingers. You can breathe underwater and gain a swimming speed equal to your walking speed.\
+        \n- BOLD[Change Appearance :] You transform your appearance. You decide what you look like, including your height, weight, facial features, sound of your voice, hair length, coloration, and distinguishing characteristics, if any. You can make yourself appear as a member of another race, though none of your statistics change. You also don't appear as a creature of a different size than you, and your basic shape stays the same; if you're bipedal, you can't use this spell to become quadrupedal, for instance. At any time for the duration of the spell, you can use your action to change your appearance in this way again.\
+        \n- BOLD[Natural Weapons :] You grow claws, fangs, spines, horns, or a different natural weapon of your choice. Your unarmed strikes deal 1d6 bludgeoning, piercing, or slashing damage, as appropriate to the natural weapon you chose, and you are proficient with your unarmed strikes. Finally, the natural weapon is magic and you have a +1 bonus to the attack and damage rolls you make using it.",
+    duration="Concentration, up to 1 hour",
+    casting_time="1 action",
+    s_range="Self",
+    components=[SpellComponent.V, SpellComponent.S],
+)
+
 lvl2_arcane_lock = Spell(
     name="Arcane Lock",
     level=2,
@@ -77,7 +92,7 @@ lvl2_enthrall = Spell(
     level=2,
     school=SpellSchool.ENCHANTMENT,
     action_cost=ActionCost.ACTION,
-    description="You weave a distracting string of words, causing creatures of your choice that you can see within range and that can hear you to make a Wisdom saving throw. Any creature that can’t be charmed succeeds on this saving throw automatically, and if you or your companions are fighting a creature, it has advantage on the save. On a failed save, the target has disadvantage on Wisdom (Perception) checks made to perceive any creature other than you until the spell ends or until the target can no longer hear you. The spell ends if you are incapacitated or can no longer speak.",
+    description="You weave a distracting string of words, causing creatures of your choice that you can see within range and that can hear you to make a Wisdom saving throw. Any creature that can't be charmed succeeds on this saving throw automatically, and if you or your companions are fighting a creature, it has advantage on the save. On a failed save, the target has disadvantage on Wisdom (Perception) checks made to perceive any creature other than you until the spell ends or until the target can no longer hear you. The spell ends if you are incapacitated or can no longer speak.",
     duration="1 minute",
     casting_time="1 action",
     s_range="60 feet",
@@ -110,6 +125,54 @@ lvl2_invisibility = Spell(
     components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
     material_description=["an eyelash encased in gum arabic"],
 )
+
+lvl2_levitate = Spell(
+    name="Levitate",
+    level=2,
+    school=SpellSchool.TRANSMUTATION,
+    action_cost=ActionCost.ACTION,
+    description="One creature or loose object of your choice that you can see within range rises vertically, up to 20 feet, and remains suspended there for the duration. The spell can levitate a target that weighs up to 500 pounds. An unwilling creature that succeeds on a Constitution saving throw is unaffected.\
+        \nThe target can move only by pushing or pulling against a fixed object or surface within reach (such as a wall or a ceiling), which allows it to move as if it were climbing. You can change the target's altitude by up to 20 feet in either direction on your turn. If you are the target, you can move up or down as part of your move. Otherwise, you can use your action to move the target, which must remain within the spell's range.\
+        \nWhen the spell ends, the target floats gently to the ground if it is still aloft.",
+    duration="Concentration, up to 10 minutes",
+    casting_time="1 action",
+    s_range="60 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["either a small leather loop or a piece of golden wire bent into a cup shape with a long shank on one end"],
+)
+
+lvl2_mirror_image = Spell(
+    name="Mirror Image",
+    level=2,
+    school=SpellSchool.ILLUSION,
+    action_cost=ActionCost.ACTION,
+    description="Three illusory duplicates of yourself appear in your space. Until the spell ends, the duplicates move with you and mimic your actions, shifting position so it's impossible to track which image is real. You can use your action to dismiss the illusory duplicates.\
+        \nEach time a creature targets you with an attack during the spell's duration, roll a d20 to determine whether the attack instead targets one of your duplicates.\
+        \nIf you have three duplicates, you must roll a 6 or higher to change the attack's target to a duplicate. With two duplicates, you must roll an 8 or higher. With one duplicate, you must roll an 11 or higher.\
+        \nA duplicate's AC equals 10 + your Dexterity modifier. If an attack hits a duplicate, the duplicate is destroyed. A duplicate can be destroyed only by an attack that hits it. It ignores all other damage and effects. The spell ends when all three duplicates are destroyed.\
+        \nA creature is unaffected by this spell if it can't see, if it relies on senses other than sight, such as blindsight, or if it can perceive illusions as false, as with truesight.",
+    duration="1 minute",
+    casting_time="1 action",
+    s_range="Self",
+    components=[SpellComponent.V, SpellComponent.S],
+)
+
+lvl2_spider_climb = Spell(
+    name="Spider Climb",
+    level=2,
+    school=SpellSchool.TRANSMUTATION,
+    action_cost=ActionCost.ACTION,
+    description="Until the spell ends, one willing creature you touch gains the ability to move up, down, and across vertical surfaces and upside down along ceilings, while leaving its hands free. The target also gains a climbing speed equal to its walking speed.",
+    duration="Concentration, up to 1 hour",
+    casting_time="1 action",
+    s_range="Touch",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=[
+        "a drop of bitumen",
+        "a spider"
+    ],
+)
+
 lvl2_suggestion = Spell(
     name="Suggestion",
     level=2,
@@ -131,6 +194,7 @@ lvl2_suggestion = Spell(
 
 # === Array of Level 2 spells ===
 lvl2_spells: List[Spell] = [
+    lvl2_alter_self,
     lvl2_arcane_lock,
     lvl2_branding_smite, 
     lvl2_crown_of_madness,
@@ -139,5 +203,8 @@ lvl2_spells: List[Spell] = [
     lvl2_enthrall,
     lvl2_flame_blade,
     lvl2_invisibility,
+    lvl2_levitate,
+    lvl2_mirror_image,
+    lvl2_spider_climb,
     lvl2_suggestion,
 ]
