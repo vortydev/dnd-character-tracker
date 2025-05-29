@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Features</title>
+<title>Features ~ Ethel's Character Tracker</title>
 <script nonce="{{ csp_nonce }}" src="{{root}}/js/features.js"></script>
 {% endblock %}
 
 {% block main %}
-<h1>All Features</h1>
+<h1 class="underline-green underline-thick">Features</h1>
 
 <div class="btnBar mt-3 mb-4">
     <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
@@ -39,6 +39,7 @@
 </details>
 
 <script>
-document.addEventListener("DOMContentLoaded", loadFeaturesFromAPI);
+    var root = "{{root}}";
+    document.addEventListener("DOMContentLoaded", loadFeaturesFromAPI(root));
 </script>
 {% endblock %}

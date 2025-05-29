@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Spells</title>
+<title>Spells ~ Ethel's Character Tracker</title>
 <script nonce="{{ csp_nonce }}" src="{{root}}/js/spells.js"></script>
 {% endblock %}
 
 {% block main %}
-<h1>All Spells</h1>
+<h1 class="underline-purple underline-thick">Spells</h1>
 
 <div class="btnBar mt-3 mb-4">
     <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
@@ -19,6 +19,7 @@
 <div class="tab-content" id="spellTabsContent"></div>
 
 <script>
-document.addEventListener("DOMContentLoaded", loadSpellsFromAPI);
+    var root = "{{root}}";
+    document.addEventListener("DOMContentLoaded", loadSpellsFromAPI(root));
 </script>
 {% endblock %}

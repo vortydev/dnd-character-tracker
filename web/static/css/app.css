@@ -7,7 +7,7 @@
     --primary-color-shadow: #741c1640;
     --grey-color: #888;
     --grey-color-shade: #777;
-    --grey-color: #88888840;
+    --grey-color-shadow: #88888840;
     --dark-grey-color: #414040;
     --dark-grey-color-shade: #303030;
     --dark-grey-color-shadow: #41404040;
@@ -29,6 +29,9 @@
     --orange-color: #b45e2f;
     --orange-color-shade: #8f4b0c;
     --orange-color-shadow: #b45e2f40;
+    --moutarde-color: #d29928;
+    --moutarde-color-shade: #aa7c20;
+    --moutarde-color-shadow: #d2992840;
 }
 
 ::selection {
@@ -59,15 +62,6 @@ html {
     text-transform: lowercase;
 }
 
-.underline {
-    text-decoration: underline;
-}
-
-.underline-primary {
-    text-decoration: underline;
-    text-decoration-color: var(--primary-color);
-}
-
 .unselectable {
     user-select: none;
 }
@@ -79,6 +73,36 @@ hr {
 
 .border-round {
     border-radius: 1rem;
+}
+
+/* Underlines */
+[class^="underline"] { 
+    text-decoration: underline; 
+}
+
+.underline-primary  { text-decoration-color: var(--primary-color); }
+.underline-red      { text-decoration-color: var(--red-color); }
+.underline-purple   { text-decoration-color: var(--purple-color); }
+.underline-blue     { text-decoration-color: var(--blue-color); }
+.underline-green    { text-decoration-color: var(--green-color); }
+.underline-moutarde { text-decoration-color: var(--moutarde-color); }
+.underline-orange   { text-decoration-color: var(--orange-color); }
+.underline-grey     { text-decoration-color: var(--grey-color); }
+
+.underline-thick {
+    text-decoration-thickness: 0.075em;
+}
+
+.underline-thicc {
+    text-decoration-thickness: 0.1em;
+}
+
+.underline-thiccc {
+    text-decoration-thickness: 0.125em;
+}
+
+.underline-hella-thicc {
+    text-decoration-thickness: 0.15em;
 }
 
 /* Text */
@@ -117,6 +141,10 @@ hr {
 
 .text-huge {
     font-size: 2rem;
+}
+
+.text-mega {
+    font-size: 5em;
 }
 
 .text-small {
@@ -207,4 +235,14 @@ details:not([open]) summary::before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1rem; /* space between grid items */
+}
+
+.index-card {
+    display: block;
+    max-width: 600px;
+    min-width: fit-content;
+    padding: 1.5em;
+    border-radius: 1em;
+    background-color: var(--grey-color-shadow);
+    margin-inline: auto;
 }

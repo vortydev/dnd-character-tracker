@@ -233,12 +233,24 @@ details.dnd-feature-section {
     margin-top: 1em;
     width: 100%;
     border-radius: 1em;
-    transition: background-color 0.4s ease-out, padding 0.5s ease-out;
+    transition: 0.4s ease-out, padding 0.5s ease-out;
+}
+
+.dnd-feature.indicator {
+    border-radius: 0;
+    padding-left: 0.2em;
+    border-left: transparent solid;
+    transition: border 0.2s ease-out;
+}
+
+.dnd-feature.indicator:hover {
+    border-left: var(--primary-color) solid;
 }
 
 .dnd-feature.highlighted {
     padding: 0.5em 0.75em;
-    background-color: var(--purple-color-shadow);
+    border-radius: 1em;
+    background-color: var(--green-color-shadow);
 }
 
 .dnd-feature-desc {
@@ -331,7 +343,7 @@ details.dnd-feature-section {
 }
 
 #spellTabs .nav-link:not(.active) {
-    color: var(--blue-color);
+    color: var(--purple-color);
 }
 
 /* Spell Table */
@@ -356,16 +368,16 @@ details.dnd-feature-section {
 }
 
 .spell-row:hover td {
-    background-color: var(--blue-color-shadow);
+    background-color: var(--purple-color-shadow);
 }
 
 .spell-row.open td {
-    background-color: var(--blue-color);
+    background-color: var(--purple-color);
     color: white;
 }
 
 .spell-row.open:hover {
-    background-color: var(--blue-color); /* no hover change */
+    background-color: var(--purple-color); /* no hover change */
 }
 
 .spell-details-row td {
@@ -378,6 +390,5 @@ details.dnd-feature-section {
 }
 
 .spell-row.highlighted td {
-    background-color: var(--purple-color) !important;
-    /* transition: background-color 1s ease; */
+    background-color: var(--blue-color) !important;
 }

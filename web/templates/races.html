@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Races</title>
+<title>Races ~ Ethel's Character Tracker</title>
 <script nonce="{{ csp_nonce }}" src="{{root}}/js/races.js"></script>
 {% endblock %}
 
 {% block main %}
-<h1>All Races</h1>
+<h1 class="underline-moutarde underline-thick">Races</h1>
 
 <div class="btnBar mt-3 mb-4">
     <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
@@ -15,6 +15,7 @@
 <div id="raceContainer"></div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", loadRacesFromAPI);
+    var root = "{{root}}";
+    document.addEventListener("DOMContentLoaded", loadRacesFromAPI(root));
 </script>
 {% endblock %}

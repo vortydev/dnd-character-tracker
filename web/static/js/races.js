@@ -1,5 +1,5 @@
-function loadRacesFromAPI() {
-    fetch("/api/races/get")
+function loadRacesFromAPI(root) {
+    fetch(root+"/api/races/get")
         .then(response => {
             if (!response.ok) throw new Error("Network response was not ok");
             return response.json();

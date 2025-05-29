@@ -1,10 +1,10 @@
-function loadFeaturesFromAPI() {
+function loadFeaturesFromAPI(root) {
     const baseFeatureContainer = document.getElementById("baseFeatureContainer");
     const raceFeatureContainer = document.getElementById("raceFeatureContainer");
     const classFeatureContainer = document.getElementById("classFeatureContainer");
     const subclassFeatureContainer = document.getElementById("subclassFeatureContainer");
 
-    fetch("/api/features/get")
+    fetch(root+"/api/features/get")
         .then(response => {
             if (!response.ok) throw new Error("Network response was not ok");
             return response.json();

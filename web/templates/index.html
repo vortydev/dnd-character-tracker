@@ -6,19 +6,18 @@
 
 {% block main %}
 
-<div class="row mt-4">
-    <div class="col-xl-12 col-md-12">
-        <h1 class="text-center text-bold">Ethel's Character Tracker</h1>
+<section class="index-card mt-4">
+    <h1 class="text-center text-bold">Ethel's Character Tracker</h1>
 
-        <h2 class="text-center mt-3">Resources</h2>
-        <div class="btnBar-c mt-3">
-            <a href="{{root}}/features" class="btn btn-green btn-big">✨ Features</a>
-            <a href="{{root}}/spells" class="btn btn-blue btn-big">🪄 Spells</a>
-            <a href="{{root}}/races" class="btn btn-purple btn-big">🧬 Races</a>
-        </div>
-        
+    <h2 class="text-center mt-3">Resources</h2>
+    <div class="btnBar-c mt-3">
+        <a href="{{root}}/features" class="btn btn-green btn-big">✨ Features</a>
+        <a href="{{root}}/spells" class="btn btn-purple btn-big">🪄 Spells</a>
+        <a href="{{root}}/races" class="btn btn-moutarde btn-big">🧬 Races</a>
+        <a href="{{root}}" class="btn btn-blue btn-big">⛑️ Classes</a>
     </div>
-</div>
+    
+</section>
 
 <script nonce="{{ csp_nonce }}">
     var csrf_token = "{{csrf_token}}";
