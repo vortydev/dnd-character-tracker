@@ -19,6 +19,8 @@ run_step() {
         echo "❌ Error while running $script. Exiting."
         exit 1
     fi
+    echo "===================="
+    echo ""
 }
 
 # Run build steps
@@ -26,6 +28,7 @@ run_step "📘 Building spells..." build_spells.py
 run_step "✨ Building features..." build_features.py
 run_step "🧬 Building races..." build_races.py
 run_step "⚔️  Building class levels..." build_class_levels.py
+run_step "🔨  Building items..." build_items.py
 # run_step "🧠 Building classes..." build_classes.py
 
 # Back to project root and clear pycache
