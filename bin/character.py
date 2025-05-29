@@ -1,7 +1,9 @@
 # character.py
-from typing import Dict
+from typing import Dict, List, Optional
 from ability import Ability, AbilityType
 from race import Race
+from class_base import ClassType
+from character_class import CharacterClass
 
 PROFICIENCY_BY_LEVEL = {
     range(1, 5): 2,
@@ -31,6 +33,16 @@ class Character:
             key: Ability(key, ability_scores.get(key, 10))
             for key in AbilityType
         }
+        self.classes: list[CharacterClass] = []
+
+    def total_level(self) -> int:
+        return sum(c.level for c in self.classes)
+    
+    def get_class_level(self, class_type: ClassType) -> int:
+        for c in self.classes:
+            if c.class_type == class_type:
+                return c.level
+        return 0
 
     def to_dict(self):
         return {

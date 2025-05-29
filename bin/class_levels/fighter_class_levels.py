@@ -1,5 +1,5 @@
 # class_levels/fighter_class_levels.py
-from class_ import ClassType
+from class_base import ClassType
 from class_level import ClassLevel
 from feature import FeatureType
 from feature_registry import FeatureRegistry

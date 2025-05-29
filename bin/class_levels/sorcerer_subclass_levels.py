@@ -1,5 +1,5 @@
 # class_levels/sorcerer_subclass_levels.py
-from class_ import ClassType
+from class_base import ClassType
 from subclass_ import SubclassType
 from class_level import ClassLevelSorcerer
 from feature import FeatureType

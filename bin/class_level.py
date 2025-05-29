@@ -1,7 +1,7 @@
 # class_level.py
 from enum import Enum
 from typing import Optional, Dict, List
-from class_ import ClassType, SubclassType
+from class_base import ClassType, SubclassType
 from class_feature import ClassFeature
 from feature_registry import FeatureRegistry
 from feature_types import FeatureType

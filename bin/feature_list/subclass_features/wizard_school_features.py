@@ -1,5 +1,5 @@
 # feature_list/subclass_features/wizard_school_features.py
-from class_ import ClassType
+from class_base import ClassType
 from subclass_ import SubclassType
 from class_feature import SubclassFeature
 

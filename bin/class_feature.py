@@ -1,6 +1,6 @@
 # class_feature.py
 from typing import List, Optional
-from class_ import ClassType
+from class_base import ClassType
 from subclass_ import SubclassType
 from feature import Feature
 from feature_types import FeatureType

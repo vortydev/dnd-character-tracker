@@ -1,7 +1,7 @@
 # class_level_registry.py
 from typing import Dict
 from class_level import ClassLevel
-from class_ import ClassType
+from class_base import ClassType
 
 # WIP A way to get the class level
 class ClassLevelRegistry:

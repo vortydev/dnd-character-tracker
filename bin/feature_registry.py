@@ -5,7 +5,7 @@ from feature_types import FeatureType
 from race_feature import RaceFeature
 from race_types import RaceType
 from class_feature import ClassFeature, SubclassFeature
-from class_ import ClassType, SubclassType
+from class_base import ClassType, SubclassType
 
 class FeatureRegistry:
     _feats: Dict[Tuple[str, str, Optional[Union[RaceType, ClassType, SubclassType]]], Feature] = {}

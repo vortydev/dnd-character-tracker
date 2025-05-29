@@ -1,5 +1,5 @@
 # feature_list/subclass_features/sorcerer_origin_features.py
-from class_ import ClassType
+from class_base import ClassType
 from subclass_ import SubclassType
 from class_feature import SubclassFeature
 

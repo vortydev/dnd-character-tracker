@@ -1,5 +1,5 @@
 # feature_list/subclass_features/fighter_martial_archetype_features.py
-from class_ import ClassType
+from class_base import ClassType
 from subclass_ import SubclassType
 from class_feature import SubclassFeature
 

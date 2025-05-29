@@ -1,5 +1,5 @@
 # feature_list/class_features/fighter_features.py
-from class_ import ClassType
+from class_base import ClassType
 from class_feature import ClassFeature
 
 # === Fighting Style ===

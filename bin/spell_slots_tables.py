@@ -1,5 +1,5 @@
 # spell_slots_tables.py
-from class_ import ClassType
+from class_base import ClassType
 
 # ===== Spell Slots Tables =====
 WIZARD_SPELL_SLOTS_TABLE = {

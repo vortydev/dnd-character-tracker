@@ -55,10 +55,8 @@ for armor, armor_type in ARMOR_TYPE_MAP.items():
 
 # ===== Weapons =====
 class WeaponType(Enum):
-    SIMPLE_MELEE = "Simple Melee"
-    SIMPLE_RANGED = "Simple Ranged"
-    MARTIAL_MELEE = "Martial Melee"
-    MARTIAL_RANGED = "Martial Ranged"
+    SIMPLE = "Simple"
+    MARTIAL = "Martial"
 
 class WeaponName(Enum):
     # Simple Melee
@@ -109,49 +107,49 @@ class WeaponName(Enum):
 
 WEAPON_TYPE_MAP = {
     # Simple Melee
-    WeaponName.CLUB: WeaponType.SIMPLE_MELEE,
-    WeaponName.DAGGER: WeaponType.SIMPLE_MELEE,
-    WeaponName.GREATCLUB: WeaponType.SIMPLE_MELEE,
-    WeaponName.HANDAXE: WeaponType.SIMPLE_MELEE,
-    WeaponName.JAVELIN: WeaponType.SIMPLE_MELEE,
-    WeaponName.LIGHT_HAMMER: WeaponType.SIMPLE_MELEE,
-    WeaponName.MACE: WeaponType.SIMPLE_MELEE,
-    WeaponName.QUARTERSTAFF: WeaponType.SIMPLE_MELEE,
-    WeaponName.SICKLE: WeaponType.SIMPLE_MELEE,
-    WeaponName.SPEAR: WeaponType.SIMPLE_MELEE,
+    WeaponName.CLUB: WeaponType.SIMPLE,
+    WeaponName.DAGGER: WeaponType.SIMPLE,
+    WeaponName.GREATCLUB: WeaponType.SIMPLE,
+    WeaponName.HANDAXE: WeaponType.SIMPLE,
+    WeaponName.JAVELIN: WeaponType.SIMPLE,
+    WeaponName.LIGHT_HAMMER: WeaponType.SIMPLE,
+    WeaponName.MACE: WeaponType.SIMPLE,
+    WeaponName.QUARTERSTAFF: WeaponType.SIMPLE,
+    WeaponName.SICKLE: WeaponType.SIMPLE,
+    WeaponName.SPEAR: WeaponType.SIMPLE,
 
     # Simple Ranged
-    WeaponName.LIGHT_CROSSBOW: WeaponType.SIMPLE_RANGED,
-    WeaponName.DART: WeaponType.SIMPLE_RANGED,
-    WeaponName.SHORTBOW: WeaponType.SIMPLE_RANGED,
-    WeaponName.SLING: WeaponType.SIMPLE_RANGED,
+    WeaponName.LIGHT_CROSSBOW: WeaponType.SIMPLE,
+    WeaponName.DART: WeaponType.SIMPLE,
+    WeaponName.SHORTBOW: WeaponType.SIMPLE,
+    WeaponName.SLING: WeaponType.SIMPLE,
 
     # Martial Melee
-    WeaponName.BATTLEAXE: WeaponType.MARTIAL_MELEE,
-    WeaponName.FLAIL: WeaponType.MARTIAL_MELEE,
-    WeaponName.GLAIVE: WeaponType.MARTIAL_MELEE,
-    WeaponName.GREATAXE: WeaponType.MARTIAL_MELEE,
-    WeaponName.GREATSWORD: WeaponType.MARTIAL_MELEE,
-    WeaponName.HALBERD: WeaponType.MARTIAL_MELEE,
-    WeaponName.LANCE: WeaponType.MARTIAL_MELEE,
-    WeaponName.LONGSWORD: WeaponType.MARTIAL_MELEE,
-    WeaponName.MAUL: WeaponType.MARTIAL_MELEE,
-    WeaponName.MORNINGSTAR: WeaponType.MARTIAL_MELEE,
-    WeaponName.PIKE: WeaponType.MARTIAL_MELEE,
-    WeaponName.RAPIER: WeaponType.MARTIAL_MELEE,
-    WeaponName.SCIMITAR: WeaponType.MARTIAL_MELEE,
-    WeaponName.SHORTSWORD: WeaponType.MARTIAL_MELEE,
-    WeaponName.TRIDENT: WeaponType.MARTIAL_MELEE,
-    WeaponName.WAR_PICK: WeaponType.MARTIAL_MELEE,
-    WeaponName.WARHAMMER: WeaponType.MARTIAL_MELEE,
-    WeaponName.WHIP: WeaponType.MARTIAL_MELEE,
+    WeaponName.BATTLEAXE: WeaponType.MARTIAL,
+    WeaponName.FLAIL: WeaponType.MARTIAL,
+    WeaponName.GLAIVE: WeaponType.MARTIAL,
+    WeaponName.GREATAXE: WeaponType.MARTIAL,
+    WeaponName.GREATSWORD: WeaponType.MARTIAL,
+    WeaponName.HALBERD: WeaponType.MARTIAL,
+    WeaponName.LANCE: WeaponType.MARTIAL,
+    WeaponName.LONGSWORD: WeaponType.MARTIAL,
+    WeaponName.MAUL: WeaponType.MARTIAL,
+    WeaponName.MORNINGSTAR: WeaponType.MARTIAL,
+    WeaponName.PIKE: WeaponType.MARTIAL,
+    WeaponName.RAPIER: WeaponType.MARTIAL,
+    WeaponName.SCIMITAR: WeaponType.MARTIAL,
+    WeaponName.SHORTSWORD: WeaponType.MARTIAL,
+    WeaponName.TRIDENT: WeaponType.MARTIAL,
+    WeaponName.WAR_PICK: WeaponType.MARTIAL,
+    WeaponName.WARHAMMER: WeaponType.MARTIAL,
+    WeaponName.WHIP: WeaponType.MARTIAL,
 
     # Martial Ranged
-    WeaponName.BLOWGUN: WeaponType.MARTIAL_RANGED,
-    WeaponName.HAND_CROSSBOW: WeaponType.MARTIAL_RANGED,
-    WeaponName.HEAVY_CROSSBOW: WeaponType.MARTIAL_RANGED,
-    WeaponName.LONGBOW: WeaponType.MARTIAL_RANGED,
-    WeaponName.NET: WeaponType.MARTIAL_RANGED,
+    WeaponName.BLOWGUN: WeaponType.MARTIAL,
+    WeaponName.HAND_CROSSBOW: WeaponType.MARTIAL,
+    WeaponName.HEAVY_CROSSBOW: WeaponType.MARTIAL,
+    WeaponName.LONGBOW: WeaponType.MARTIAL,
+    WeaponName.NET: WeaponType.MARTIAL,
 }
 
 WEAPONS_BY_TYPE = defaultdict(list)

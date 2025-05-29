@@ -1,5 +1,5 @@
 # class_levels/wizard_class_levels.py
-from class_ import ClassType
+from class_base import ClassType
 from class_level import ClassLevelSpellcaster
 from feature import FeatureType
 from feature_registry import FeatureRegistry
