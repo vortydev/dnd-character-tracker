@@ -1,18 +1,28 @@
 # character_class.py
 from typing import Optional, List, Dict
-from class_base import ClassType, Class
+from class_base import ClassType, Class, validate_subclass_assignment
 from class_registry import ClassRegistry
+from subclass_ import SubclassType
 from ability import Skill
 
 
 class CharacterClass:
-    def __init__(self, class_type: ClassType, level: int):
+    def __init__(self, class_type: ClassType, level: int, subclass: Optional[SubclassType] = None):
         self.class_type = class_type
         self.level = level
         self._base_class: Optional[Class] = None  # Lazy-loaded reference
 
+        self.subclass: Optional[SubclassType] = None
+        if subclass:
+            validate_subclass_assignment(class_type, level, subclass)
+            self.subclass = subclass
+
         # Optional character-specific data (extend later)
         self.chosen_skills: List[Skill] = []  # Filled after creation
+
+    def set_subclass(self, subclass: SubclassType):
+        validate_subclass_assignment(self.class_type, self.level, subclass)
+        self.subclass = subclass
     
     def get_class_name(self):
         return self.class_type.value
@@ -27,6 +37,7 @@ class CharacterClass:
         return {
             "class_type": self.class_type.value,
             "level": self.level,
+            "subclass": self.subclass.value if self.subclass else None,
             "chosen_skills": [skill for skill in self.chosen_skills],
         }
 
@@ -34,6 +45,7 @@ class CharacterClass:
     def from_dict(data: Dict[str]) -> "CharacterClass":
         cc = CharacterClass(
             class_type=ClassType(data["class_type"]),
+            subclass=SubclassType[data["subclass"]] if data.get("subclass") else None,
             level=data["level"]
         )
         # Assuming Skill is an Enum or has a from_name method

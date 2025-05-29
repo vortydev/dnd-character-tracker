@@ -9,6 +9,7 @@ The system is fully modular with a OOP approach.
 ### Requirements
 - Python installed on your system (minimum v3.10)
 - Bash
+- Docker
 
 ### Building necessary files
 The first step is to build the JSON files containing the data needed by the various Registry objects.
@@ -18,9 +19,7 @@ Simply execute the following script :
 bash tools/build_all.sh
 ```
 
-Once that's done, enter the `./bin` folder, and you can run the Tracker program :
-```python
-python tracker.py
+Once that's done, you can start the program by entering the following command:
+```bash
+docker compose up -d --build
 ```
-
-## Feature List
