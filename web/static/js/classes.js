@@ -171,7 +171,7 @@ function renderClassData(classData) {
     <details id="${cName.toLowerCase()}Features" class="mt-3" open>
         <summary><h3 class="section-title-black">Class Features</h3></summary>
         <section class="class-features">
-            <p class="dnd-feature-desc">As a ${cName.toLowerCase()}, you gain the following features.</p>
+            <p class="dnd-feature-desc mt-2">As a ${cName.toLowerCase()}, you gain the following features.</p>
             <div class="grid-auto mt-3">
                 ${hpBlock}
                 ${profBlock}
@@ -183,6 +183,7 @@ function renderClassData(classData) {
     const baseLevels = classData.levels?.Base || {};
     const levelFeatureBlocks = renderLevelBlocks(baseLevels, cName);
     const classLevelSection = `
+    <hr>
     <details id="${cName.toLowerCase()}Levels" open>
         <summary><h3 class="section-title-black">Class Levels</h3></summary>
         <section class="class-levels grid-auto mt-3">
@@ -190,6 +191,26 @@ function renderClassData(classData) {
         </section>
     </details>
     `;
+
+    let subclassBlocks = "";
+    for (const subclassKey in classData.levels) {
+        if (subclassKey === "Base") continue;
+
+        const subclassLevels = classData.levels[subclassKey];
+        const subclassName = subclassKey;
+
+        const rendered = renderLevelBlocks(subclassLevels, cName, true, true);
+        if (!rendered) continue;
+
+        subclassBlocks += `
+        <hr>
+        <details id="${cName.toLowerCase()}-${subclassName.toLowerCase()}Levels">
+            <summary><h3 class="section-title-black">${subclassName} Levels</h3></summary>
+            <section class="class-subclass-levels grid-auto mt-3">
+                ${rendered}
+            </section>
+        </details>`;
+    }
     
     const classBlock = `
     <details id="${cName.toLowerCase()}" class="dnd-feature-section" open>
@@ -197,25 +218,30 @@ function renderClassData(classData) {
         ${classData.info.description ? `<i class="dnd-feature-desc text-bold mt-2">${classData.info.description}</i>` : ""}
         ${classData.info.requisite ? `<i class="dnd-feature-desc mt-2">${classData.info.requisite}</i>` : ""}
         ${classFeatures}
-        <hr>
         ${classLevelSection}
+        ${subclassBlocks}
     </details>
     `;
 
     return applyTextFormatting(classBlock);
 }
 
-function renderLevelBlocks(levels, cName, sublass=false) {
+function renderLevelBlocks(levels, cName, subclass = false, skipEmpty = false) {
     const levelBlocks = [];
 
-    for (let lvl = 1; lvl <= 20; lvl++) {
+    const maxLevel = 20;
+    const levelsToRender = skipEmpty
+        ? Object.keys(levels).map(Number).sort((a, b) => a - b)
+        : Array.from({ length: maxLevel }, (_, i) => i + 1);
+
+    for (const lvl of levelsToRender) {
         const entry = levels[lvl];
 
         let featuresPart = "";
         let spellsPart = "";
 
-        // === Features
-        if (entry && entry.features?.length) {
+        // Features
+        if (entry?.features?.length) {
             const featureList = entry.features.map(f => {
                 const url = `/features?type=class&class=${cName}&name=${formatObjectNameForURL(f)}`;
                 return `<li><a href="${url}">${f}</a></li>`;
@@ -225,46 +251,39 @@ function renderLevelBlocks(levels, cName, sublass=false) {
             <div class="dnd-feature">
                 <h5 class="dnd-feature-name">Features</h5>
                 <ul class="dnd-feature-list">${featureList}</ul>
-            </div>
-            `;
+            </div>`;
         }
 
-        // === Spells
+        // Spells
         if (entry && (entry.known_cantrips > 0 || entry.known_spells > 0)) {
             const spellList = [];
 
             if (entry.known_cantrips > 0) {
-                spellList.push(`<li>Cantrips Known : ${entry.known_cantrips}</li>`);
+                spellList.push(`<li>Cantrips known : ${entry.known_cantrips}</li>`);
             }
             if (entry.known_spells > 0) {
-                spellList.push(`<li>Spells Known : ${entry.known_spells}</li>`);
+                spellList.push(`<li>Spells known : ${entry.known_spells}</li>`);
             }
 
             spellsPart = `
             <div class="dnd-feature">
                 <h5 class="dnd-feature-name">Spellcasting</h5>
                 <ul class="dnd-feature-list">${spellList.join("")}</ul>
-            </div>
-            `;
+            </div>`;
         }
 
-        const seperator = featuresPart && spellsPart ? '<hr class="mt-0 mb-0">' : ''
+        const separator = featuresPart && spellsPart ? '<hr class="mt-3 mb-3">' : '';
+        const content = featuresPart || spellsPart
+            ? `${featuresPart}${separator}${spellsPart}`
+            : (skipEmpty ? "" : `<p class="dnd-feature-desc text-center text-color-grey"><em>No new features or spells at this level.</em></p>`);
 
-        // === If no data, insert fallback
-        const content = (featuresPart || spellsPart)
-            ? `${featuresPart}${seperator}${spellsPart}`
-            : `<p class="dnd-feature-desc text-center text-grey-color"><em>No new features or spells at this level.</em></p>`;
+        if (skipEmpty && !content) continue;
 
-
-        // === Final block ===
         const levelBlock = `
         <div class="dnd-subfeatures level-block">
-            <h4 class="section-title feature-context underline-dark-grey mb-3">Level ${lvl}</h4>
-            <div class="grid-auto">
-                ${content}
-            </div>
-        </div>
-        `;
+            <h4 class="section-title feature-context text-center text-bold mb-2">Level ${lvl}</h4>
+            <div>${content}</div>
+        </div>`;
 
         levelBlocks.push(levelBlock);
     }
