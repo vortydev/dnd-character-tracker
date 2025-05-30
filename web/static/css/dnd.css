@@ -258,7 +258,8 @@ details.dnd-feature-section {
     margin-bottom: 0;
 }
 
-.grid-auto .dnd-feature {
+.grid-auto .dnd-feature,
+.grid-auto .dnd-subfeatures {
     margin-top: 0 !important;
 }
 

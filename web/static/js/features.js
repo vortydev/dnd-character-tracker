@@ -63,9 +63,11 @@ function renderFeatureList(container, list, delayMs = 0) {
 
 function openFeatureURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    const featName = urlParams.get("name");
     const featType = urlParams.get("type");
-
+    const featClass = urlParams.get("class")
+    const featName = urlParams.get("name");
+    
+    // TODO Add logic for feat type and class
     if (!featName) return;
 
     const highlightDelay = 250;

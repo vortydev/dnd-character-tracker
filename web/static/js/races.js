@@ -7,8 +7,6 @@ function loadRacesFromAPI(root) {
         .then(data => {
             let raceList = data.race_list;
             let spellsRef = data.spells_ref;
-            console.log(spellsRef);
-            
             prepareAndRenderRaces(raceList, spellsRef);
         })
         .catch(error => {
@@ -17,9 +15,7 @@ function loadRacesFromAPI(root) {
         });
 }
 
-function prepareAndRenderRaces(raceList, spellsRef) {
-    console.log("Race list:", raceList);
-    
+function prepareAndRenderRaces(raceList, spellsRef) {    
     const container = document.getElementById("raceContainer");
     if (!container) return;
 
@@ -126,7 +122,6 @@ function renderRaceCard(race, spellsRef) {
 
 function renderSubraceCard(race, spellsRef) {    
     const sub = race.subrace;
-    // console.log("Subrace:", sub);
 
     const asi = Object.entries(sub?.ability_score_increase || {})
         .map(([k, v]) => `${k.toUpperCase()} +${v}`)

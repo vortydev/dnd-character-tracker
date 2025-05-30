@@ -1,22 +1,22 @@
 # class_level_registry.py
-from typing import Dict
+from typing import Dict, Optional, Tuple
 from class_level import ClassLevel
 from class_base import ClassType
+from subclass_ import SubclassType
 
-# WIP A way to get the class level
 class ClassLevelRegistry:
-    _class_levels: Dict[tuple[ClassType, int], ClassLevel] = {}
+    _class_levels: Dict[Tuple[ClassType, int, Optional[SubclassType]], ClassLevel] = {}
 
     @classmethod
     def register(cls, cl: ClassLevel):
-        cls._class_levels[(cl.class_type, cl.level)] = cl
+        cls._class_levels[(cl.class_type, cl.level, cl.subclass)] = cl
 
     @classmethod
-    def get(cls, ct: ClassType, lvl: int) -> ClassLevel:
-        return cls._class_levels[(ct, lvl)]
+    def get(cls, ct: ClassType, lvl: int, subclass: Optional[SubclassType] = None) -> ClassLevel:
+        return cls._class_levels[(ct, lvl, subclass)]
 
     @classmethod
-    def all(cls) -> Dict[tuple[ClassType, int], ClassLevel]:
+    def all(cls) -> Dict[Tuple[ClassType, int, Optional[SubclassType]], ClassLevel]:
         return cls._class_levels
 
     @classmethod

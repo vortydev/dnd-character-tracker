@@ -13,12 +13,15 @@ def load_class_list() -> list[Class]:
 
     # === Fighter ===
     from class_list.fighter import get_fighter_class
-    fighter = get_fighter_class()
-    classes.append(fighter)
+    classes.append(get_fighter_class())
 
-    # === Add more classes here as needed ===
-    # from class_list.wizard import get_wizard_class
-    # classes.append(get_wizard_class())
+    from class_list.sorcerer import get_sorcerer_class
+    classes.append(get_sorcerer_class())
+
+    from class_list.wizard import get_wizard_class
+    classes.append(get_wizard_class())
+
+    # === TODO Add other classes ===
 
     return classes
 
@@ -29,7 +32,7 @@ def save_class_list(classes: list[Class]):
         ClassRegistry.register(cls)
 
     save_classes_to_file(classes)
-    print(f"✅ {len(classes)} classes saved to classes.json")
+    print(f"✅ {len(classes)} classes saved to 'classes.json'")
 
 
 def build_class_list():

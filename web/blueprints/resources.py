@@ -9,6 +9,17 @@ from bin.spell import Spell
 resources_bp = Blueprint('resources_bp', __name__)
 root = ROOT
 
+
+# ===== Helper Functions =====
+def build_spells_ref(spells_ref: dict[int, list[str]], spells: dict[int, list[Spell]]):
+    for _, spell_list in spells.items():
+        for s in spell_list:
+            if s.level not in spells_ref.keys():
+                spells_ref.update({s.level: []})
+            if s.name not in spells_ref[s.level]:
+                spells_ref[s.level].append(s.name)
+
+
 # ===== Features =====
 @resources_bp.route(root+'/features', methods=['GET'])
 def page_features():
@@ -81,15 +92,6 @@ def api_get_races():
     return jsonify({"race_list": race_list, "spells_ref": spells_ref})
 
 
-def build_spells_ref(spells_ref: dict[int, list[str]], spells: dict[int, list[Spell]]):
-    for _, spell_list in spells.items():
-        for s in spell_list:
-            if s.level not in spells_ref.keys():
-                spells_ref.update({s.level: []})
-            if s.name not in spells_ref[s.level]:
-                spells_ref[s.level].append(s.name)
-
-
 # ===== Classes =====
 @resources_bp.route(root+'/classes', methods=['GET'])
 def page_classes():
@@ -105,7 +107,7 @@ def api_get_classes():
         class_list.append(c.to_dict())
 
     # === Fetch all class/subclass levels ===
-    for (_, _), cl in ClassLevelRegistry.all().items():
+    for (_, _, _), cl in ClassLevelRegistry.all().items():
         level_list.append(cl.to_dict())
 
     return jsonify({
