@@ -6,6 +6,7 @@ from flask import Flask
 from config import VERSION
 from blueprints.main import main_bp
 from blueprints.resources import resources_bp
+from blueprints.characters import characters_bp
 
 # Add the parent folder (char_tracker/) to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -20,6 +21,7 @@ init_registries()
 # Register blueprints
 app.register_blueprint(main_bp)
 app.register_blueprint(resources_bp)
+app.register_blueprint(characters_bp)
 
 
 @app.context_processor

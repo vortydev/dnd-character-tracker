@@ -1,5 +1,5 @@
 # character_class.py
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Any
 from class_base import ClassType, Class, validate_subclass_assignment
 from class_registry import ClassRegistry
 from subclass_ import SubclassType
@@ -33,21 +33,27 @@ class CharacterClass:
             self._base_class = ClassRegistry.get(self.class_type)
         return self._base_class
     
-    def to_dict(self) -> Dict[str]:
+    def to_dict(self) -> Dict[str, Any]:
         return {
             "class_type": self.class_type.value,
             "level": self.level,
             "subclass": self.subclass.value if self.subclass else None,
-            "chosen_skills": [skill for skill in self.chosen_skills],
+            "chosen_skills": [s.name for s in self.chosen_skills],
         }
 
     @staticmethod
-    def from_dict(data: Dict[str]) -> "CharacterClass":
-        cc = CharacterClass(
-            class_type=ClassType(data["class_type"]),
-            subclass=SubclassType[data["subclass"]] if data.get("subclass") else None,
-            level=data["level"]
-        )
-        # Assuming Skill is an Enum or has a from_name method
+    def from_dict(data: Dict[str, Any], registries: Dict[str, Any] = None) -> "CharacterClass":
+        registries = registries or {}
+
+        # Use the provided registry if available
+        class_registry: ClassRegistry = registries.get("classes", ClassRegistry)
+
+        class_type = ClassType(data["class_type"])
+        subclass = SubclassType[data["subclass"]] if data.get("subclass") else None
+        level = data["level"]
+
+        cc = CharacterClass(class_type=class_type, level=level, subclass=subclass)
+        cc._base_class = class_registry.get(class_type)
+
         cc.chosen_skills = [Skill[s] for s in data.get("chosen_skills", [])]
         return cc
