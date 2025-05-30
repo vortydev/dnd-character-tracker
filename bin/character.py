@@ -32,7 +32,8 @@ class Character:
     def __init__(self, name: str):
         self.name = name
         self.classes: List[CharacterClass] = []
-        self.race: Race = None
+        self._race: Optional[Race] = None
+        self.subrace_name: Optional[str] = None
         self.abilities: Dict[AbilityType, Ability] = {}
         self.proficient_skills: set[Skill] = set()
 
@@ -124,6 +125,13 @@ class Character:
         self.race_type = race_type
         self._race = RaceRegistry.get(race_type)
 
+    def set_race_and_subrace(self, race_type: RaceType, subrace_name: Optional[str] = None):
+        self.race_type = race_type
+        self.subrace_name = subrace_name
+        self._race = RaceRegistry.get(race_type, subrace_name)
+
+
+    # === Class ===
     def add_class(self, char_class: CharacterClass):
         self.classes.append(char_class)
 
@@ -216,6 +224,7 @@ class Character:
         return {
             "name": self.name,
             "race_type": self.race_type.value if self.race_type else None,
+            "subrace_name": self.subrace_name,
             "classes": [cc.to_dict() for cc in self.classes],
             "abilities": {ab_type.value: ab.score for ab_type, ab in self.abilities.items()},
             "proficient_skills": [s.value for s in self.proficient_skills],
@@ -223,11 +232,14 @@ class Character:
 
     @staticmethod
     def from_dict(data: Dict[str, Any], registries: Dict[str, Any] = None) -> "Character":
+        registries = registries or {}
         char = Character(data["name"])
+
         if data.get("race_type"):
             from race_types import RaceType
             char.race_type = RaceType[data["race_type"]]
-            char._race = RaceRegistry.get(char.race_type)
+            subrace_name = data.get("subrace_name")
+            char.set_race_and_subrace(char.race_type, subrace_name)
 
         char.classes = [CharacterClass.from_dict(c, registries) for c in data["classes"]]
 

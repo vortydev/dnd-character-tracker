@@ -91,6 +91,22 @@ def api_get_races():
 
     return jsonify({"race_list": race_list, "spells_ref": spells_ref})
 
+@resources_bp.route(root + '/api/races/summary', methods=['GET'])
+def api_get_race_summaries():
+    """
+    Return a simplified list of race names and their subraces.
+    """
+    summaries = []
+
+    for _, race in RaceRegistry.all().items():
+        summaries.append({
+            "name": race.name.value,
+            "subraces": [race.subrace.name] if race.subrace else []
+        })
+
+    return jsonify({"races": summaries})
+
+
 
 # ===== Classes =====
 @resources_bp.route(root+'/classes', methods=['GET'])
