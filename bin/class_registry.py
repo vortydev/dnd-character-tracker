@@ -1,10 +1,6 @@
 # class_registry.py
-
 from typing import Dict
 from class_base import Class, ClassType
-from ability import AbilityType, Skill
-from items.tool_item import ToolItem
-from equipment import ArmorType, WeaponType
 
 class ClassRegistry:
     _registry: Dict[ClassType, Class] = {}

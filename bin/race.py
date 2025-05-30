@@ -159,7 +159,7 @@ class Race:
         }
 
     @staticmethod
-    def from_dict(data: dict, registries: dict[str]=None):
+    def from_dict(data: dict, registries: dict[str] = None):
         """
         Deserialize a Race object from a saved dictionary.
         Args:

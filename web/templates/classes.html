@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Classes ~ Ethel's Character Tracker</title>
+<script nonce="{{ csp_nonce }}" src="{{root}}/js/classes.js"></script>
+{% endblock %}
+
+{% block main %}
+<h1 class="underline-blue underline-thick">Classes</h1>
+
+<div class="btnBar mt-3 mb-4">
+    <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
+</div>
+
+<div id="classContainer"></div>
+
+<script>
+    var root = "{{root}}";
+    document.addEventListener("DOMContentLoaded", loadClassesFromAPI(root));
+</script>
+{% endblock %}

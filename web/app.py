@@ -32,7 +32,7 @@ def inject_app_context():
 
 
 if __name__ == '__main__':
-    print(app.url_map) # DEBUG
+    # print(app.url_map) # DEBUG
 
     with app.app_context():
         # Start Flask app

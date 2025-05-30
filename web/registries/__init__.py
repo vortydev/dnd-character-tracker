@@ -11,6 +11,8 @@ from bin.race_io import load_races_from_file
 from bin.class_level_registry import ClassLevelRegistry
 from bin.class_level_io import load_class_levels_from_file
 
+from bin.class_registry import ClassRegistry
+
 
 def init_registries():
     """Initialize and load all registries."""
@@ -27,8 +29,11 @@ def init_registries():
     RaceRegistry.load_bulk(races)
 
     # === ClassLevelRegistry ===
-    # cl = load_class_levels_from_file()
-    # ClassLevelRegistry.load_bulk(cl)
+    cl = load_class_levels_from_file(registries={"features": FeatureRegistry, "spells": SpellRegistry})
+    ClassLevelRegistry.load_bulk(cl)
+
+    # === ClassRegistry ===
+    ClassRegistry.register_defaults()
 
 
 # Re-export for consistency across the app
@@ -37,4 +42,5 @@ __all__ = [
     "SpellRegistry",
     "RaceRegistry",
     "ClassLevelRegistry",
+    "ClassRegistry",
 ]

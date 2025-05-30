@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, jsonify
 
 from config import ROOT
 
-from registries import FeatureRegistry, SpellRegistry, RaceRegistry
+from registries import FeatureRegistry, SpellRegistry, RaceRegistry, ClassLevelRegistry, ClassRegistry
 from bin.feature_types import FeatureType
 from bin.spell import Spell
 
@@ -73,8 +73,6 @@ def api_get_races():
 
     # Load the list of races
     for _, race in RaceRegistry.all().items():
-        print("Race:", race)
-        print("Feats:", race.feats)
         race_list.append(race.to_dict())
         build_spells_ref(spells_ref, race.spells)
         if race.subrace:
@@ -90,3 +88,27 @@ def build_spells_ref(spells_ref: dict[int, list[str]], spells: dict[int, list[Sp
                 spells_ref.update({s.level: []})
             if s.name not in spells_ref[s.level]:
                 spells_ref[s.level].append(s.name)
+
+
+# ===== Classes =====
+@resources_bp.route(root+'/classes', methods=['GET'])
+def page_classes():
+    return render_template('classes.html', root=root)
+
+@resources_bp.route(root+'/api/classes/get', methods=['GET'])
+def api_get_classes():
+    class_list: list[dict] = []
+    level_list: list[dict] = []
+
+    # === Fetch base class definitions ===
+    for _, c in ClassRegistry.all().items():
+        class_list.append(c.to_dict())
+
+    # === Fetch all class/subclass levels ===
+    for (_, _), cl in ClassLevelRegistry.all().items():
+        level_list.append(cl.to_dict())
+
+    return jsonify({
+        "class_list": class_list,
+        "level_list": level_list
+    })

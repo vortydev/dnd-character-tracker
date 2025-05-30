@@ -36,10 +36,14 @@ class ClassLevel():
         }
     
     @staticmethod
-    def from_dict(data: dict) -> "ClassLevel":
+    def from_dict(data: dict, registries: dict[str] = None) -> "ClassLevel":
         class_type = ClassType(data["class_type"])
         subclass_val = data.get("subclass", None)
-        features = [FeatureRegistry.get(name, FeatureType.SUBCLASS if subclass_val else FeatureType.CLASS, class_type) for name in data.get("features", [])]
+
+        registries = registries or {}
+        feature_registry: FeatureRegistry = registries.get("features", FeatureRegistry)
+
+        features = [feature_registry.get(name, FeatureType.SUBCLASS if subclass_val else FeatureType.CLASS, class_type) for name in data.get("features", [])]
         return ClassLevel(
             lvl=data["level"],
             class_type=class_type,
@@ -69,8 +73,8 @@ class ClassLevelSpellcaster(ClassLevel):
         return data
     
     @staticmethod
-    def from_dict(data: dict) -> "ClassLevelSpellcaster":
-        base = ClassLevel.from_dict(data)
+    def from_dict(data: dict, registries: dict[str] = None) -> "ClassLevelSpellcaster":
+        base = ClassLevel.from_dict(data, registries)
         return ClassLevelSpellcaster(
             lvl=base.level,
             class_type=ClassType(base.class_type.value),
@@ -102,8 +106,8 @@ class ClassLevelSorcerer(ClassLevelSpellcaster):
         return data
     
     @staticmethod
-    def from_dict(data: dict) -> "ClassLevelSorcerer":
-        base = ClassLevelSpellcaster.from_dict(data)
+    def from_dict(data: dict, registries: dict[str] = None) -> "ClassLevelSorcerer":
+        base = ClassLevelSpellcaster.from_dict(data, registries)
         return ClassLevelSorcerer(
             lvl=base.level,
             class_type=ClassType(base.class_type.value),

@@ -13,7 +13,7 @@ def save_races_to_file(races: list[Race], path: str = DEFAULT_PATH):
     with open(path, "w", encoding="utf-8") as f:
         json.dump([race.to_dict() for race in races], f, indent=2)
 
-def load_races_from_file(path: str = DEFAULT_PATH, registries: dict[str]=None) -> list[Race]:
+def load_races_from_file(path: str = DEFAULT_PATH, registries: dict[str] = None) -> list[Race]:
     """Load a list of Race objects from a JSON file."""
     try:
         with open(path, "r", encoding="utf-8") as f:
