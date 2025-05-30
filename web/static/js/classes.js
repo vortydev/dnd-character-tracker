@@ -169,7 +169,7 @@ function renderClassData(classData) {
 
     const classFeatures = `
     <details id="${cName.toLowerCase()}Features" class="mt-3" open>
-        <summary><h3 class="">Class Features</h3></summary>
+        <summary><h3 class="section-title-black">Class Features</h3></summary>
         <section class="class-features">
             <p class="dnd-feature-desc">As a ${cName.toLowerCase()}, you gain the following features.</p>
             <div class="grid-auto mt-3">
@@ -184,8 +184,8 @@ function renderClassData(classData) {
     const levelFeatureBlocks = renderLevelBlocks(baseLevels, cName);
     const classLevelSection = `
     <details id="${cName.toLowerCase()}Levels" open>
-        <summary><h3 class="">Class Levels</h3></summary>
-        <section class="class-levels grid-auto">
+        <summary><h3 class="section-title-black">Class Levels</h3></summary>
+        <section class="class-levels grid-auto mt-3">
             ${levelFeatureBlocks}
         </section>
     </details>
@@ -259,7 +259,7 @@ function renderLevelBlocks(levels, cName, sublass=false) {
         // === Final block ===
         const levelBlock = `
         <div class="dnd-subfeatures level-block">
-            <h4 class="section-title feature-context mb-3">Level ${lvl}</h4>
+            <h4 class="section-title feature-context underline-dark-grey mb-3">Level ${lvl}</h4>
             <div class="grid-auto">
                 ${content}
             </div>

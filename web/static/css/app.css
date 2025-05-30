@@ -39,10 +39,6 @@
     background-color: var(--primary-color);
 }
 
-.text-color-primary {
-    color: var(--primary-color);
-}
-
 
 /* ##### AESTHETICS ##### */
 html {
@@ -76,7 +72,7 @@ hr {
 }
 
 /* Underlines */
-[class^="underline"] { 
+[class*="underline"] { 
     text-decoration: underline; 
 }
 
@@ -105,9 +101,35 @@ hr {
     text-decoration-thickness: 0.15em;
 }
 
-/* Text */
+/* Text style */
 .text-bold {
     font-weight: bold;
+}
+
+/* Text color */
+.text-color-primary {
+    color: var(--primary-color);
+}
+.text-color-purple {
+    color: var(--purple-color);
+}
+.text-color-blue {
+    color: var(--blue-color);
+}
+.text-color-green {
+    color: var(--green-color);
+}
+.text-color-moutarde {
+    color: var(--moutarde-color);
+}
+.text-color-grey {
+    color: var(--grey-color);
+}
+.text-color-dark-grey {
+    color: var(--dark-grey-color);
+}
+.text-color-light-grey {
+    color: var(--light-grey-color);
 }
 
 /* Tabs (margin-left) */

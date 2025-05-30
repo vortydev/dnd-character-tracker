@@ -207,6 +207,12 @@ details.dnd-feature-section {
     transition: all 0.2s ease-out;
 }
 
+.section-title-black {
+    margin: 0;
+    color: var(--black-color);
+    transition: all 0.2s ease-out;
+}
+
 .section-title:hover {
     color: var(--primary-color-shade);
 }
