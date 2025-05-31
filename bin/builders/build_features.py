@@ -84,6 +84,11 @@ def load_race_features() -> list[RaceFeature]:
     race_feats: list[RaceFeature] = []
     print("\n===== Race Features =====")
 
+    # Elf
+    print("> Creating Elf features")
+    from feature_list.race_features.elf_features import elf_feats
+    race_feats.extend(elf_feats)
+
     # Human
     print("> Creating Human features")
     from feature_list.race_features.human_features import human_variant_feats

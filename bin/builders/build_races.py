@@ -12,6 +12,10 @@ def load_race_list():
     """Load array of defined Race objects."""
     races = []  # Empty array
 
+    # Elf
+    from race_list.elf import get_elf_races
+    races.extend(get_elf_races())
+
     # Human
     from race_list.human import get_human_races
     races.extend(get_human_races())

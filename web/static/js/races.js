@@ -104,7 +104,7 @@ function renderRaceCard(race, spellsRef) {
     `;
 
     let raceInfo = `
-    ${race.description ? `<i class="dnd-feature-desc mt-2">${race.description}</i>` : ""}
+    ${renderDescriptionLines(race.description)}
     <section class="dnd-feature race-info">
         <ul class="dnd-feature-list">
             ${asi ? `<li><strong>Ability Score Increase:</strong> ${asi}</li>` : ""}
@@ -144,7 +144,7 @@ function renderSubraceCard(race, spellsRef) {
     `;
 
     let subraceInfo =  `
-    ${sub.description ? `<i class="dnd-feature-desc mt-2">${sub.description}</i>` : ""}
+    ${renderDescriptionLines(sub.description)}
     <section class="dnd-feature subrace-info">
         <ul>
             ${asi ? `<li><strong>Ability Score Increase:</strong> ${asi}</li>` : ""}
@@ -207,4 +207,12 @@ function getLinkedFeatureList(featuresMap, featType) {
     }).join("");
 
     return `<ul class="dnd-feature-list">${featureSection}</ul>`;
+}
+
+function renderDescriptionLines(text) {
+    if (!text) return "";
+    return text
+        .split("\n")
+        .map(line => `<i class="dnd-feature-desc mt-2">${line.trim()}</i>`)
+        .join("");
 }

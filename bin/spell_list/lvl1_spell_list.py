@@ -81,6 +81,21 @@ lvl1_disguise_self = Spell(
     s_range="Self",
     components=[SpellComponent.V, SpellComponent.S],
 )
+
+lvl1_faerie_fire = Spell(
+    name="Faerie Fire",
+    level=1,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="Each object in a 20-foot cube within range is outlined in blue, green, or violet light (your choice).\
+        \nAny creature in the area when the spell is cast is also outlined in light if it fails a Dexterity saving throw. For the duration, objects and affected creatures shed dim light in a 10-foot radius.\
+        \nAny attack roll against an affected creature or object has advantage if the attacker can see it, and the affected creature or object can't benefit from being invisible.",
+    duration="Concentration, up to 1 minute",
+    casting_time="1 action",
+    s_range="60 feet",
+    components=[SpellComponent.V],
+)
+
 lvl1_hellish_rebuke = Spell(
     name="Hellish Rebuke",
     level=1,
@@ -182,6 +197,7 @@ lvl1_spells: List[Spell] = [
     lvl1_burning_hands,
     lvl1_charm_person, lvl1_cure_wounds,
     lvl1_disguise_self,
+    lvl1_faerie_fire,
     lvl1_hellish_rebuke,
     lvl1_magic_missile,
     lvl1_ray_of_sickness,

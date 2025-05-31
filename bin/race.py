@@ -25,7 +25,8 @@ class Subrace:
         feats: Optional[Dict[int, List[RaceFeature]]] = None,
         spells: Optional[Dict[int, List[Spell]]] = None,
         info: Optional[Dict[str, str]] = None,
-        languages: Optional[List[Language]] = None
+        languages: Optional[List[Language]] = None,
+        speed: Optional[int] = None
     ):
         self.name = name
         self.parent_race = parent_race
@@ -35,6 +36,7 @@ class Subrace:
         self.spells = spells or {}
         self.info = info or {}
         self.languages = languages or []
+        self.speed = speed
 
     def to_dict(self):
         return {
@@ -51,6 +53,7 @@ class Subrace:
             },
             "info": self.info,
             "languages": [l.value for l in self.languages],
+            "speed" : self.speed,
         }
 
     @staticmethod
@@ -81,6 +84,7 @@ class Subrace:
             spells=spells_dict,
             info=data.get("info", {}),
             languages=langs,
+            speed=data.get("speed"),
         )
 
 
