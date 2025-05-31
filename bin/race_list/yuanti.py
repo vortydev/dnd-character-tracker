@@ -52,10 +52,30 @@ def load_yuanti_pureblood():
     return yuanti_base
 
 
+def load_yuanti_gorgon():
+    yuanti_gorgon = Subrace(
+        name="Yuan-Ti Gorgon (Homebrew)",
+        parent_race=RaceType.YUANTI_PUREBLOOD,
+        description="This is a custom subrace for Ethel's character Ava. Due to a genetic mutation, she was born with snakes for hair. Her unique medusa-like appearance amongst her people led to oppression and violence towards her since her birth. \
+            The snakes on her head are semi-sentient and show no sign of physical needs. Their bodily language usually reflect her strong emotions.",
+        feats={
+            1: [
+                FeatureRegistry.get("Main Snake Heads", FeatureType.RACE, RaceType.YUANTI_PUREBLOOD),
+                FeatureRegistry.get("Poisonous Bite", FeatureType.RACE, RaceType.YUANTI_PUREBLOOD),
+            ],
+        }
+    )
+    return yuanti_gorgon
+
+
 def get_yuanti_races():
     """Load a list of defined Yuan-Ti Races"""
     races: list[Race] = [] # Empty array
+    
     yuanti_pureblood = load_yuanti_pureblood()
     races.append(yuanti_pureblood)
+
+    yuanti_gorgon = load_yuanti_gorgon()
+    races.append(create_subrace_variant(yuanti_pureblood, yuanti_gorgon))
 
     return races

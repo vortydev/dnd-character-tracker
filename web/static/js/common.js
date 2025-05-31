@@ -60,6 +60,7 @@ function applyTextFormatting(text) {
     if (!text) return "";
 
     text = applyBoldFormatting(text);
+    text = applyItalicFormatting(text);
 
     // Highlights
     text = highlightDamageTypes(text);
@@ -74,6 +75,12 @@ function applyTextFormatting(text) {
 function applyBoldFormatting(text) {
     return text.replace(/BOLD\[(.+?)\]/g, (_, boldText) => {
         return `<strong>${boldText}</strong>`;
+    });
+}
+
+function applyItalicFormatting(text) {
+    return text.replace(/ITALIC\[(.+?)\]/g, (_, italicText) => {
+        return `<em>${italicText}</em>`;
     });
 }
 
