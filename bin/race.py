@@ -2,7 +2,7 @@
 from typing import Optional, Dict, List
 from enum import Enum
 from ability import AbilityType
-from common import Size, Language, DamageType
+from common import Size, Language
 from spell import Spell
 from spell_registry import SpellRegistry
 from feature_types import FeatureType
@@ -110,7 +110,7 @@ class Race:
         feats: Optional[Dict[int, List[RaceFeature]]] = None,
         spells: Optional[Dict[int, List[Spell]]] = None,
         info: Optional[Dict[str, str]] = None,
-        languages: Optional[List[Language]] = [Language.COMMON],
+        languages: Optional[List[Language]] = None,
     ):
         self.name = name
         self.description = description

@@ -2,8 +2,7 @@
 
 echo "🚀 Started building of D&D Character Tracker resources."
 
-# Set PYTHONPATH to project root
-# export PYTHONPATH="$(dirname "$0")"
+mkdir -p data
 
 cd "./bin/builders" || exit 1
 

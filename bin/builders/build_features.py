@@ -84,11 +84,17 @@ def load_race_features() -> list[RaceFeature]:
     race_feats: list[RaceFeature] = []
     print("\n===== Race Features =====")
 
-    # === Tiefling ===
+    # Human
+    print("> Creating Human features")
+    from feature_list.race_features.human_features import human_variant_feats
+    race_feats.extend(human_variant_feats)
+
+    # Tiefling
     print("> Creating Tiefling features")
     from feature_list.race_features.tiefling_features import tiefling_feats
     race_feats.extend(tiefling_feats)
 
+    # Yuan-Ti
     print("> Creating Yuan-Ti features")
     from feature_list.race_features.yuanti_features import yuanti_feats
     race_feats.extend(yuanti_feats)

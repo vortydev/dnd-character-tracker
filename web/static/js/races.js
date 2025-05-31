@@ -60,21 +60,22 @@ function renderRaceGroup(baseRace, subraces, spellsRef) {
         <details class="subrace-block feature-context-group">
             <summary><h4 class="section-title feature-context">${race.subrace.name}</h4></summary>
             ${renderSubraceCard(race, spellsRef)}
-        </details>
-        `;
+        </details>`;
         return subraceBlock;
     }).join("<hr>");
+
+    const subraceSection = `
+    <div class="dnd-feature">
+        <h3 class="dnd-feature-name">Subraces</h3>
+        ${subraceBlocks}
+    </div>`;
 
     const raceBlock = `
     <details class="dnd-feature-section" open>
         <summary><h2 class="section-title underline-primary">${baseRace.name}</h2></summary>
         ${mainRaceBlock}
-        <div class="dnd-feature">
-            <h3 class="dnd-feature-name">Subraces</h3>
-            ${subraceBlocks}
-        </div>
-    </details>
-    `;
+        ${Object.keys(subraces).length ? subraceSection : ''}
+    </details>`;
 
     return raceBlock;
 }

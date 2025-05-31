@@ -12,14 +12,17 @@ def load_race_list():
     """Load array of defined Race objects."""
     races = []  # Empty array
 
-    # === Tieflings ===
-    from race_list.tiefling import get_tiefling_races
-    tieflings = get_tiefling_races()
-    races.extend(tieflings)
+    # Human
+    from race_list.human import get_human_races
+    races.extend(get_human_races())
 
+    # Tieflings
+    from race_list.tiefling import get_tiefling_races
+    races.extend(get_tiefling_races())
+
+    # Yuan-Ti
     from race_list.yuanti import get_yuanti_races
-    yuantis = get_yuanti_races()
-    races.extend(yuantis)
+    races.extend(get_yuanti_races())
 
     return races
 

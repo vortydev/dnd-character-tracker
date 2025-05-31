@@ -11,5 +11,6 @@ class RaceType(Enum):
     HALF_ORC = "Half-Orc"
     HUMAN = "Human"
     TIEFLING = "Tiefling"
+    VARIANT_HUMAN = "Variant Human"
     VARIANT_TIEFLING = "Variant Tiefling"
     YUANTI_PUREBLOOD = "Yuan-Ti Pureblood"
