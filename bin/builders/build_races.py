@@ -17,6 +17,10 @@ def load_race_list():
     tieflings = get_tiefling_races()
     races.extend(tieflings)
 
+    from race_list.yuanti import get_yuanti_races
+    yuantis = get_yuanti_races()
+    races.extend(yuantis)
+
     return races
 
 

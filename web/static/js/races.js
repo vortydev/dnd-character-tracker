@@ -76,7 +76,6 @@ function renderRaceGroup(baseRace, subraces, spellsRef) {
     </details>
     `;
 
-
     return raceBlock;
 }
 
@@ -92,7 +91,7 @@ function renderRaceCard(race, spellsRef) {
         .join("");
 
     const features = race.feats ? getFeatureList(race.feats) : "";
-    const spells = race.spells.label ? getLinkedSpellList(race.spells, spellsRef) : "";
+    const spells = race.spells ? getLinkedSpellList(race.spells, spellsRef) : "";
 
     let subFeats = `
         ${features || spells ? `

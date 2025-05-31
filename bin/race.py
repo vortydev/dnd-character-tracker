@@ -110,7 +110,7 @@ class Race:
         feats: Optional[Dict[int, List[RaceFeature]]] = None,
         spells: Optional[Dict[int, List[Spell]]] = None,
         info: Optional[Dict[str, str]] = None,
-        languages: Optional[List[Language]] = None,
+        languages: Optional[List[Language]] = [Language.COMMON],
     ):
         self.name = name
         self.description = description

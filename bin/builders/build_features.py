@@ -89,6 +89,10 @@ def load_race_features() -> list[RaceFeature]:
     from feature_list.race_features.tiefling_features import tiefling_feats
     race_feats.extend(tiefling_feats)
 
+    print("> Creating Yuan-Ti features")
+    from feature_list.race_features.yuanti_features import yuanti_feats
+    race_feats.extend(yuanti_feats)
+
     print(f"📦 Loaded {len(race_feats)} Race features.")
     return race_feats
 

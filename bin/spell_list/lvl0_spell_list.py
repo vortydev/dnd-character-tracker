@@ -89,6 +89,19 @@ can_minor_illusion = Spell(
     material_description=["a bit of fleece"],
 )
 
+can_poison_spray = Spell(
+    name="Poison Spray",
+    level=0,
+    school=SpellSchool.CONJURATION,
+    action_cost=ActionCost.ACTION,
+    description="You extend your hand toward a creature you can see within range and project a puff of noxious gas from your palm. The creature must succeed on a Constitution saving throw or take 1d12 poison damage.",
+    higher_levels="This spell's damage increases by 1d12 when you reach 5th level (2d12), 11th level (3d12), and 17th level (4d12).",
+    duration="1 minute",
+    casting_time="Instantaneous",
+    s_range="10 feet",
+    components=[SpellComponent.V, SpellComponent.S],
+)
+
 can_prestidigitation = Spell(
     name="Prestidigitation",
     level=0,
@@ -176,13 +189,10 @@ lvl0_spells: List[Spell] = [
     can_dancing_lights,
     can_friends,
     can_light,
-    can_mage_hand,
-    can_message,
-    can_minor_illusion,
-    can_prestidigitation,
+    can_mage_hand, can_message, can_minor_illusion,
+    can_poison_spray, can_prestidigitation,
     can_ray_of_frost,
     can_spare_the_dying,
-    can_thaumaturgy,
-    can_true_strike,
+    can_thaumaturgy, can_true_strike,
     can_vicious_mockery,
 ]

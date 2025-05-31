@@ -47,7 +47,7 @@ function renderFeatureList(container, list, delayMs = 0) {
                 ${applyTextFormatting(content)}
             </details>
         `;
-    }).join("");
+    }).join("<hr>");
 
     // Open section if it has content
     openIfHasContent(container, delayMs, "feature");

@@ -4,6 +4,20 @@ from common import ActionCost
 from spell import Spell, SpellSchool, SpellComponent
 
 # === Define spells ===
+lvl1_animal_friendship = Spell(
+    name="Animal Friendship",
+    level=1,
+    school=SpellSchool.ENCHANTMENT,
+    action_cost=ActionCost.ACTION,
+    description="This spell lets you convince a beast that you mean it no harm. Choose a beast that you can see within range. It must see and hear you. If the beast's Intelligence is 4 or higher, the spell fails. Otherwise, the beast must succeed on a Wisdom saving throw or be charmed by you for the spell's duration. If you or one of your companions harms the target, the spell ends.",
+    higher_levels="When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional beast for each slot level above 1st.",
+    duration="24 hours",
+    casting_time="1 action",
+    s_range="30 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["a morsel of food"],
+)
+
 lvl1_armor_of_agathys = Spell(
     name="Armor of Agathys",
     level=1,
@@ -15,7 +29,7 @@ lvl1_armor_of_agathys = Spell(
     casting_time="1 action",
     s_range="Self",
     components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
-    material_description=["A cup of water"],
+    material_description=["a cup of water"],
 )
 lvl1_burning_hands = Spell(
     name="Burning Hands",
@@ -164,16 +178,13 @@ lvl1_thunderwave = Spell(
 
 # === Array of Level 1 spells ===
 lvl1_spells: List[Spell] = [
-    lvl1_armor_of_agathys,
+    lvl1_animal_friendship, lvl1_armor_of_agathys,
     lvl1_burning_hands,
-    lvl1_charm_person,
-    lvl1_cure_wounds,
+    lvl1_charm_person, lvl1_cure_wounds,
     lvl1_disguise_self,
     lvl1_hellish_rebuke,
     lvl1_magic_missile,
     lvl1_ray_of_sickness,
     lvl1_searing_smite,
-    lvl1_tashas_hideous_laughter,
-    lvl1_tensers_floating_disk,
-    lvl1_thunderwave
+    lvl1_tashas_hideous_laughter, lvl1_tensers_floating_disk, lvl1_thunderwave,
 ]

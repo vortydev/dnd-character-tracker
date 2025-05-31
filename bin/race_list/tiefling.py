@@ -1,10 +1,8 @@
-# build_races.py
-from copy import deepcopy
+# race_list/tiefling.py
 from ability import AbilityType
 from common import Size, Language
 from race import Race, Subrace
 from race_types import RaceType
-from race_feature import RaceFeature
 from race_utils import create_subrace_variant
 from spell_io import load_spells_from_file
 from spell_registry import SpellRegistry
