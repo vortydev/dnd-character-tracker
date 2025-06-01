@@ -399,3 +399,11 @@ details.dnd-feature-section {
 .spell-row.highlighted td {
     background-color: var(--blue-color) !important;
 }
+
+
+/* Character Editor */
+.char-card-ability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5em;
+}

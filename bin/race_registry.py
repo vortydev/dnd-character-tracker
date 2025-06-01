@@ -1,25 +1,26 @@
 # race_registry.py
-from typing import Dict
+from typing import Dict, Optional
 from race import Race, RaceType
 
 class RaceRegistry:
-    _races: Dict[str, Race] = {}
+    _races: Dict[tuple[str, Optional[str]], Race] = {}
 
     @classmethod
     def register(cls, race: Race):
-        key = cls._make_key(race.name, race.subrace.name if race.subrace else None)
+        subrace_name = race.subrace.name if race.subrace else None
+        key = cls._make_key(race.name, subrace_name)
         cls._races[key] = race
 
     @classmethod
-    def get(cls, name: RaceType, subrace_name: str = None) -> Race:
-        """
-        Retrieve a race by its name and optional subrace name.
-        """
-        key = cls._make_key(name, subrace_name)
-        return cls._races[key]
+    def get(cls, race_type: RaceType, subrace_name: Optional[str] = None) -> Race:
+        key = cls._make_key(race_type, subrace_name)
+        try:
+            return cls._races[key]
+        except KeyError:
+            raise KeyError(f"Missing key: '{key}'")
 
     @classmethod
-    def all(cls) -> Dict[str, Race]:
+    def all(cls) -> Dict[tuple[str, Optional[str]], Race]:
         return cls._races
 
     @classmethod
@@ -33,9 +34,5 @@ class RaceRegistry:
             cls.register(race)
 
     @staticmethod
-    def _make_key(name: RaceType, subrace_name: str = None) -> str:
-        """
-        Generate a unique registry key from the race and optional subrace.
-        Example: "Tiefling:Zariel" or "Human:None"
-        """
-        return f"{name.value}{':'+subrace_name if subrace_name else ''}"
+    def _make_key(name: RaceType, subrace_name: Optional[str] = None) -> tuple[str, Optional[str]]:
+        return (name.value, subrace_name)

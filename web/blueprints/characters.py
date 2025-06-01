@@ -1,7 +1,7 @@
 # characters.py
 from flask import Blueprint, render_template, jsonify, request
 from config import ROOT
-from registries import CharacterRegistry
+from registries import CharacterRegistry, RaceRegistry
 from bin.character import Character
 
 characters_bp = Blueprint('characters_bp', __name__)
@@ -35,11 +35,24 @@ def get_character(name: str):
 def save_character():
     data = request.get_json()
     try:
-        char = Character.from_dict(data)
+        char = Character.from_dict(data, registries={"races": RaceRegistry})
         CharacterRegistry.register(char, overwrite=True)
+        CharacterRegistry.save_to_file()
         return jsonify({"status": "success", "message": f"Character '{char.name}' saved."})
+    
+    except KeyError as ke:
+        return jsonify({"status": "error", "message": f"Missing key: {ke}"}), 400
+    
+    except ValueError as ve:
+        return jsonify({"status": "error", "message": f"Value error: {ve}"}), 400
+    
+    except TypeError as te:
+        return jsonify({"status": "error", "message": f"Type error: {te}"}), 400
+    
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 400
+        import traceback
+        traceback.print_exc()
+        return jsonify({"status": "error", "message": f"Unhandled error: {str(e)}"}), 400
 
 
 @characters_bp.route(root + '/api/characters/delete/<name>', methods=['DELETE'])

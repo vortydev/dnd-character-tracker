@@ -40,7 +40,7 @@ class Character:
     @property
     def race(self) -> Optional[Race]:
         if self._race is None and self.race_type:
-            self._race = RaceRegistry.get(self.race_type)
+            self._race = RaceRegistry.get(self.race_type, self.subrace_name)
         return self._race
     
     # === Abilities ===
@@ -226,7 +226,7 @@ class Character:
             "race_type": self.race_type.value if self.race_type else None,
             "subrace_name": self.subrace_name,
             "classes": [cc.to_dict() for cc in self.classes],
-            "abilities": {ab_type.value: ab.score for ab_type, ab in self.abilities.items()},
+            "abilities": {ab_type.name: ab.score for ab_type, ab in self.abilities.items()},
             "proficient_skills": [s.value for s in self.proficient_skills],
         }
 
@@ -234,21 +234,30 @@ class Character:
     def from_dict(data: Dict[str, Any], registries: Dict[str, Any] = None) -> "Character":
         registries = registries or {}
         char = Character(data["name"])
+        print("character data:", data)
+
+        # Use provided race registry if available
+        race_registry: RaceRegistry = registries.get("races", RaceRegistry)
 
         if data.get("race_type"):
             from race_types import RaceType
-            char.race_type = RaceType[data["race_type"]]
+            try:
+                char.race_type = RaceType(data["race_type"])
+            except ValueError:
+                raise ValueError(f"Invalid race type: {data['race_type']}")
             subrace_name = data.get("subrace_name")
-            char.set_race_and_subrace(char.race_type, subrace_name)
+            char._race = race_registry.get(char.race_type, subrace_name)  # ✅ Use the loaded one
+            char.subrace_name = subrace_name
 
-        char.classes = [CharacterClass.from_dict(c, registries) for c in data["classes"]]
+        if data.get("classes"):
+            char.classes = [CharacterClass.from_dict(c, registries) for c in data["classes"]]
 
-        if "abilities" in data:
+        if data.get("abilities"):
             for ab_name, score in data["abilities"].items():
                 ab_type = AbilityType[ab_name]
                 char.set_ability_score(ab_type, score)
 
-        if "proficient_skills" in data:
+        if data.get("proficient_skills"):
             char.set_skill_proficiencies([Skill[s] for s in data["proficient_skills"]])
 
         return char

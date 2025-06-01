@@ -10,6 +10,7 @@ DEFAULT_PATH = os.path.join(DATA_DIR, "characters.json")
 
 def save_characters_to_file(characters: list[Character], path: str = DEFAULT_PATH):
     """Save a list of Character objects to a JSON file."""
+    path = DEFAULT_PATH if path is None else path
     with open(path, "w", encoding="utf-8") as f:
         json.dump([c.to_dict() for c in characters], f, indent=2)
 

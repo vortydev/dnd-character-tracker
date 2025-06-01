@@ -9,9 +9,7 @@ class CharacterRegistry:
 
     @classmethod
     def register(cls, char: Character, overwrite: bool = True):
-        """
-        Register a character. If overwrite is False and the character already exists, raise an error.
-        """
+        """Register a character. If overwrite is False and the character already exists, raise an error."""
         if not overwrite and char.name in cls._characters:
             raise ValueError(f"Character '{char.name}' already exists.")
         cls._characters[char.name] = char

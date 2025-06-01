@@ -37,7 +37,8 @@ def init_registries():
     # === Characters ===
     chars = load_characters_from_file(registries={"features": FeatureRegistry, 
                                                   "spells": SpellRegistry,
-                                                  "classes": ClassRegistry})
+                                                  "classes": ClassRegistry,
+                                                  "races": RaceRegistry,})
     CharacterRegistry.load_bulk(chars)
 
 

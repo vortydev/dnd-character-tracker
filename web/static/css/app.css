@@ -71,6 +71,18 @@ hr {
     border-radius: 1rem;
 }
 
+/* Background */
+.bg-primary { background-color: var(--primary-color); }
+.bg-red { background-color: var(--red-color); }
+.bg-purple { background-color: var(--purple-color); }
+.bg-blue { background-color: var(--blue-color); }
+.bg-green { background-color: var(--green-color); }
+.bg-moutarde { background-color: var(--moutarde-color); }
+.bg-orange { background-color: var(--orange-color); }
+.bg-grey { background-color: var(--grey-color); }
+.bg-light-grey { background-color: var(--light-grey-color); }
+.bg-dark-grey { background-color: var(--dark-grey-color); }
+
 /* Underlines */
 [class*="underline"] { 
     text-decoration: underline; 
