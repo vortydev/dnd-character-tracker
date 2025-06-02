@@ -1,5 +1,5 @@
 // characters.js
-function loadCharactersFromAPI(root) {
+async function loadCharactersFromAPI(root) {
     fetch(root + "/api/characters/get")
         .then(response => {
             if (!response.ok) throw new Error("Network response was not ok");
@@ -16,7 +16,7 @@ function loadCharactersFromAPI(root) {
         });
 }
 
-function loadCharacterByName(root, name) {
+async function loadCharacterByName(root, name) {
     fetch(root + `/api/characters/${encodeURIComponent(name)}`)
         .then(response => {
             if (!response.ok) throw new Error("Character not found");
@@ -31,7 +31,7 @@ function loadCharacterByName(root, name) {
         });
 }
 
-function submitNewCharacter() {
+async function submitNewCharacter() {
     const name = document.getElementById("charName").value.trim();
     const raceValue = document.getElementById("raceSelect").value;
     const abilities = {};
@@ -74,7 +74,7 @@ function submitNewCharacter() {
     saveCharacterToAPI(root, newChar);
 }
 
-function deleteCharacterFromAPI(root, name) {
+async function deleteCharacterFromAPI(root, name) {
     fetch(root + `/api/characters/delete/${encodeURIComponent(name)}`, {
         method: "DELETE"
     })
@@ -128,3 +128,7 @@ function renderCharacterList(characters) {
         container.appendChild(card);
     });
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadCharactersFromAPI(root);
+});

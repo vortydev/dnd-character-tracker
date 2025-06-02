@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Character Editor ~ Ethel's Character Tracker</title>
+<script nonce="{{ csp_nonce }}" type="module" src="{{ root }}/js/character_editor.js"></script>
+{% endblock %}
+
+{% block main %}
+<h1 class="underline-primary underline-thick">Create Character</h1>
+
+<div class="btnBar mt-3 mb-4">
+  <a href="{{root}}/characters" class="btn btn-light-grey">
+    <i class="fas fa-arrow-left"></i> Back to Characters
+  </a>
+</div>
+
+<!-- Step navigation -->
+<nav class="d-flex justify-content-between align-items-center my-3">
+  <button id="prevStepBtn" class="btn btn-blue"><i class="fas fa-arrow-left"></i> Previous</button>
+  
+  <div id="charNavHeader" class="text-center text-bold text-big"></div>
+  
+  <button id="nextStepBtn" class="btn btn-blue">Next <i class="fas fa-arrow-right"></i></button>
+  <button id="createCharBtn" class="btn btn-green hidden"><i class="fas fa-check"></i> Create Character</button>
+</nav>
+
+<!-- Step containers -->
+<section id="stepContainer">
+  {% include 'editor/name_step.html' %}
+  {% include 'editor/class_step.html' %}
+  {% include 'editor/race_step.html' %}
+  {% include 'editor/background_step.html' %}
+  {% include 'editor/abilities_step.html' %}
+  {% include 'editor/equipment_step.html' %}
+</section>
+
+<script>
+  window.ROOT_PATH = "{{ root }}";
+</script>
+{% endblock %}

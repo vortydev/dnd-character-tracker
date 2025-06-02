@@ -407,3 +407,10 @@ details.dnd-feature-section {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5em;
 }
+
+/* .class-feature-box {
+    background-color: var(--light-grey-color);
+    border: 1px solid var(--light-grey-color-shade);
+    padding: 1rem;
+    border-radius: 0.5rem;
+} */

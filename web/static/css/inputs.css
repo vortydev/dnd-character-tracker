@@ -44,8 +44,8 @@ a:hover:not(.btn) {
 .form-control:focus,
 .form-select:focus,
 .form-calendar:focus {
-    border-color: var(--udes-web-fie) !important;
-    box-shadow: 0 0 0 0.25rem var(--udes-web-fie-trans) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem var(--primary-color-shadow) !important;
 }
 
 .form-calendar:focus-visible {

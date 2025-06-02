@@ -3,7 +3,6 @@
 {% block head %}
 <title>Characters ~ Ethel's Character Tracker</title>
 <script nonce="{{ csp_nonce }}" src="{{root}}/js/characters.js"></script>
-<script nonce="{{ csp_nonce }}" src="{{root}}/js/character_editor.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -11,36 +10,10 @@
 
 <div class="btnBar mt-3 mb-4">
     <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
-    <button id="btnNewChar" class="btn btn-green"><i class="fas fa-plus"></i> New Character</button>
+    <a href="{{root}}/characters/editor" class="btn btn-green"><i class="fas fa-plus"></i> New Character</a>
 </div>
 
-<section id="charForm" class="card mt-4 p-3 hidden">
-    <div class="form-group">
-        <label for="charName">Character Name</label>
-        <input type="text" id="charName" class="form-control" placeholder="e.g., Auron">
-    </div>
-
-    <div class="form-group">
-        <label for="raceSelect">Race</label>
-        <select id="raceSelect" class="form-control"></select>
-    </div>
-
-    <ul class="nav nav-tabs mt-4" id="statModeTabs">
-        <li class="nav-item">
-            <a class="nav-link active" data-mode="rolled" href="#">Rolled Stats</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-mode="pointbuy" href="#">Point Buy</a>
-        </li>
-    </ul>
-
-    <div id="abilityInputArea" class="mt-3"></div>
-
-    <button class="btn btn-primary mt-3" onclick="submitNewCharacter()">Create Character</button>
-</section>
-
 <section id="characterList" class="row g-4 mt-3"></section>
-
 
 <script>
     var root = "{{root}}";

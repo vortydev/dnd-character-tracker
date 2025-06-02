@@ -1,10 +1,12 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, request, render_template, jsonify
 
 from config import ROOT
 
 from registries import FeatureRegistry, SpellRegistry, RaceRegistry, ClassLevelRegistry, ClassRegistry
 from bin.feature_types import FeatureType
 from bin.spell import Spell
+from bin.class_base import ClassType
+from bin.subclass_ import SubclassType
 
 resources_bp = Blueprint('resources_bp', __name__)
 root = ROOT
@@ -130,3 +132,63 @@ def api_get_classes():
         "class_list": class_list,
         "level_list": level_list
     })
+
+@resources_bp.route(root + '/api/classes/features/<class_name>', methods=['GET'])
+def get_class_full_features(class_name: str):
+    """
+    Return class base info (HP, proficiencies) and level-based features/spells up to given level.
+    """
+    # from registries import ClassLevelRegistry, ClassRegistry
+
+    try:
+        subclass = request.args.get("subclass")
+        level = int(request.args.get("level", 1))
+
+        try:
+            class_type = ClassType(class_name)
+        except ValueError:
+            return jsonify({"status": "error", "message": f"Invalid class name: {class_name}"}), 400
+
+        subclass_type = SubclassType(subclass) if subclass else None
+        base = ClassRegistry.get(class_type)
+        levels = ClassLevelRegistry.get(class_type, level, subclass_type)
+
+        if not base:
+            return jsonify({"status": "error", "message": "Class not found"}), 404
+
+        # Filter and flatten features/spells
+        features = []
+        spells = []
+        for entry in levels:
+            if entry.get("level") <= level and entry.get("type") == "Base":
+                features += [{"name": f, "level": entry["level"]} for f in entry.get("features", [])]
+                spells += [{"name": s, "level": entry["level"]} for s in entry.get("spells", [])]
+
+        return jsonify({
+            "status": "success",
+            "class_name": class_name,
+            "level": level,
+            "hit_points": {
+                "dice": base.hit_dice,
+                "per_level": base.fixed_hp_per_level,
+                "at_1st_level": base.hp_1st_level,
+                "ability_mod": base.hp_ability_mod.value
+            },
+            "proficiencies": {
+                "armor": [a.value for a in base.proficiency_armor],
+                "weapons": [w.value for w in base.proficiency_weapons],
+                "tools": [t.to_dict() for t in base.proficiency_tools],  # if ToolItem is a custom class
+                "saving_throws": [s.value for s in base.proficiency_saving_throws],
+                "specific_weapons": [w.value for w in base.proficiency_specific_weapons],
+                "skill_pool": [s.value for s in base.proficiency_skill_pool],
+                "skill_choices": base.skill_choices
+            },
+            "features": features,
+            "spells": spells,
+            "requisite": base.requisite
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"status": "error", "message": str(e)}), 400

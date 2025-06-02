@@ -12,14 +12,20 @@ a.btn {
     margin-right: 0.5rem;
 }
 
-.btn-icon svg {
+.btn:has(:last-child svg) svg:last-child {
+    margin-left: 0.5em !important;
     margin-right: 0 !important;
 }
 
+.btn-icon svg {
+    margin-right: 0 !important;
+    margin-left: 0.5em !important;
+}
+
 .btn:disabled {
-    background-color: var(--app-grey) !important;
-    border-color: var(--app-grey) !important;
-    cursor: default;
+    background-color: var(--grey-color) !important;
+    border-color: var(--grey-color) !important;
+    cursor: not-allowed;
 }
 
 /* Sizes */

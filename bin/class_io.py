@@ -1,7 +1,6 @@
 # class_io.py
-import os
-import json
-from class_base import Class
+import os, json
+from bin.class_base import Class
 
 # Resolve the /data directory relative to this file
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

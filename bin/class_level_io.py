@@ -1,7 +1,6 @@
 # class_level_io.py
-import os
-import json
-from class_level import ClassLevelType, ClassLevel, ClassLevelSpellcaster, ClassLevelSorcerer
+import os, json
+from bin.class_level import ClassLevelType, ClassLevel, ClassLevelSpellcaster, ClassLevelSorcerer
 
 # Resolve the /data directory relative to this file
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

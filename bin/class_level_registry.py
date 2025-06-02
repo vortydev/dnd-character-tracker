@@ -1,7 +1,7 @@
 # class_level_registry.py
 from typing import Dict, Optional, Tuple
-from class_level import ClassLevel
-from class_base import ClassType
+from bin.class_level import ClassLevel
+from bin.class_base import ClassType
 from subclass_ import SubclassType
 
 class ClassLevelRegistry:
@@ -9,11 +9,18 @@ class ClassLevelRegistry:
 
     @classmethod
     def register(cls, cl: ClassLevel):
-        cls._class_levels[(cl.class_type, cl.level, cl.subclass)] = cl
+        subclass = cl.subclass if cl.subclass else None
+        cls._class_levels[(cl.class_type, cl.level, subclass)] = cl
 
     @classmethod
-    def get(cls, ct: ClassType, lvl: int, subclass: Optional[SubclassType] = None) -> ClassLevel:
-        return cls._class_levels[(ct, lvl, subclass)]
+    def get(cls, class_type: ClassType, max_level: int, subclass: SubclassType=None):
+        results = []
+
+        for (ct, lvl, sub), data in cls._class_levels.items():
+            if ct == class_type and lvl <= max_level and sub == subclass:
+                results.append(data)
+
+        return sorted(results, key=lambda x: x["level"])
 
     @classmethod
     def all(cls) -> Dict[Tuple[ClassType, int, Optional[SubclassType]], ClassLevel]:

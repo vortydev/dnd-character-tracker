@@ -62,3 +62,18 @@ def delete_character(name):
         return jsonify({"status": "success", "message": f"Character '{name}' archived."})
     except KeyError:
         return jsonify({"status": "error", "message": f"Character '{name}' not found."}), 404
+    
+
+# === Editor ===
+@characters_bp.route(root + '/characters/editor', methods=['GET'])
+def page_character_editor():
+    return render_template('character_editor.html', root=root)
+
+
+@characters_bp.route(root + '/api/characters/check-name/<name>', methods=['GET'])
+def check_character_name(name: str):
+    """
+    Check if a character with the given name already exists.
+    """
+    exists = CharacterRegistry.exists(name)
+    return jsonify({"exists": exists})
