@@ -34,9 +34,9 @@ def inject_app_context():
 
 
 if __name__ == '__main__':
-    # print(app.url_map) # DEBUG
-
     with app.app_context():
+        # print(app.url_map) # DEBUG
+        
         # Start Flask app
         app.run(
             host="0.0.0.0",

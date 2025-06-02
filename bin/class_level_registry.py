@@ -1,7 +1,7 @@
 # class_level_registry.py
-from typing import Dict, Optional, Tuple
-from bin.class_level import ClassLevel
-from bin.class_base import ClassType
+from typing import Dict, Optional, Tuple, List
+from class_level import ClassLevel
+from class_base import ClassType
 from subclass_ import SubclassType
 
 class ClassLevelRegistry:
@@ -13,7 +13,7 @@ class ClassLevelRegistry:
         cls._class_levels[(cl.class_type, cl.level, subclass)] = cl
 
     @classmethod
-    def get(cls, class_type: ClassType, max_level: int, subclass: SubclassType=None):
+    def get(cls, class_type: ClassType, max_level: int, subclass: SubclassType=None) -> List[ClassLevel]:
         results = []
 
         for (ct, lvl, sub), data in cls._class_levels.items():

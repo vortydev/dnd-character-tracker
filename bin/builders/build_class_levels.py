@@ -3,9 +3,9 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from class_level import ClassLevel
-from class_level_registry import ClassLevelRegistry
-from class_level_io import save_class_levels_to_file
+from bin.class_level import ClassLevel
+from bin.class_level_registry import ClassLevelRegistry
+from bin.class_level_io import save_class_levels_to_file
 
 
 def load_class_level_list() -> list[ClassLevel]:
@@ -14,29 +14,29 @@ def load_class_level_list() -> list[ClassLevel]:
 
     # === Fighter ===
     # Class
-    from class_levels.fighter_class_levels import fighter_cl
+    from bin.class_levels.fighter_class_levels import fighter_cl
     cl.extend(fighter_cl)
 
     # Subclass
-    from class_levels.fighter_subclass_levels import fighter_scl
+    from bin.class_levels.fighter_subclass_levels import fighter_scl
     cl.extend(fighter_scl)
 
     # === Sorcerer ===
     # Class
-    from class_levels.sorcerer_class_levels import sorcerer_cl
+    from bin.class_levels.sorcerer_class_levels import sorcerer_cl
     cl.extend(sorcerer_cl)
 
     # Subclass
-    from class_levels.sorcerer_subclass_levels import sorcerer_scl
+    from bin.class_levels.sorcerer_subclass_levels import sorcerer_scl
     cl.extend(sorcerer_scl)
 
     # === Wizard ===
     # Class
-    from class_levels.wizard_class_levels import wizard_cl
+    from bin.class_levels.wizard_class_levels import wizard_cl
     cl.extend(wizard_cl)
 
     # Subclass
-    from class_levels.wizard_subclass_levels import wizard_scl
+    from bin.class_levels.wizard_subclass_levels import wizard_scl
     cl.extend(wizard_scl)
     
     return cl

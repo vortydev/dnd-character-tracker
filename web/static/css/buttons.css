@@ -19,7 +19,7 @@ a.btn {
 
 .btn-icon svg {
     margin-right: 0 !important;
-    margin-left: 0.5em !important;
+    margin-left: 0 !important;
 }
 
 .btn:disabled {

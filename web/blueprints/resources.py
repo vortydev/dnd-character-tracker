@@ -135,9 +135,7 @@ def api_get_classes():
 
 @resources_bp.route(root + '/api/classes/features/<class_name>', methods=['GET'])
 def get_class_full_features(class_name: str):
-    """
-    Return class base info (HP, proficiencies) and level-based features/spells up to given level.
-    """
+    """Return class base info (HP, proficiencies) and level-based features/spells up to given level."""
     # from registries import ClassLevelRegistry, ClassRegistry
 
     try:
@@ -152,6 +150,7 @@ def get_class_full_features(class_name: str):
         subclass_type = SubclassType(subclass) if subclass else None
         base = ClassRegistry.get(class_type)
         levels = ClassLevelRegistry.get(class_type, level, subclass_type)
+        print(levels)
 
         if not base:
             return jsonify({"status": "error", "message": "Class not found"}), 404

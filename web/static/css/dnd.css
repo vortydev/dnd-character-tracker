@@ -207,10 +207,12 @@ details.dnd-feature-section {
     transition: all 0.2s ease-out;
 }
 
-.section-title-black {
-    margin: 0;
+.section-title.black {
     color: var(--black-color);
-    transition: all 0.2s ease-out;
+}
+
+.section-title.dark-grey {
+    color: var(--dark-grey-color);
 }
 
 .section-title:hover {
@@ -406,6 +408,34 @@ details.dnd-feature-section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5em;
+}
+
+details .class-features-title {
+    color: var(--grey-color);
+    margin-bottom: 0;
+    transition: 0.2s all ease-out;
+}
+
+details .class-features-title:hover {
+    color: var(--grey-color);
+}
+
+details:open .class-features-title {
+    color: var(--black-color);
+    text-decoration: underline solid 0.1em var(--green-color);
+}
+
+
+.class-feature-block {
+
+}
+
+.class-feature-block .dnd-feature-list {
+    padding-left: 2em;
+}
+
+.class-feature-block-title {
+    margin-bottom: 0;
 }
 
 /* .class-feature-box {

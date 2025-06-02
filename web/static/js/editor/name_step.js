@@ -13,7 +13,7 @@ export function initNameStep() {
         return;
     }
 
-    input.addEventListener("input", () => {
+    input.addEventListener("blur", () => {
         const value = input.value.trim();
         if (!value) {
             feedback.textContent = "Name is required.";
@@ -49,6 +49,8 @@ export function initNameStep() {
                 updateNextButtonState(false);
             });
     });
+
+    input.blur()
 
     updateNextButtonState(!!newChar.name);
 }
