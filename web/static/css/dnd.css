@@ -410,6 +410,19 @@ details.dnd-feature-section {
     gap: 0.5em;
 }
 
+#charNavHeader {
+    font-weight: bold;
+    text-align: center;
+    min-width: fit-content;
+    margin-bottom: 0;
+}
+
+.editor-section-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
 details .class-features-title {
     color: var(--grey-color);
     margin-bottom: 0;
@@ -426,10 +439,26 @@ details:open .class-features-title {
 }
 
 /* Editor - Class Features */
+.class-block-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+}
+
+.class-block-header-name {
+    margin-bottom: 0;
+}
+
+.class-block-header-subclass {
+    color: var(--dark-grey-color);
+    font-size: 0.9em;
+    margin-bottom: 0;
+}
+
 .class-feature-block {
-    /* padding: 0.5em; */
     border: solid 0.15em var(--light-grey-color);
     border-radius: 0.75em;
+    box-shadow: 0 1px 6px var(--dark-grey-color-shadow);
 }
 
 .class-feature-block summary {
@@ -445,10 +474,16 @@ details:open .class-features-title {
     background-color: var(--grey-color-shadow);
 }
 
-.class-feature-block:open summary {
+.class-feature-block[open] summary {
     background-color: var(--grey-color-shadow);
     border-radius: 0.6125em 0.6125em 0 0;
     border-color: var(--light-grey-color);
+}
+
+.class-feature-grid {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 100%;
 }
 
 .class-feature-content {
@@ -461,4 +496,31 @@ details:open .class-features-title {
 
 .level-select {
     width: fit-content;
+}
+
+/* Highlight when we're mising inputs */
+.class-feature-block.highlight-border {
+    border-color: var(--orange-color);
+    box-shadow: 0 1px 6px var(--orange-color-shadow);
+}
+
+.class-feature-block[open].highlight-border summary {
+    border-color: var(--orange-color);
+}
+
+.wrapper-class-feature-block {
+    position: relative;
+}
+
+.feature-warning-icon {
+    position: absolute;
+    top: -0.35em;
+    left: -0.4em;
+    font-size: 1.5em;
+    color: var(--orange-color);
+    background-color: var(--white-color);
+    border-radius: 50%;
+    box-shadow: 0 0 0.1em rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    pointer-events: none;
 }

@@ -289,14 +289,12 @@ function levelStr(level) {
     }
 }
 
-function insertChevronsIntoDetailsFA() {
-    console.log("🔧 Inserting chevrons into <details.fa-chevron> blocks...");
+function insertChevronsIntoDetailsFA(debug=false) {
+    if (debug) console.log("🔧 Inserting chevrons into <details.fa-chevron> blocks...");
 
     const detailsList = document.querySelectorAll("details.fa-chevron");
 
-    detailsList.forEach(detailsEl => {
-        console.log(detailsEl);
-        
+    detailsList.forEach(detailsEl => {        
         const summary = detailsEl.querySelector("summary");
         if (!summary) {
             console.warn("⚠️ No <summary> found in:", detailsEl);
@@ -305,7 +303,7 @@ function insertChevronsIntoDetailsFA() {
 
         // Avoid duplicating
         if (summary.querySelector(".summary-content")) {
-            console.log("⏭️ Already processed:", summary);
+            if (debug) console.log("⏭️ Already processed:", summary);
             return;
         }
 
@@ -315,7 +313,7 @@ function insertChevronsIntoDetailsFA() {
         [...summary.childNodes].forEach(child => {
             if (child.nodeType === Node.TEXT_NODE && child.textContent.trim() === "") return;
             if (child.nodeType === Node.ELEMENT_NODE && child.tagName === "SPAN" && child.classList.contains("fallback-icon")) {
-                console.log("🗑️ Removing fallback icon:", child);
+                if (debug) console.log("🗑️ Removing fallback icon:", child);
                 summary.removeChild(child);
             }
         });
@@ -336,10 +334,10 @@ function insertChevronsIntoDetailsFA() {
 
         summary.appendChild(wrapper);
 
-        console.log("✅ Chevron inserted!");
+        if (debug) console.log("✅ Chevron inserted!");
     });
 
-    console.log("✅ Done processing all <details.fa-chevron> blocks.");
+    if (debug) console.log("✅ Done processing all <details.fa-chevron> blocks.");
 }
 
 

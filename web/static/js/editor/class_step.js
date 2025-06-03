@@ -1,6 +1,6 @@
 // editor/class_step.js
 import { newChar } from '../character_editor.js';
-import { updateNextButtonState, updateNavHeader } from './shared_ui.js';
+import { updateNextButtonState, updateNavHeader, setupSkillSelectValidation } from './shared_ui.js';
 
 const MAX_LEVELS = 20;
 
@@ -90,12 +90,13 @@ function refreshAllClassSelectors() {
     });
 }
 
-
 function renderClassDetailsFromAPI(classData) {
     let html = "";
-    html += `<summary class="editor-class-features">
+    html += `
+    <summary class="editor-class-features">
         <h4 class="class-features-title">Class Features</h4>
-    </summary>`;
+    </summary>
+    `;
 
     // Extract class data
     const { class_name: name, level: level, hit_points: hp, proficiencies: prof, features, spells, requisite } = classData;
@@ -104,9 +105,11 @@ function renderClassDetailsFromAPI(classData) {
         html += `<small class="dnd-feature-desc text-color-grey mt-2"><em>${requisite}</em></small>`
     }
 
+    html += `<section class="class-feature-grid mt-3">`; // Start the grid
+
     // Hit Points
     const hpBlock = `
-        <details class="fa-chevron class-feature-block mt-3">
+        <details class="fa-chevron class-feature-block">
             <summary>
                 <div class="flex-col">
                     <h5 class="class-feature-block-title">Hit Points</h5>
@@ -128,7 +131,7 @@ function renderClassDetailsFromAPI(classData) {
         const skillHTML = Array.from({ length: prof.skill_choices }).map((_, i) => `
             <div class="form-group mb-2">
                 <select class="form-control form-select skill-select" id="skillSelect_${name}_${i}">
-                    <option value="" disabled selected>- Choose a ${name} Skill -</option>
+                    <option value="" selected>- Choose a ${name} Skill -</option>
                     ${prof.skill_pool.map(skill => `<option value="${skill}">${skill}</option>`).join("")}
                 </select>
             </div>
@@ -144,7 +147,7 @@ function renderClassDetailsFromAPI(classData) {
     // Proficiencies
     // WIP Add choice logic for skill selection within the prof block
     const profBlock = `
-        <details class="fa-chevron class-feature-block mt-3">
+        <details class="fa-chevron class-feature-block">
             <summary>
                 <div class="flex-col">
                     <h5 class="class-feature-block-title">Proficiencies</h5>
@@ -167,7 +170,7 @@ function renderClassDetailsFromAPI(classData) {
     // Class Features    
     features.forEach((f, idx) => {
         const desc = f.data.description ? `<p class="dnd-feature-desc">${f.data.description}</p>` : "";
-        const featBlock = `<details class="fa-chevron class-feature-block mt-3">
+        const featBlock = `<details class="fa-chevron class-feature-block">
             <summary>
                 <div class="flex-col">
                     <h5 class="class-feature-block-title">${f.name}</h5>
@@ -180,6 +183,8 @@ function renderClassDetailsFromAPI(classData) {
         </details>`;
         html += featBlock;
     });
+
+    html += `</section>`; // Close the grid
 
     return applyTextFormatting(html);
 }
@@ -286,17 +291,22 @@ async function appendRealClassBlock(container, className, level) {
     const wrapper = document.createElement("div");
     wrapper.className = "class-block d-flex flex-column gap-2 mb-3";
 
-    const row = document.createElement("div");
-    row.className = "d-flex align-items-center gap-2";
+    // WIP
+    const classHeader = document.createElement("section");
+    classHeader.className = "class-block-header";
 
-    const classHeader = document.createElement("h3");
-    classHeader.className = "mb-2";
-    classHeader.textContent = className;
+    // Class + Subclass
+    const classHeaderNameStack = document.createElement("div");
+    classHeaderNameStack.className = "flex-col";
 
-    const subclassHeading = document.createElement("div");
-    subclassHeading.className = "text-muted";
-    subclassHeading.style.fontSize = "0.85rem";
-    subclassHeading.style.display = "none";
+    const classHeaderName = document.createElement("h3");
+    classHeaderName.className = "class-block-header-name";
+    classHeaderName.textContent = className;
+
+    const subclassHeading = document.createElement("h5");
+    subclassHeading.className = "class-block-header-subclass";
+
+    classHeaderNameStack.append(subclassHeading, classHeaderName);
 
     newChar.classes.push({ name: className, level });
     
@@ -319,12 +329,17 @@ async function appendRealClassBlock(container, className, level) {
         updateAllLevelOptions();
     };
 
+    // Level selection + Delete button
+    const row = document.createElement("div");
+    row.className = "d-flex align-items-center gap-2";
     row.append(levelSelect, removeBtn);
+
+    classHeader.append(classHeaderNameStack, row);
 
     const details = document.createElement("details");
     details.className = "class-feature-box";
 
-    wrapper.append(subclassHeading, classHeader, row, details);
+    wrapper.append(classHeader, details);
     container.appendChild(wrapper);
 
     // Fetch & render data
@@ -333,12 +348,14 @@ async function appendRealClassBlock(container, className, level) {
     // Update on level change
     levelSelect.addEventListener("change", async () => {
         const newLevel = parseInt(levelSelect.value);
-        // const cls = newChar.classes.find(c => c.name === className);
-        // cls.level = newLevel;
-        // updateAllLevelOptions();
-        syncClassData(container); // WIP
+        syncClassData(container);
         await fetchClassFeatures(className, newLevel, subclassHeading, details);
     });
+
+    // TODO Append horizontal rule after each class block
+    // const hr = document.createElement("hr");
+    // hr.className = "class-block-separator";
+    // container.appendChild(hr);
 }
 
 async function fetchClassFeatures(className, classLevel, subclassHeading, details) {
@@ -351,10 +368,14 @@ async function fetchClassFeatures(className, classLevel, subclassHeading, detail
             }
 
             subclassHeading.textContent = data.subclass || "";
-            subclassHeading.style.display = data.subclass ? "block" : "none";
-            details.innerHTML = renderClassDetailsFromAPI(data, className);
+            details.innerHTML = renderClassDetailsFromAPI(data);
 
             insertChevronsIntoDetailsFA();
+
+            setTimeout(() => {
+                const blocks = document.querySelectorAll(".class-feature-block");
+                blocks.forEach(setupSkillSelectValidation);
+            }, 0);
         });
 }
 

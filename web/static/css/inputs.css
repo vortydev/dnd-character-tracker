@@ -52,6 +52,14 @@ a:hover:not(.btn) {
     outline: 0;
 }
 
+.form-control.select-missing {
+    border-color: var(--orange-color) !important;
+}
+
+.form-control:focus.select-missing {
+    border-color: var(--orange-color) !important;
+    box-shadow: 0 0 0 0.25rem var(--orange-color-shadow) !important;
+}
 
 /* Dropdown */
 .dropdown-item:active {
