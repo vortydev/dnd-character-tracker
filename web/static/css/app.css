@@ -223,6 +223,36 @@ details:not([open]) summary::before {
     content: "▶️";
 }
 
+/* Hide native marker */
+details.fa-chevron summary::-webkit-details-marker {
+    display: none;
+}
+details[open].fa-chevron summary::before {
+    content: "";
+}
+details:not([open]).fa-chevron summary::before {
+    content: "";
+}
+
+/* Font Awesome chevron style */
+.chevron-icon {
+    transition: transform 0.3s ease;
+    margin-right: 0.5em
+}
+
+/* Rotate when open */
+details[open].fa-chevron .chevron-icon {
+    transform: rotate(180deg);
+}
+
+.summary-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5em;
+    width: 100%;
+}
+
 
 /* ##### FOOTER ##### */
 #version {

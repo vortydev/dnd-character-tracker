@@ -48,7 +48,7 @@ class ClassLevel():
             lvl=data["level"],
             class_type=class_type,
             features=features,
-            subclass=SubclassType(subclass_val) if subclass_val else None,
+            subclass=SubclassType(subclass_val) if subclass_val and subclass_val != "None" else None
         )
 
 

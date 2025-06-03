@@ -222,3 +222,124 @@ function highlightCurrency(text) {
 function formatObjectNameForURL(str) {
     return str.replace(/[^\w-]/g, "_").toLowerCase();
 }
+
+/**
+ * Build a string for proficiencies
+ * @param {String} profType "armor", "weapon", "savingThrows", "skills"
+ * @param {Array} profList List of proficiency elements
+ * @param {Array} optProfList Optional second list of proficiency elements
+ */
+function buildProficiencyStr(profType, profList, optProfList) {
+    if (profType == "armor") {
+         const armorStr = profList
+        ? Object.values(profList)
+            .map(item => {
+                const lower = item.toLowerCase();
+                return lower === "shield" ? "shields" : `${lower} armors`;
+            })
+            .join(", ")
+        : "None";
+        return armorStr;
+    }
+    else if (profType == "weapon") {
+        const weaponsArr = [];
+        if (profList && profList.length) {
+            weaponsArr.push(
+                ...profList.map(w => `${w.toLowerCase()} weapons`)
+            );
+        }
+        if (optProfList && optProfList.length) {
+            weaponsArr.push(
+                ...optProfList.map(w => w)
+            );
+        }
+        const weaponStr = weaponsArr.length > 0 ? weaponsArr.join(", ") : "None";
+        return weaponStr;
+    }
+    else if (profType == "skills") {
+        const skillsStr = profList
+        ? Object.values(profList)
+            .join(", ")
+        : "None";
+        return skillsStr;
+    }
+    else if (profType == "savingThrows") {
+        const savingThrowsStr = profList
+        ? Object.values(profList)
+            .map(item => {
+                const upper = item.toUpperCase();
+                return `<em>${upper}</em>`;
+            })
+            .join(", ")
+        : "None";
+        return savingThrowsStr;
+    }
+    return '<em>Not a valid profType!</em>';
+}
+
+function levelStr(level) {
+    if (level == 1) {
+        return "1st";
+    }
+    else if (level == 2) {
+        return "2nd";
+    }
+    else {
+        return `${level}th`;
+    }
+}
+
+function insertChevronsIntoDetailsFA() {
+    console.log("🔧 Inserting chevrons into <details.fa-chevron> blocks...");
+
+    const detailsList = document.querySelectorAll("details.fa-chevron");
+
+    detailsList.forEach(detailsEl => {
+        console.log(detailsEl);
+        
+        const summary = detailsEl.querySelector("summary");
+        if (!summary) {
+            console.warn("⚠️ No <summary> found in:", detailsEl);
+            return;
+        }
+
+        // Avoid duplicating
+        if (summary.querySelector(".summary-content")) {
+            console.log("⏭️ Already processed:", summary);
+            return;
+        }
+
+        console.log("✅ Processing:", summary);
+
+        // Remove ::before content fallback (e.g. emoji/arrow icon via inline span or old node)
+        [...summary.childNodes].forEach(child => {
+            if (child.nodeType === Node.TEXT_NODE && child.textContent.trim() === "") return;
+            if (child.nodeType === Node.ELEMENT_NODE && child.tagName === "SPAN" && child.classList.contains("fallback-icon")) {
+                console.log("🗑️ Removing fallback icon:", child);
+                summary.removeChild(child);
+            }
+        });
+
+        // Create wrapper
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("summary-content");
+
+        // Move children into wrapper
+        while (summary.firstChild) {
+            wrapper.appendChild(summary.firstChild);
+        }
+
+        // Create chevron icon
+        const chevron = document.createElement("i");
+        chevron.className = "fas fa-chevron-down chevron-icon";
+        wrapper.appendChild(chevron);
+
+        summary.appendChild(wrapper);
+
+        console.log("✅ Chevron inserted!");
+    });
+
+    console.log("✅ Done processing all <details.fa-chevron> blocks.");
+}
+
+

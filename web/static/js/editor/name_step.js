@@ -50,7 +50,7 @@ export function initNameStep() {
             });
     });
 
-    input.blur()
+    input.focus();
 
     updateNextButtonState(!!newChar.name);
 }

@@ -425,22 +425,40 @@ details:open .class-features-title {
     text-decoration: underline solid 0.1em var(--green-color);
 }
 
-
+/* Editor - Class Features */
 .class-feature-block {
-
+    /* padding: 0.5em; */
+    border: solid 0.15em var(--light-grey-color);
+    border-radius: 0.75em;
 }
 
-.class-feature-block .dnd-feature-list {
-    padding-left: 2em;
+.class-feature-block summary {
+    padding: 0.5em 0.25em;
+    border-radius: 0.6125em;
+    border-bottom: 0.15em solid transparent;
+    transition: 
+        border-radius 0s,
+        background-color 0.2s ease-out;
+}
+
+.class-feature-block:hover summary {
+    background-color: var(--grey-color-shadow);
+}
+
+.class-feature-block:open summary {
+    background-color: var(--grey-color-shadow);
+    border-radius: 0.6125em 0.6125em 0 0;
+    border-color: var(--light-grey-color);
+}
+
+.class-feature-content {
+    padding: 1em 0.75em;
 }
 
 .class-feature-block-title {
     margin-bottom: 0;
 }
 
-/* .class-feature-box {
-    background-color: var(--light-grey-color);
-    border: 1px solid var(--light-grey-color-shade);
-    padding: 1rem;
-    border-radius: 0.5rem;
-} */
+.level-select {
+    width: fit-content;
+}

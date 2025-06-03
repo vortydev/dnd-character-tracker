@@ -1,12 +1,7 @@
 from flask import Blueprint, request, render_template, jsonify
-
 from config import ROOT
-
 from registries import FeatureRegistry, SpellRegistry, RaceRegistry, ClassLevelRegistry, ClassRegistry
-from bin.feature_types import FeatureType
-from bin.spell import Spell
-from bin.class_base import ClassType
-from bin.subclass_ import SubclassType
+from bin import ClassType, SubclassType, Spell, FeatureType
 
 resources_bp = Blueprint('resources_bp', __name__)
 root = ROOT
@@ -149,19 +144,20 @@ def get_class_full_features(class_name: str):
 
         subclass_type = SubclassType(subclass) if subclass else None
         base = ClassRegistry.get(class_type)
+        print("CLRegistry params:", class_type, level, subclass_type)
         levels = ClassLevelRegistry.get(class_type, level, subclass_type)
-        print(levels)
+        print(l.to_dict() for l in levels)
 
         if not base:
             return jsonify({"status": "error", "message": "Class not found"}), 404
 
-        # Filter and flatten features/spells
+        # WIP Filter and flatten features/spells
         features = []
         spells = []
-        for entry in levels:
-            if entry.get("level") <= level and entry.get("type") == "Base":
-                features += [{"name": f, "level": entry["level"]} for f in entry.get("features", [])]
-                spells += [{"name": s, "level": entry["level"]} for s in entry.get("spells", [])]
+        for l in levels:
+            if l.level <= level:
+                features += [{"name": f.name, "level": l.level, "data": f.to_dict()} for f in l.features]
+                # spells += [{"name": s, "level": entry["level"]} for s in entry.get("spells", [])]
 
         return jsonify({
             "status": "success",
@@ -182,8 +178,8 @@ def get_class_full_features(class_name: str):
                 "skill_pool": [s.value for s in base.proficiency_skill_pool],
                 "skill_choices": base.skill_choices
             },
-            "features": features,
-            "spells": spells,
+            "features": sorted(features, key=lambda f: f["level"]),
+            # "spells": spells,
             "requisite": base.requisite
         })
 
