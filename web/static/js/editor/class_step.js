@@ -11,15 +11,19 @@ export async function initClassStep() {
 
     updateNavHeader(newChar.name || "Unnamed Character", true);  // Show character name
 
-    container.innerHTML = ""; // Reset
+    const existingClasses = [...(newChar.classes || [])];
     newChar.classes = [];
+    container.innerHTML = "";
 
-    // Add instructional message
-    const msg = document.createElement("div");
-    msg.className = "text-muted";
-    msg.textContent = "Add at least one class to continue.";
-    msg.id = "classStepMessage";
-    container.appendChild(msg);
+    // ✅ Add message only once
+    let msg = document.getElementById("classStepMessage");
+    if (!msg) {
+        msg = document.createElement("div");
+        msg.className = "text-muted";
+        msg.textContent = "Add at least one class to continue.";
+        msg.id = "classStepMessage";
+        container.appendChild(msg);
+    }
 
     const selectorSlot = document.createElement("div");
     selectorSlot.id = "classSelectorSlot";
@@ -27,23 +31,35 @@ export async function initClassStep() {
 
     addBtn.onclick = async () => await renderTemporarySelector(selectorSlot, container);
 
+    const renderExistingClasses = async () => {
+        for (const cls of existingClasses) {
+            // Prevent duplicate rendering
+            const alreadyExists = [...container.querySelectorAll("h3.class-block-header-name")]
+                .some(el => el.textContent === cls.name);
+            if (!alreadyExists) {
+                await appendRealClassBlock(container, cls.name, cls.level);
+            }
+        }
+        syncClassData(container);
+        updateNextButtonState(newChar.classes.length > 0);
+    };
+
     if (!window.classListCache) {
         fetch("/api/classes/get")
             .then(res => res.json())
-            .then(data => {
+            .then(async data => {
                 window.classListCache = data.class_list || [];
                 window.levelListCache = data.level_list || [];
-                updateNextButtonState(false);
+                await renderExistingClasses();
             });
-    } 
-    else {
-        updateNextButtonState(false);
+    } else {
+        await renderExistingClasses();
     }
 }
 
 function syncClassData(container) {
     const entries = container.querySelectorAll("div.class-block");
-    newChar.classes = [];
+    const updatedClasses = [];
 
     entries.forEach(entry => {
         const selects = entry.querySelectorAll("select");
@@ -51,9 +67,11 @@ function syncClassData(container) {
         const level = parseInt(selects[0]?.value);
 
         if (className && !isNaN(level)) {
-            newChar.classes.push({ name: className, level });
+            updatedClasses.push({ name: className, level });
         }
     });
+
+    newChar.classes = updatedClasses;
 
     const hasClass = newChar.classes.length > 0;
     updateNextButtonState(hasClass);
@@ -271,7 +289,7 @@ async function renderTemporarySelector(slot, container) {
         }
 
         // Add to character
-        newChar.classes.push({ name: className, level });
+        // newChar.classes.push({ name: className, level });
         slot.innerHTML = "";  // Clear selector
         await appendRealClassBlock(container, className, level);
         syncClassData(container);
@@ -291,7 +309,6 @@ async function appendRealClassBlock(container, className, level) {
     const wrapper = document.createElement("div");
     wrapper.className = "class-block d-flex flex-column gap-2 mb-3";
 
-    // WIP
     const classHeader = document.createElement("section");
     classHeader.className = "class-block-header";
 
@@ -308,7 +325,7 @@ async function appendRealClassBlock(container, className, level) {
 
     classHeaderNameStack.append(subclassHeading, classHeaderName);
 
-    newChar.classes.push({ name: className, level });
+    // newChar.classes.push({ name: className, level });
     
     const levelSelect = document.createElement("select");
     levelSelect.className = "form-control form-select level-select";
