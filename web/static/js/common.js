@@ -307,7 +307,7 @@ function insertChevronsIntoDetailsFA(debug=false) {
             return;
         }
 
-        console.log("✅ Processing:", summary);
+        if (debug) console.log("✅ Processing:", summary);
 
         // Remove ::before content fallback (e.g. emoji/arrow icon via inline span or old node)
         [...summary.childNodes].forEach(child => {

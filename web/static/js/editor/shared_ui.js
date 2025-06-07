@@ -86,3 +86,20 @@ function updateFeatureBlockIcon(container) {
     }
 }
 
+export function updateAbilityScores(char) {
+    const abilityKeys = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+    const abilities = {};
+
+    abilityKeys.forEach(key => {
+        const el = document.getElementById(`ability-${key}`);
+        if (el) {
+            const val = parseInt(el.value);
+            abilities[key] = isNaN(val) ? null : val;
+        }
+    });
+
+    char.abilities = abilities;
+
+    // Optionally, log or trigger further updates
+    console.log("Updated Abilities:", char.abilities);
+}

@@ -3,7 +3,7 @@ import sys, os
 from flask import Flask
 
 # App
-from config import VERSION
+from config import VERSION, FLASK_PORT
 from blueprints.main import main_bp
 from blueprints.resources import resources_bp
 from blueprints.characters import characters_bp
@@ -40,7 +40,7 @@ if __name__ == '__main__':
         # Start Flask app
         app.run(
             host="0.0.0.0",
-            port=os.environ.get("FLASK_PORT"),
+            port=FLASK_PORT,
             threaded=True, 
             debug=True,
             use_evalex=False

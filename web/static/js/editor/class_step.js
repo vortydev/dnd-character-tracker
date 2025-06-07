@@ -1,6 +1,6 @@
 // editor/class_step.js
 import { newChar } from '../character_editor.js';
-import { updateNextButtonState, updateNavHeader, setupSkillSelectValidation } from './shared_ui.js';
+import { updateNextButtonState, updateNavHeader, setupSkillSelectValidation, updateAbilityScores } from './shared_ui.js';
 
 const MAX_LEVELS = 20;
 
@@ -15,7 +15,7 @@ export async function initClassStep() {
     newChar.classes = [];
     container.innerHTML = "";
 
-    // ✅ Add message only once
+    // Add message only once
     let msg = document.getElementById("classStepMessage");
     if (!msg) {
         msg = document.createElement("div");
@@ -52,7 +52,8 @@ export async function initClassStep() {
                 window.levelListCache = data.level_list || [];
                 await renderExistingClasses();
             });
-    } else {
+    } 
+    else {
         await renderExistingClasses();
     }
 }
@@ -62,31 +63,42 @@ function syncClassData(container) {
     const updatedClasses = [];
 
     entries.forEach(entry => {
-        const selects = entry.querySelectorAll("select");
         const className = entry.querySelector("h3")?.textContent;
-        const level = parseInt(selects[0]?.value);
+        const level = parseInt(entry.querySelector("select.level-select")?.value);
 
-        if (className && !isNaN(level)) {
-            updatedClasses.push({ name: className, level });
-        }
+        if (!className || isNaN(level)) return;
+
+        // Collect selected skills (if any)
+        // const skillSelects = entry.querySelectorAll("select.skill-select");        
+        // const selectedSkills = Array.from(skillSelects)
+        //     .map(sel => sel.value)
+        //     .filter(val => val && val !== "");  // Only valid selections
+        
+        updatedClasses.push({
+            name: className,
+            level: level,
+            // skills: selectedSkills
+        });
     });
 
     newChar.classes = updatedClasses;
-
+    console.log("Character data", newChar);
+    
     const hasClass = newChar.classes.length > 0;
     updateNextButtonState(hasClass);
     
-    // ✅ Show/Hide instructional message
+    // Show/Hide instructional message
     const msg = document.getElementById("classStepMessage");
     if (msg) msg.classList.toggle("hidden", hasClass);
 
-    // ✅ Update character level display
+    // Update character level display
     const totalLevel = newChar.classes.reduce((sum, cls) => sum + cls.level, 0);
     const charLevelLabel = document.getElementById("charLevelTotal");
     if (charLevelLabel) charLevelLabel.textContent = totalLevel;
 
-    // ✅ Cap all level dropdowns
+    // Cap all level dropdowns
     updateAllLevelOptions();
+    // updateAbilityScores(newChar);
 }
 
 
@@ -149,7 +161,7 @@ function renderClassDetailsFromAPI(classData) {
         const skillHTML = Array.from({ length: prof.skill_choices }).map((_, i) => `
             <div class="form-group mb-2">
                 <select class="form-control form-select skill-select" id="skillSelect_${name}_${i}">
-                    <option value="" selected>- Choose a ${name} Skill -</option>
+                    <option value="">- Choose a ${name} Skill -</option>
                     ${prof.skill_pool.map(skill => `<option value="${skill}">${skill}</option>`).join("")}
                 </select>
             </div>
@@ -393,6 +405,9 @@ async function fetchClassFeatures(className, classLevel, subclassHeading, detail
                 const blocks = document.querySelectorAll(".class-feature-block");
                 blocks.forEach(setupSkillSelectValidation);
             }, 0);
+
+            // 🧩 Inject saved skills if they exist
+            // syncSkillSelection(className, details);
         });
 }
 
@@ -402,8 +417,12 @@ function updateCharacterLevelDisplay() {
     if (label) label.textContent = totalLevel;
 }
 
-function getRemainingLevels(forClass = null) {
-    const used = newChar.classes.reduce((sum, cls) => sum + cls.level, 0);
-    const already = forClass ? (newChar.classes.find(c => c.name === forClass)?.level || 0) : 0;
-    return MAX_LEVELS - used + already;
+function syncSkillSelection(forClass, container) {
+    const matchingClass = newChar.classes.find(c => c.name === forClass);
+    if (matchingClass?.skills?.length) {
+        const selects = container.querySelectorAll("select.skill-select");
+        matchingClass.skills.forEach((skill, i) => {
+            if (selects[i]) selects[i].value = skill;
+        });
+    }
 }
