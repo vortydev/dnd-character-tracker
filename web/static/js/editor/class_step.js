@@ -11,8 +11,9 @@ export async function initClassStep() {
 
     updateNavHeader(newChar.name || "Unnamed Character", true);  // Show character name
 
-    const existingClasses = [...(newChar.classes || [])];
-    newChar.classes = [];
+    const existingClasses = (Array.isArray(newChar.classes) && newChar.classes.length)
+        ? [...newChar.classes]
+        : [];
     container.innerHTML = "";
 
     // Add message only once
@@ -37,7 +38,8 @@ export async function initClassStep() {
             const alreadyExists = [...container.querySelectorAll("h3.class-block-header-name")]
                 .some(el => el.textContent === cls.name);
             if (!alreadyExists) {
-                await appendRealClassBlock(container, cls.name, cls.level);
+                await appendRealClassBlock(container, cls.name, cls.level, cls.skills || []);
+                syncClassData(container);
             }
         }
         syncClassData(container);
@@ -68,25 +70,27 @@ function syncClassData(container) {
 
         if (!className || isNaN(level)) return;
 
-        // Collect selected skills (if any)
-        // const skillSelects = entry.querySelectorAll("select.skill-select");        
-        // const selectedSkills = Array.from(skillSelects)
-        //     .map(sel => sel.value)
-        //     .filter(val => val && val !== "");  // Only valid selections
+        // Collect selected skills
+        const skillSelects = entry.querySelectorAll("select.skill-select");        
+        const selectedSkills = Array.from(skillSelects)
+            .map(sel => sel.value)
+            .filter(val => val && val !== "");  // Only valid selections
+        // console.log("Selected skills for", className, selectedSkills);
+
         
         updatedClasses.push({
             name: className,
             level: level,
-            // skills: selectedSkills
+            skills: selectedSkills
         });
     });
 
     newChar.classes = updatedClasses;
-    console.log("Character data", newChar);
+    console.log("Character data", newChar); // DEBUG
     
     const hasClass = newChar.classes.length > 0;
     updateNextButtonState(hasClass);
-    
+
     // Show/Hide instructional message
     const msg = document.getElementById("classStepMessage");
     if (msg) msg.classList.toggle("hidden", hasClass);
@@ -98,8 +102,8 @@ function syncClassData(container) {
 
     // Cap all level dropdowns
     updateAllLevelOptions();
-    // updateAbilityScores(newChar);
 }
+
 
 
 function getAvailableClasses() {
@@ -123,7 +127,7 @@ function refreshAllClassSelectors() {
 function renderClassDetailsFromAPI(classData) {
     let html = "";
     html += `
-    <summary class="editor-class-features">
+    <summary class="editor-class-features fit-chevron">
         <h4 class="class-features-title">Class Features</h4>
     </summary>
     `;
@@ -156,21 +160,11 @@ function renderClassDetailsFromAPI(classData) {
         </details>`;
     html += hpBlock;
 
-    let skillChoices = "";
-    if (prof.skill_choices && prof.skill_pool?.length) {
-        const skillHTML = Array.from({ length: prof.skill_choices }).map((_, i) => `
-            <div class="form-group mb-2">
-                <select class="form-control form-select skill-select" id="skillSelect_${name}_${i}">
-                    <option value="">- Choose a ${name} Skill -</option>
-                    ${prof.skill_pool.map(skill => `<option value="${skill}">${skill}</option>`).join("")}
-                </select>
-            </div>
-        `).join("");
+    const skillChoices = `
+    <div class="mt-3 skill-select-container" data-class="${name}">
+        <!-- Skill selects will be injected here -->
+    </div>`;
 
-        skillChoices = `<div class="mt-3">
-            ${skillHTML}
-        </div>`;
-    }
     const skillChoicesStr = prof.skill_choices > 0 ? `${prof.skill_choices} Choices • ` : "";
 
 
@@ -223,7 +217,7 @@ function renderClassDetailsFromAPI(classData) {
 function populateLevelSelect(selectEl, currentLevel = 1) {
     const totalUsed = newChar.classes.reduce((sum, cls) => sum + cls.level, 0);
     const remaining = MAX_LEVELS - totalUsed + currentLevel;
-    console.log(`Max: ${MAX_LEVELS}, Total used: ${totalUsed}, Current: ${currentLevel}, Remaining: ${remaining}`);
+    // console.log(`Max: ${MAX_LEVELS}, Total used: ${totalUsed}, Current: ${currentLevel}, Remaining: ${remaining}`);
     
 
     selectEl.innerHTML = "";
@@ -317,7 +311,7 @@ async function renderTemporarySelector(slot, container) {
     slot.appendChild(row);
 }
 
-async function appendRealClassBlock(container, className, level) {
+async function appendRealClassBlock(container, className, level, oldSkills = []) {
     const wrapper = document.createElement("div");
     wrapper.className = "class-block d-flex flex-column gap-2 mb-3";
 
@@ -366,20 +360,25 @@ async function appendRealClassBlock(container, className, level) {
     classHeader.append(classHeaderNameStack, row);
 
     const details = document.createElement("details");
-    details.className = "class-feature-box";
+    details.className = "class-feature-box fa-chevron";
 
     wrapper.append(classHeader, details);
     container.appendChild(wrapper);
 
     // Fetch & render data
-    await fetchClassFeatures(className, level, subclassHeading, details);
+    await fetchClassFeatures(className, level, subclassHeading, details, oldSkills);
 
     // Update on level change
-    levelSelect.addEventListener("change", async () => {
-        const newLevel = parseInt(levelSelect.value);
+    levelSelect.addEventListener("change", async () => {    
+        // Preserve selected skills
+        let oldSkillsLvl = newChar.classes.find(c => c.name === className)?.skills || [];
+        
+        // Re-render class block
+        await fetchClassFeatures(className, parseInt(levelSelect.value), subclassHeading, details, oldSkillsLvl);
+    
         syncClassData(container);
-        await fetchClassFeatures(className, newLevel, subclassHeading, details);
     });
+    
 
     // TODO Append horizontal rule after each class block
     // const hr = document.createElement("hr");
@@ -387,7 +386,7 @@ async function appendRealClassBlock(container, className, level) {
     // container.appendChild(hr);
 }
 
-async function fetchClassFeatures(className, classLevel, subclassHeading, details) {
+async function fetchClassFeatures(className, classLevel, subclassHeading, details, skillPreset = null   ) {
     fetch(`/api/classes/features/${encodeURIComponent(className)}?level=${classLevel}`)
         .then(res => res.json())
         .then(data => {
@@ -399,15 +398,13 @@ async function fetchClassFeatures(className, classLevel, subclassHeading, detail
             subclassHeading.textContent = data.subclass || "";
             details.innerHTML = renderClassDetailsFromAPI(data);
 
+            const charData = skillPreset
+                ? { classes: [{ name: className, skills: skillPreset }] }
+                : newChar;
+
+            renderSkillSelects(className, charData); // injects skill selects dynamically
+
             insertChevronsIntoDetailsFA();
-
-            setTimeout(() => {
-                const blocks = document.querySelectorAll(".class-feature-block");
-                blocks.forEach(setupSkillSelectValidation);
-            }, 0);
-
-            // 🧩 Inject saved skills if they exist
-            // syncSkillSelection(className, details);
         });
 }
 
@@ -417,12 +414,45 @@ function updateCharacterLevelDisplay() {
     if (label) label.textContent = totalLevel;
 }
 
-function syncSkillSelection(forClass, container) {
-    const matchingClass = newChar.classes.find(c => c.name === forClass);
-    if (matchingClass?.skills?.length) {
-        const selects = container.querySelectorAll("select.skill-select");
-        matchingClass.skills.forEach((skill, i) => {
-            if (selects[i]) selects[i].value = skill;
+
+function renderSkillSelects(className, charData) {
+    const classObj = window.classListCache.find(c => c.name === className);
+    if (!classObj?.skill_choices) return;
+
+    const skill_choices = classObj.skill_choices;
+    const skill_pool = classObj.proficiency_skill_pool;
+
+    const container = document.querySelector(`.skill-select-container[data-class="${className}"]`);
+    if (!container) return;
+
+    const selectedSkills = (charData.classes.find(c => c.name === className)?.skills) || [];
+    // console.log("Selected skills for", className, selectedSkills);
+
+
+    container.innerHTML = "";
+
+    for (let i = 0; i < skill_choices; i++) {
+        const select = document.createElement("select");
+        select.className = "form-control form-select skill-select mb-2";
+
+        // Build options
+        select.innerHTML = `<option value="">- Choose a ${className} Skill -</option>` +
+            skill_pool.map(skill => `<option value="${skill}">${skill}</option>`).join("");
+
+        container.appendChild(select);
+
+        if (selectedSkills[i]) {
+            select.value = selectedSkills[i];
+        }
+
+        select.addEventListener("change", () => {
+            syncClassData(document.getElementById("classContainer"));
+            document.querySelectorAll(".class-feature-block").forEach(block =>
+                setupSkillSelectValidation(block, newChar)
+            );
         });
     }
+
+    setupSkillSelectValidation(container.closest(".class-feature-block"), newChar);
 }
+

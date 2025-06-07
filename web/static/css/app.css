@@ -237,11 +237,11 @@ details:not([open]).fa-chevron summary::before {
 /* Font Awesome chevron style */
 .chevron-icon {
     transition: transform 0.3s ease;
-    margin-right: 0.5em
+    margin-right: 0.5em;
 }
 
 /* Rotate when open */
-details[open].fa-chevron .chevron-icon {
+details[open].fa-chevron > summary > .summary-content > .chevron-icon {
     transform: rotate(180deg);
 }
 
@@ -249,8 +249,17 @@ details[open].fa-chevron .chevron-icon {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5em;
+    /* gap: 0.5em; */
     width: 100%;
+}
+
+.fit-chevron {
+    width: fit-content;
+}
+
+.fit-chevron .chevron-icon {
+    margin-right: 0;
+    margin-left: 0.5em;
 }
 
 

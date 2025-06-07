@@ -11,12 +11,15 @@ export function updateNavHeader(text, visible = true) {
     header.classList.toggle("hidden", !visible);
 }
 
-export function setupSkillSelectValidation(block) {
+export function setupSkillSelectValidation(block, charData) {
     const selects = block.querySelectorAll("select.skill-select");
     if (!selects.length) return;
 
+    const className = block.closest(".class-block")?.querySelector("h3")?.textContent;
+    if (!className) return;
+
     const validate = () => {
-        syncSkillSelects(block);
+        syncSkillSelects(block, className, charData);
         validateSkillChoicesBlock(block);
     };
 
@@ -24,22 +27,7 @@ export function setupSkillSelectValidation(block) {
         select.addEventListener("change", validate);
     });
 
-    validate(); // Initial call
-}
-
-function syncSkillSelects(container) {
-    const selects = container.querySelectorAll("select.skill-select");
-    const selectedValues = Array.from(selects)
-        .map(s => s.value)
-        .filter(v => v !== "");
-
-    selects.forEach(select => {
-        const current = select.value;
-        Array.from(select.options).forEach(opt => {
-            if (opt.value === "") return; // Skip placeholder
-            opt.disabled = selectedValues.includes(opt.value) && opt.value !== current;
-        });
-    });
+    validate();
 }
 
 function validateSkillChoicesBlock(container) {
@@ -102,4 +90,31 @@ export function updateAbilityScores(char) {
 
     // Optionally, log or trigger further updates
     console.log("Updated Abilities:", char.abilities);
+}
+
+export function getAllSelectedSkills(charData, excludeClass = null) {
+    return charData.classes
+        .filter(c => c.name !== excludeClass)
+        .flatMap(c => c.skills || []);
+}
+
+export function syncSkillSelects(container, currentClass, charData) {
+    const selects = container.querySelectorAll("select.skill-select");
+    const selectedValues = Array.from(selects)
+        .map(s => s.value)
+        .filter(v => v !== "");
+
+    const otherClassSkills = getAllSelectedSkills(charData, currentClass);
+
+    selects.forEach(select => {
+        const current = select.value;
+        Array.from(select.options).forEach(opt => {
+            if (opt.value === "") return;
+
+            const takenInThisBlock = selectedValues.includes(opt.value) && opt.value !== current;
+            const takenInOtherBlock = otherClassSkills.includes(opt.value);
+
+            opt.disabled = takenInThisBlock || takenInOtherBlock;
+        });
+    });
 }
