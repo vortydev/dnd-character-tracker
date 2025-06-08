@@ -7,7 +7,7 @@ from class_feature import SubclassFeature
 db_dragon_ancestor = SubclassFeature(
     name="Dragon Ancestor",
     description="At 1st level, you choose one type of dragon as your ancestor. The damage type associated with each dragon is used by features you gain later.\
-        \nTABLE [Dragon, Damage Type] : [Black, Acid]; [Blue, Lightning]; [Brass, Fire]; [Bronze, Lightning]; [Copper, Acid]; [Gold, Fire]; [Green, Poison]; [Red, Fire]; [Silver, Cold]; [White, Cold]\
+        \nTABLE [Dragon,, Damage Type]: [Black,, Acid]; [Blue,, Lightning]; [Brass,, Fire]; [Bronze,, Lightning]; [Copper,, Acid]; [Gold,, Fire]; [Green,, Poison]; [Red,, Fire]; [Silver,, Cold]; [White,, Cold]\
         \nYou can speak, read, and write Draconic. Additionally, whenever you make a Charisma check when interacting with dragons, your proficiency bonus is doubled if it applies to the check.",
     class_type=ClassType.SORCERER,
     subclass_type=SubclassType.DRACONIC_BLOODLINE

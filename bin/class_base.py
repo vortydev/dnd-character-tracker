@@ -26,6 +26,14 @@ class ClassType(Enum):
     ARTIFICER = "Artificer"
 
 
+CLASS_EMOJI_MAP = {
+    ClassType.DRUID: "🌿",
+    ClassType.FIGHTER: "⚔️",
+    ClassType.SORCERER: "✨",
+    ClassType.WIZARD: "🪄",
+}
+
+
 # === Mapping ===
 SUBCLASS_MAP = {
     # Fighter
@@ -117,8 +125,8 @@ class Class:
 
         self.skill_choices = skill_choices  # e.g., choose 2 from pool
 
-    def to_dict(self) -> Dict:
-        return {
+    def to_dict(self, emoji: bool=False) -> Dict:
+        data = {
             "name": self.name.value,
             "description": self.description,
             "requisite": self.requisite,
@@ -133,7 +141,9 @@ class Class:
             "proficiency_skill_pool": [s.value for s in self.proficiency_skill_pool],
             "proficiency_tools": [t.to_dict() for t in self.proficiency_tools],
             "skill_choices": self.skill_choices,
+            "emoji": CLASS_EMOJI_MAP.get(self.name)
         }
+        return data
 
     @staticmethod
     def from_dict(data: Dict) -> "Class":

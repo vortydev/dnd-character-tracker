@@ -73,7 +73,7 @@ druid_feat_wild_shape = ClassFeature(
     name="Wild Shape",
     description="Starting at 2nd level, you can use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest.\
         \nYour druid level determines the beasts you can transform into, as shown in the Beast Shapes table. At 2nd level, for example, you can transform into any beast that has a challenge rating of 1/4 or lower that doesn't have a flying or swimming speed.\
-        \nTABLE [Level, Max. CR, Limitations, Example] : [2nd, 1/4, No flying or swimming speed, Wolf]; [4th, 1/2, No flying speed, Crocodile]; [8th, 1, , Giant eagle]\
+        \nTABLE [[Beat Shapes]] [Level,, Max. CR,, Limitations,, Example] : [2nd,, 1/4,, No flying or swimming speed,, Wolf]; [4th,, 1/2,, No flying speed,, Crocodile]; [8th,, 1,, ,, Giant eagle]\
         \nYou can stay in a beast shape for a number of hours equal to half your druid level (rounded down). You then revert to your normal form unless you expend another use of this feature. You can revert to your normal form earlier by using a bonus action on your turn. You automatically revert if you fall unconscious, drop to 0 hit points, or die.\
         \nWhile you are transformed, the following rules apply :\
         \n- Your game statistics are replaced by the statistics of the beast, but you retain your alignment, personality, and Intelligence, Wisdom, and Charisma scores. You also retain all of your skill and saving throw proficiencies, in addition to gaining those of the creature. If the creature has the same proficiency as you and the bonus in its stat block is higher than yours, use the creature's bonus instead of yours. If the creature has any legendary or lair actions, you can't use them.\
@@ -88,7 +88,7 @@ druid_feat_wild_shape = ClassFeature(
 druid_feat_druid_circle = ClassFeature(
     name="Druid Circle",
     description="At 2nd level, you choose to identify with a circle of druids. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.\
-        \nTABLE[Circle, Source]: [Dreams, Xanathar's Guide to Everything]; [Land, Player's Handbook]; [Moon, Player's Handbook]; [Sheperd, Xanathar's Guide to Everything; [Spores, Tasha's Cauldron of Everything]; [Stars, Tasha's Cauldron of Everything]; [Wildlife, Tasha's Cauldron of Everything]",
+        \nTABLE[Circle,, Source]: [Dreams,, Xanathar's Guide to Everything]; [Land,, Player's Handbook]; [Moon,, Player's Handbook]; [Sheperd,, Xanathar's Guide to Everything; [Spores,, Tasha's Cauldron of Everything]; [Stars,, Tasha's Cauldron of Everything]; [Wildlife,, Tasha's Cauldron of Everything]",
     class_type=ClassType.DRUID
 )
 

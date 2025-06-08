@@ -245,6 +245,10 @@ details[open].fa-chevron > summary > .summary-content > .chevron-icon {
     transform: rotate(180deg);
 }
 
+details.fa-chevron > summary {
+    gap: 0;
+}
+
 .summary-content {
     display: flex;
     align-items: center;

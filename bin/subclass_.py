@@ -4,6 +4,15 @@ from enum import Enum
 # ===== Subclasses =====
 # WIP
 class SubclassType(Enum):
+    # === Druid ===
+    CIRCLE_DREAMS = "Circle of Dreams"
+    CIRCLE_LAND = "Circle of the Land"
+    CIRCLE_MOON = "Circle of the Moon"
+    CIRCLE_SHEPERD = "Circle of the Sheperd"
+    CIRCLE_SPORES = "Circle of Spores"
+    CIRCLE_STARS = "Circle of Stars"
+    CIRCLE_WILDLIFE = "Circle of Wildlife"
+
     # === FIGHTER Martial Archetypes ===
     # Player's Handbook
     BATTLE_MASTER = "Battle Master"

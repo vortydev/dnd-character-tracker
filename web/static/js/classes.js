@@ -35,6 +35,7 @@ function constructClassData(classList, classLevels) {
         // Info
         curClass.info["description"] = c.description;
         curClass.info["requisite"] = c.requisite;
+        curClass.info["emoji"] = c.emoji;
 
         // Hit Points
         curClass.hp["dice"] = c.hit_dice;
@@ -81,7 +82,7 @@ function prepareAndRenderClasses(classList, classLevels) {
     container.innerHTML = "";
 
     const classData = constructClassData(classList, classLevels);
-    console.log("Class data:", classData);
+    console.log("Class data:", classData); // DEBUG
     
     const classNames = Object.keys(classData);
     classNames.forEach((className, index) => {
@@ -93,10 +94,12 @@ function prepareAndRenderClasses(classList, classLevels) {
             container.innerHTML += `<hr>`;
         }
     });
+
+    insertChevronsIntoDetailsFA();
 }
 
 function renderClassData(classData) {
-    console.log("Current class", classData);
+    console.log("Current class", classData); // DEBUG
     const cName = classData.name;
 
     // TODO Summary table
@@ -168,7 +171,7 @@ function renderClassData(classData) {
     // LATER Equipment
 
     const classFeatures = `
-    <details id="${cName.toLowerCase()}Features" class="mt-3" open>
+    <details id="${cName.toLowerCase()}Features" class="mt-3 fa-chevron" open>
         <summary><h3 class="section-title-black">Class Features</h3></summary>
         <section class="class-features">
             <p class="dnd-feature-desc mt-2">As a ${cName.toLowerCase()}, you gain the following features.</p>
@@ -184,7 +187,7 @@ function renderClassData(classData) {
     const levelFeatureBlocks = renderLevelBlocks(baseLevels, cName);
     const classLevelSection = `
     <hr>
-    <details id="${cName.toLowerCase()}Levels" open>
+    <details id="${cName.toLowerCase()}Levels" class="fa-chevron" open>
         <summary><h3 class="section-title-black">Class Levels</h3></summary>
         <section class="class-levels grid-auto mt-3">
             ${levelFeatureBlocks}
@@ -204,7 +207,7 @@ function renderClassData(classData) {
 
         subclassBlocks += `
         <hr>
-        <details id="${cName.toLowerCase()}-${subclassName.toLowerCase()}Levels">
+        <details id="${cName.toLowerCase()}-${subclassName.toLowerCase()}Levels" class="fa-chevron">
             <summary><h3 class="section-title-black">${subclassName} Levels</h3></summary>
             <section class="class-subclass-levels grid-auto mt-3">
                 ${rendered}
@@ -213,8 +216,8 @@ function renderClassData(classData) {
     }
     
     const classBlock = `
-    <details id="${cName.toLowerCase()}" class="dnd-feature-section" open>
-        <summary><h2 class="section-title">${cName}</h2></summary>
+    <details id="${cName.toLowerCase()}" class="dnd-feature-section fa-chevron" open>
+        <summary><h2 class="section-title">${cName} ${classData.info.emoji}</h2></summary>
         ${classData.info.description ? `<i class="dnd-feature-desc text-bold mt-2">${classData.info.description}</i>` : ""}
         ${classData.info.requisite ? `<i class="dnd-feature-desc mt-2">${classData.info.requisite}</i>` : ""}
         ${classFeatures}

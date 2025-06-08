@@ -65,6 +65,11 @@ def load_subclass_features() -> list[SubclassFeature]:
     subclass_feats: list[SubclassFeature] = []
     print("\n===== Subclass Features =====")
 
+    # === Druid ===
+    print("> Creating Druid Subclass features")
+    from feature_list.subclass_features.druid_circle_features import circle_of_the_land
+    subclass_feats.extend(circle_of_the_land)
+
     # === Fighter ===
     print("> Creating Fighter Subclass features")
     from feature_list.subclass_features.fighter_martial_archetype_features import ma_champion

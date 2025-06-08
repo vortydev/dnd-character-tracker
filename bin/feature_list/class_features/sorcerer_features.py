@@ -84,7 +84,7 @@ sorc_feat_font_magic = ClassFeature(
                 ClassFeature(
                     name="Creating Spell Slots",
                     description="You can transform unexpended sorcery points into one spell slot as a bonus action on your turn. The Creating Spell Slots table shows the cost of creating a spell slot of a given level. You can create spell slots no higher in level than 5th. Any spell slot you create with this feature vanishes when you finish a long rest.\
-                        \nTABLE [Spell Slot level, Sorcery Point Cost] : [1, 2]; [2, 3]; [3, 5]; [4, 6]; [5, 7]",
+                        \nTABLE [Spell Slot level,, Sorcery Point Cost]: [1,, 2]; [2,, 3]; [3,, 5]; [4,, 6]; [5,, 7]",
                     class_type=ClassType.SORCERER
                 ),
                 ClassFeature(

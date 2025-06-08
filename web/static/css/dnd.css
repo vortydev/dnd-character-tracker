@@ -216,7 +216,7 @@ details.dnd-feature-section {
 }
 
 .section-title:hover {
-    color: var(--primary-color-shade);
+    color: var(--red-color-shade);
 }
 
 .feature-context {
@@ -347,6 +347,10 @@ details.dnd-feature-section {
 
 .dnd-feature-table tbody tr:hover {
     background-color: #eee;
+}
+
+.dnd-feature-table .table-caption {
+    text-align: left;
 }
 
 

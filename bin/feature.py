@@ -85,38 +85,55 @@ class Feature():
 
 # ===== HTML Helpers =====
 
-def convert_into_html_table(str: str, html_class: str) -> str:
-    """Converts a given string as an HTML table."""
-    # Prepare the table parts
-    str = str.replace('TABLE', '')
-    header, body = str.strip().split(':', 1)
+def convert_into_html_table(table_str: str, html_class: str) -> str:
+    """
+    Converts a table string into HTML. Supports an optional caption using [[Title]] syntax.
+    Format: TABLE [[Title]] [col1, col2]: [val1, val2]; [val3, val4]
+    """
+    # Remove TABLE prefix
+    table_str = table_str.replace("TABLE", "").strip()
+
+    # Extract caption if exists
+    caption = ""
+    title_match = re.search(r"\[\[(.*?)\]\]", table_str)
+    if title_match:
+        caption = title_match.group(1).strip()
+        table_str = table_str.replace(title_match.group(0), "").strip()
+
+    # Split into header and body
+    if ":" not in table_str:
+        return "<!-- Invalid table format -->"
+
+    header_str, body_str = table_str.split(":", 1)
+    header_parts = [h.strip() for h in remove_braces(header_str).split(",,")]
+    col_count = len(header_parts)
 
     table = f'<table class="{html_class}">'
 
-    # Headers
-    thead = '<thead><tr>'
-    header_parts = remove_braces(header).split(',')
-    for hp in header_parts:
-        thead += f'<th>{hp.strip()}</th>'
-    thead += '</tr></thead>'
+    # Start thead
+    thead = "<thead>"
+
+    if caption:
+        thead += f'<tr><th colspan="{col_count}" class="table-caption">{caption}</th></tr>'
+
+    # Header row
+    thead += "<tr>" + "".join(f"<th>{col}</th>" for col in header_parts) + "</tr>"
+    thead += "</thead>"
     table += thead
 
-    # Content
-    tbody = '<tbody>'
-    rows = body.split(';')
-    for row in rows:
-        row_parts = remove_braces(row).split(',')
-        tr = '<tr>'
-        for rp in row_parts:
-            tr += f'<td>{rp.strip()}</td>'
-        tr += '</tr>'
+    # Body rows
+    tbody = "<tbody>"
+    for row in body_str.split(";"):
+        row_parts = remove_braces(row).split(',,')
+        tr = "<tr>" + "".join(f"<td>{rp.strip()}</td>" for rp in row_parts) + "</tr>"
         tbody += tr
+    tbody += "</tbody>"
 
-    tbody += '</tbody>'
     table += tbody
+    table += "</table>"
 
-    table += '</table>'
     return table
+
 
 def remove_braces(str: str) -> str:
     return str.replace('[', '').replace(']', '').strip()
