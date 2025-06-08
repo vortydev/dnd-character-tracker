@@ -38,8 +38,8 @@ land_lands_stride = SubclassFeature(
     class_type=ClassType.DRUID, subclass_type=SubclassType.CIRCLE_LAND
 )
 
-land_natures_wand = SubclassFeature(
-    name="Nature's Wand",
+land_natures_ward = SubclassFeature(
+    name="Nature's Ward",
     description="When you reach 10th level, you can't be charmed or frightened by elementals or fey, and you are immune to poison and disease.",
     class_type=ClassType.DRUID, subclass_type=SubclassType.CIRCLE_LAND
 )
@@ -54,5 +54,5 @@ land_natures_sanctuary = SubclassFeature(
 # Array of Evocation subclass feats
 circle_of_the_land = [
     land_bonus_cantrip, land_natural_recovery, land_circle_spells,
-    land_lands_stride, land_natures_wand, land_natures_sanctuary,
+    land_lands_stride, land_natures_ward, land_natures_sanctuary,
 ]
