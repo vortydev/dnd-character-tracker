@@ -1,5 +1,4 @@
 // web/static/js/builder_utils.js
-
 export async function runBuilderScript(scriptName, root = "") {
     try {
         const response = await fetch(`${root}/admin/run-builder`, {
@@ -26,4 +25,5 @@ export async function runMultipleBuilderScripts(scripts, root = "") {
     for (const script of scripts) {
         await runBuilderScript(script, root);
     }
+    alert("Resources successfully rebuilt!");
 }

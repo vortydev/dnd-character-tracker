@@ -402,6 +402,10 @@ details.dnd-feature-section {
     font-size: 0.95em;
 }
 
+.spell-details-row td p {
+    margin-bottom: 1em;
+}
+
 .spell-details-row td p:last-child {
     margin-bottom: 0;
 }

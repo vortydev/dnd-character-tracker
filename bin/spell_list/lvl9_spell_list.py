@@ -4,6 +4,21 @@ from common import ActionCost
 from spell import Spell, SpellSchool, SpellComponent, SpellTag
 
 # === Define spells ===
+lvl9_true_resurrection = Spell(
+    name="True Resurrection",
+    level=9,
+    school=SpellSchool.NECROMANCY,
+    action_cost=ActionCost.ACTION,
+    description="You touch a creature that has been dead for no longer than 200 years and that died for any reason except old age. If the creature's soul is free and willing, the creature is restored to life with all its hit points.\
+        \nThis spell closes all wounds, neutralizes any poison, cures all diseases, and lifts any curses affecting the creature when it died. The spell replaces damaged or missing organs or limbs. If the creature was undead, it is restored to its non-undead form.\
+        \nThe spell can even provide a new body if the original no longer exists, in which case you must speak the creature's name. The creature then appears in an unoccupied space you choose within 10 feet of you.",
+    duration="Instantaneous",
+    casting_time="1 hour",
+    s_range="Touch",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["a sprinkle of holy water and diamonds worth at least 25,000 gp, which the spell consumes"],
+)
+
 lvl9_wish = Spell(
     name="Wish",
     level=9,
@@ -25,7 +40,9 @@ lvl9_wish = Spell(
     components=[SpellComponent.V],
 )
 
+
 # === Array of Level 9 spells ===
 lvl9_spells: List[Spell] = [
+    lvl9_true_resurrection,
     lvl9_wish,
 ]

@@ -34,6 +34,19 @@ lvl2_arcane_lock = Spell(
     material_description=["gold dust worth at least 25 gp, which the spell consumes"],
 )
 
+lvl2_barkskin = Spell(
+    name="Barkskin",
+    level=2,
+    school=SpellSchool.TRANSMUTATION,
+    action_cost=ActionCost.ACTION,
+    description="You touch a willing creature. Until the spell ends, the target's skin has a rough, bark-like appearance, and the target's AC can't be less than 16, regardless of what kind of armor it is wearing.",
+    duration="Concentration, up to 1 hour",
+    casting_time="1 action",
+    s_range="Touch",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=[""],
+)
+
 lvl2_blur = Spell(
     name="Blur",
     level=2,
@@ -174,6 +187,20 @@ lvl2_levitate = Spell(
     material_description=["either a small leather loop or a piece of golden wire bent into a cup shape with a long shank on one end"],
 )
 
+lvl2_melfs_acid_arrow = Spell(
+    name="Melf's Acid Arrow",
+    level=2,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn.",
+    higher_levels="When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd.",
+    duration="Instantaneous",
+    casting_time="1 action",
+    s_range="90 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["powdered rhubarb leaf", "an adder's stomach"],
+)
+
 lvl2_misty_step = Spell(
     name="Misty Step",
     level=2,
@@ -200,6 +227,19 @@ lvl2_mirror_image = Spell(
     casting_time="1 action",
     s_range="Self",
     components=[SpellComponent.V, SpellComponent.S],
+)
+
+lvl2_pass_without_trace = Spell(
+    name="Pass Without Trace",
+    level=2,
+    school=SpellSchool.ABJURATION,
+    action_cost=ActionCost.ACTION,
+    description="A veil of shadows and silence radiates from you, masking you and your companions from detection. For the duration, each creature you choose within 30 feet of you (including you) has a +10 bonus to Dexterity (Stealth) checks and can't be tracked except by magical means. A creature that receives this bonus leaves behind no tracks or other traces of its passage.",
+    duration="Concentration, up to 1 hour",
+    casting_time="1 action",
+    s_range="Self",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["ashes from a burned leaf of mistletoe", "a sprig of spruce"],
 )
 
 lvl2_silence = Spell(
@@ -264,10 +304,28 @@ lvl2_suggestion = Spell(
     ],
 )
 
+lvl2_web = Spell(
+    name="Web",
+    level=2,
+    school=SpellSchool.CONJURATION,
+    action_cost=ActionCost.ACTION,
+    description="You conjure a mass of thick, sticky webbing at a point of your choice within range. The webs fill a 20-foot cube from that point for the duration. The webs are difficult terrain and lightly obscure their area.\
+        \nIf the webs aren't anchored between two solid masses (such as walls or trees) or layered across a floor, wall, or ceiling, the conjured web collapses on itself, and the spell ends at the start of your next turn. Webs layered over a flat surface have a depth of 5 feet.\
+        \nEach creature that starts its turn in the webs or that enters them during its turn must make a Dexterity saving throw. On a failed save, the creature is restrained as long as it remains in the webs or until it breaks free.\
+        \nA creature restrained by the webs can use its action to make a Strength check against your spell save DC. If it succeeds, it is no longer restrained.\
+        \nThe webs are flammable. Any 5-foot cube of webs exposed to fire burns away in 1 round, dealing 2d4 fire damage to any creature that starts its turn in the fire.",
+    duration="Concentration, up to 1 hour",
+    casting_time="1 action",
+    s_range="60 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["a bit of spiderweb"],
+)
+
+
 # === Array of Level 2 spells ===
 lvl2_spells: List[Spell] = [
     lvl2_alter_self, lvl2_arcane_lock,
-    lvl2_blur, lvl2_branding_smite, 
+    lvl2_barkskin, lvl2_blur, lvl2_branding_smite, 
     lvl2_crown_of_madness,
     lvl2_darkness, lvl2_detect_thoughts,
     lvl2_enthrall,
@@ -275,6 +333,8 @@ lvl2_spells: List[Spell] = [
     lvl2_hold_person,
     lvl2_invisibility,
     lvl2_levitate,
-    lvl2_misty_step, lvl2_mirror_image,
+    lvl2_melfs_acid_arrow, lvl2_misty_step, lvl2_mirror_image,
+    lvl2_pass_without_trace,
     lvl2_silence, lvl2_spider_climb, lvl2_spike_growth, lvl2_suggestion,
+    lvl2_web,
 ]
