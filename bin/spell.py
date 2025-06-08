@@ -19,6 +19,9 @@ class SpellComponent(Enum):
     S = "Somatic"    # The spell requires hand gestures
     M = "Material"   # The spell requires physical components
     
+class SpellTag(Enum):
+    RITUAL = "Ritual"
+
 
 # LATER Add class spell lists
 class Spell:
@@ -39,6 +42,7 @@ class Spell:
         s_range: Optional[str] = None,
         components: Optional[List[SpellComponent]] = None,
         material_description: Optional[List[str]] = None,
+        tags: Optional[List[SpellTag]] = None,
     ):
         self.name = name
         self.level = level  # 0 for cantrips
@@ -51,6 +55,7 @@ class Spell:
         self.s_range = s_range
         self.components = components or []
         self.material_description = material_description or []
+        self.tags = tags or []
 
     def __str__(self):
         level_str = "Cantrip" if self.level == 0 else f"Level {self.level}"
@@ -69,6 +74,7 @@ class Spell:
             "range": self.s_range,
             "components": [c.value for c in self.components],
             "material_description": [m for m in self.material_description],
+            "tags": [t.value for t in self.tags],
         }
 
     @staticmethod
@@ -85,4 +91,5 @@ class Spell:
             s_range=data.get("range"),
             components=[SpellComponent(c) for c in data.get("components", [])],
             material_description=[m for m in data.get("material_description", [])],
+            tags=[SpellTag(t) for t in data.get("tags", [])],
         )

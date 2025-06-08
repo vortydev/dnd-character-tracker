@@ -62,6 +62,9 @@ function applyTextFormatting(text) {
     text = applyBoldFormatting(text);
     text = applyItalicFormatting(text);
 
+    // Handle TABLE blocks
+    text = text.replace(/^TABLE.*$/gm, line => convertToHtmlTable(line));
+
     // Highlights
     text = highlightDamageTypes(text);
     text = highlightAdvantage(text);
@@ -288,6 +291,50 @@ function levelStr(level) {
         return `${level}th`;
     }
 }
+
+function convertToHtmlTable(text, htmlClass = "dnd-feature-table") {
+    // Remove "TABLE" and trim
+    let content = text.replace("TABLE", "").trim();
+
+    // Extract optional [[TITLE]]
+    let title = null;
+    const titleMatch = content.match(/\[\[(.*?)\]\]/);
+    if (titleMatch) {
+        title = titleMatch[1].trim();
+        content = content.replace(titleMatch[0], "").trim();
+    }
+
+    const parts = content.split(":");
+    if (parts.length < 2) return ""; // invalid format
+
+    const headerRaw = parts[0].trim();
+    const bodyRaw = parts[1].trim();
+
+    const headers = headerRaw.split(",,").map(h =>
+        h.trim().replace(/[\[\]]/g, "") // strip [ ]
+    );
+
+    const rows = bodyRaw.split(";").map(row =>
+        row.trim().split(",,").map(cell => cell.trim().replace(/[\[\]]/g, ""))
+    );
+
+    // Build HTML
+    let table = `<table class="${htmlClass}"><thead>`;
+
+    if (title) {
+        table += `<tr><th class="table-caption" colspan="${headers.length}">${title}</th></tr>`;
+    }
+
+    table += `<tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>`;
+
+    for (const row of rows) {
+        table += `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`;
+    }
+
+    table += `</tbody></table>`;
+    return table;
+}
+
 
 function insertChevronsIntoDetailsFA(debug=false) {
     if (debug) console.log("🔧 Inserting chevrons into <details.fa-chevron> blocks...");

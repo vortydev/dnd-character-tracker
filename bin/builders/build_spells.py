@@ -8,16 +8,10 @@ from spell_registry import SpellRegistry
 from spell_io import save_spells_to_file
 
 # Spell list
-from spell_list.lvl0_spell_list import lvl0_spells
-from spell_list.lvl1_spell_list import lvl1_spells
-from spell_list.lvl2_spell_list import lvl2_spells
-from spell_list.lvl3_spell_list import lvl3_spells
-from spell_list.lvl4_spell_list import lvl4_spells
-from spell_list.lvl5_spell_list import lvl5_spells
-from spell_list.lvl6_spell_list import lvl6_spells
-from spell_list.lvl7_spell_list import lvl7_spells
-from spell_list.lvl8_spell_list import lvl8_spells
-from spell_list.lvl9_spell_list import lvl9_spells
+from spell_list import (
+    lvl0_spells, lvl1_spells, lvl2_spells, lvl3_spells, lvl4_spells,
+    lvl5_spells, lvl6_spells, lvl7_spells, lvl8_spells, lvl9_spells
+)
 
 
 def load_spell_list() -> list[Spell]:

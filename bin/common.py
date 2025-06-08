@@ -54,6 +54,7 @@ class ActionCost(Enum):
     ACTION = "Action"
     BONUS_ACTION = "Bonus Action"
     REACTION = "Reaction"
+    RITUAL = "Ritual"
 
 
 class Source(Enum):

@@ -1,7 +1,7 @@
 # spell_list/lvl2_spell_list.py
 from typing import List
 from common import ActionCost
-from spell import Spell, SpellSchool, SpellComponent
+from spell import Spell, SpellSchool, SpellComponent, SpellTag
 
 # === Define spells ===
 lvl2_alter_self = Spell(
@@ -33,6 +33,19 @@ lvl2_arcane_lock = Spell(
     components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
     material_description=["gold dust worth at least 25 gp, which the spell consumes"],
 )
+
+lvl2_blur = Spell(
+    name="Blur",
+    level=2,
+    school=SpellSchool.ILLUSION,
+    action_cost=ActionCost.ACTION,
+    description="Your body becomes blurred, shifting and wavering to all who can see you. For the duration, any creature has disadvantage on attack rolls against you. An attacker is immune to this effect if it doesn't rely on sight, as with blindsight, or can see through illusions, as with truesight.",
+    duration="Concentration, up to 1 minute",
+    casting_time="1 action",
+    s_range="Self",
+    components=[SpellComponent.V],
+)
+
 lvl2_branding_smite = Spell(
     name="Branding Smite",
     level=2,
@@ -45,6 +58,7 @@ lvl2_branding_smite = Spell(
     s_range="Self",
     components=[SpellComponent.V],
 )
+
 lvl2_crown_of_madness = Spell(
     name="Crown of Madness",
     level=2,
@@ -56,6 +70,7 @@ lvl2_crown_of_madness = Spell(
     s_range="120 feet",
     components=[SpellComponent.V, SpellComponent.S],
 )
+
 lvl2_darkness = Spell(
     name="Darkness",
     level=2,
@@ -71,6 +86,7 @@ lvl2_darkness = Spell(
         "A drop of pitch or piece of coal"
     ],
 )
+
 lvl2_detect_thoughts = Spell(
     name="Detect Thoughts",
     level=2,
@@ -87,6 +103,7 @@ lvl2_detect_thoughts = Spell(
     components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
     material_description=["a copper piece"],
 )
+
 lvl2_enthrall = Spell(
     name="Enthrall",
     level=2,
@@ -98,6 +115,7 @@ lvl2_enthrall = Spell(
     s_range="60 feet",
     components=[SpellComponent.V, SpellComponent.S],
 )
+
 lvl2_flame_blade = Spell(
     name="Flame Blade",
     level=2,
@@ -112,6 +130,21 @@ lvl2_flame_blade = Spell(
     components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
     material_description=["a leaf of sumac"],
 )
+
+lvl2_hold_person = Spell(
+    name="Hold Person",
+    level=2,
+    school=SpellSchool.ENCHANTMENT,
+    action_cost=ActionCost.ACTION,
+    description="Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target.",
+    higher_levels="When you cast this spell using a spell slot of 3rd level or higher, you can target one additional humanoid for each slot level above 2nd. The humanoids must be within 30 feet of each other when you target them.",
+    duration="Concentration, up to 1 minute",
+    casting_time="1 action",
+    s_range="60 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["a small, straight piece of iron"],
+)
+
 lvl2_invisibility = Spell(
     name="Invisibility",
     level=2,
@@ -141,6 +174,18 @@ lvl2_levitate = Spell(
     material_description=["either a small leather loop or a piece of golden wire bent into a cup shape with a long shank on one end"],
 )
 
+lvl2_misty_step = Spell(
+    name="Misty Step",
+    level=2,
+    school=SpellSchool.CONJURATION,
+    action_cost=ActionCost.BONUS_ACTION,
+    description="Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see.",
+    duration="Instantaneous",
+    casting_time="1 bonus action",
+    s_range="Self",
+    components=[SpellComponent.V],
+)
+
 lvl2_mirror_image = Spell(
     name="Mirror Image",
     level=2,
@@ -157,6 +202,19 @@ lvl2_mirror_image = Spell(
     components=[SpellComponent.V, SpellComponent.S],
 )
 
+lvl2_silence = Spell(
+    name="Silence",
+    level=2,
+    school=SpellSchool.ILLUSION,
+    action_cost=ActionCost.ACTION,
+    description="For the duration, no sound can be created within or pass through a 20-foot-radius sphere centered on a point you choose within range. Any creature or object entirely inside the sphere is immune to thunder damage, and creatures are deafened while entirely inside it. Casting a spell that includes a verbal component is impossible there.",
+    duration="Concentration, up to 10 minutes",
+    casting_time="1 action",
+    s_range="120 feet",
+    components=[SpellComponent.V, SpellComponent.S],
+    tags=[SpellTag.RITUAL],
+)
+
 lvl2_spider_climb = Spell(
     name="Spider Climb",
     level=2,
@@ -171,6 +229,20 @@ lvl2_spider_climb = Spell(
         "a drop of bitumen",
         "a spider"
     ],
+)
+
+lvl2_spike_growth = Spell(
+    name="Spike Growth",
+    level=2,
+    school=SpellSchool.TRANSMUTATION,
+    action_cost=ActionCost.ACTION,
+    description="The ground in a 20-foot radius centered on a point within range twists and sprouts hard spikes and thorns. The area becomes difficult terrain for the duration. When a creature moves into or within the area, it takes 2d4 piercing damage for every 5 feet it travels.\
+        \nThe transformation of the ground is camouflaged to look natural. Any creature that can't see the area at the time the spell is cast must make a Wisdom (Perception) check against your spell save DC to recognize the terrain as hazardous before entering it.",
+    duration=" Concentration, up to 10 minutes",
+    casting_time="1 action",
+    s_range="150 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["seven sharp thorns or seven small twigs, each sharpened to a point"],
 )
 
 lvl2_suggestion = Spell(
@@ -194,17 +266,15 @@ lvl2_suggestion = Spell(
 
 # === Array of Level 2 spells ===
 lvl2_spells: List[Spell] = [
-    lvl2_alter_self,
-    lvl2_arcane_lock,
-    lvl2_branding_smite, 
+    lvl2_alter_self, lvl2_arcane_lock,
+    lvl2_blur, lvl2_branding_smite, 
     lvl2_crown_of_madness,
-    lvl2_darkness,
-    lvl2_detect_thoughts,
+    lvl2_darkness, lvl2_detect_thoughts,
     lvl2_enthrall,
     lvl2_flame_blade,
+    lvl2_hold_person,
     lvl2_invisibility,
     lvl2_levitate,
-    lvl2_mirror_image,
-    lvl2_spider_climb,
-    lvl2_suggestion,
+    lvl2_misty_step, lvl2_mirror_image,
+    lvl2_silence, lvl2_spider_climb, lvl2_spike_growth, lvl2_suggestion,
 ]
