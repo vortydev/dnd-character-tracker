@@ -7,6 +7,7 @@ from config import VERSION, FLASK_PORT
 from blueprints.main import main_bp
 from blueprints.resources import resources_bp
 from blueprints.characters import characters_bp
+from blueprints.admin import admin_bp
 
 # Add the parent folder (char_tracker/) to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -22,6 +23,7 @@ init_registries()
 app.register_blueprint(main_bp)
 app.register_blueprint(resources_bp)
 app.register_blueprint(characters_bp)
+app.register_blueprint(admin_bp)
 
 
 @app.context_processor

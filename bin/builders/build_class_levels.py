@@ -12,6 +12,11 @@ def load_class_level_list() -> list[ClassLevel]:
     """Load array of defined ClassLevel objects."""
     cl = []
 
+    # === Druid ===
+    # Class
+    from bin.class_levels.druid_class_levels import druid_cl
+    cl.extend(druid_cl)
+
     # === Fighter ===
     # Class
     from bin.class_levels.fighter_class_levels import fighter_cl

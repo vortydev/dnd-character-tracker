@@ -36,6 +36,11 @@ def load_class_features() -> list[ClassFeature]:
     class_feats: list[ClassFeature] = []
     print("\n===== Class Features =====")
 
+    # === Druid ===
+    print("> Creating Druid Class features")
+    from feature_list.class_features.druid_features import druid_feats
+    class_feats.extend(druid_feats)
+
     # === Fighter ===
     print("> Creating Fighter Class features")
     from feature_list.class_features.fighter_features import fig_feats

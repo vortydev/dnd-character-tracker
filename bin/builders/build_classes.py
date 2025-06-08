@@ -11,7 +11,9 @@ def load_class_list() -> list[Class]:
     """Load and return the list of base Class objects."""
     classes = []
 
-    # === Fighter ===
+    from class_list.druid import get_druid_class
+    classes.append(get_druid_class())
+
     from class_list.fighter import get_fighter_class
     classes.append(get_fighter_class())
 

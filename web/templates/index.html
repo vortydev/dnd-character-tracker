@@ -20,12 +20,39 @@
         <a href="{{root}}/races" class="btn btn-moutarde btn-big">🧬 Races</a>
         <a href="{{root}}/classes" class="btn btn-blue btn-big">⛑️ Classes</a>
     </div>
+
+    <h2 class="text-center mt-4">Builders</h2>
+    <div class="btnBar-c mt-3">
+        <button id="runBuildersBtn" class="btn btn-secondary btn-big">⚙️ Build Resources</button>
+    </div>
     
 </section>
 
 <script nonce="{{ csp_nonce }}">
     var csrf_token = "{{csrf_token}}";
     var root = "{{root}}";
+</script>
+
+<script type="module" nonce="{{ csp_nonce }}">
+    import { runBuilderScript, runMultipleBuilderScripts } from "{{root}}/js/builder_utils.js";
+
+    // const root = "{{root}}";
+
+    let runningBuilders = false;
+    document.getElementById("runBuildersBtn")?.addEventListener("click", () => {
+        if (!runningBuilders) {
+            runningBuilders = true;
+            runMultipleBuilderScripts([
+                "build_features.py",
+                "build_spells.py",
+                "build_races.py",
+                "build_class_levels.py",
+                "build_classes.py",
+                "build_items.py",
+            ], root);
+            runningBuilders = false;
+        }
+    });
 </script>
     
 {% endblock %}

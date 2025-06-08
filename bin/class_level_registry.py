@@ -9,7 +9,7 @@ class ClassLevelRegistry:
     @classmethod
     def register(cls, cl: ClassLevel):
         subclass = cl.subclass if cl.subclass else None
-        print(f"[ClassLevelRegistry.register] ({cl.class_type}, {cl.level}, {repr(subclass)}), type={type(subclass)}")
+        # print(f"[ClassLevelRegistry.register] ({cl.class_type}, {cl.level}, {repr(subclass)}), type={type(subclass)}")
         cls._class_levels[(cl.class_type, cl.level, subclass)] = cl
 
     @classmethod

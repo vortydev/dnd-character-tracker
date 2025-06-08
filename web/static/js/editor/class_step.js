@@ -219,7 +219,6 @@ function populateLevelSelect(selectEl, currentLevel = 1) {
     const remaining = MAX_LEVELS - totalUsed + currentLevel;
     // console.log(`Max: ${MAX_LEVELS}, Total used: ${totalUsed}, Current: ${currentLevel}, Remaining: ${remaining}`);
     
-
     selectEl.innerHTML = "";
     for (let i = 1; i <= Math.min(20, remaining); i++) {
         selectEl.innerHTML += `<option value="${i}" ${i === currentLevel ? "selected" : ""}>${i}</option>`;

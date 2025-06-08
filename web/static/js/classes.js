@@ -109,7 +109,7 @@ function renderClassData(classData) {
         <ul class="dnd-feature-list">
             <li><strong>Hit Dice :</strong> 1d${hp.dice} per ${cName.toLowerCase()} level</li>
             <li><strong>Hit Points at 1st Level :</strong> ${hp.hp_start} + your Consitution modifier</li>
-            <li><strong>Hit Points at Higher Levels :</strong> 1d${hp.dice} (or ${hp.hp_higher}) + your Constitution modifier per fighter level after 1st</li>
+            <li><strong>Hit Points at Higher Levels :</strong> 1d${hp.dice} (or ${hp.hp_higher}) + your Constitution modifier per ${cName.toLowerCase()} level after 1st</li>
         </ul>
     </div>
     `;

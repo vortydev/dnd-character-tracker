@@ -39,20 +39,38 @@ class Feature():
         """Returns the Feature as an HTML string."""
         def format_object_name_for_url(name: str) -> str:
             return re.sub(r'\s+', '_', name.strip().lower())
-        
+
         html = f'<div id="{format_object_name_for_url(self.name)}" class="dnd-feature" data-feature-type="{self.to_dict()["type"]}">\
                 <h4 class="dnd-feature-name">{self.name}</h4>'
-        
+
         # Main description
         desc = self.description.splitlines()
-        non_table_lines = []
-        for d in desc:
-            if d.startswith("TABLE"):
-                html += convert_into_html_table(d, "dnd-feature-table")
-            else:
-                non_table_lines.append(d)
+        current_list = []
 
-        html += format_description_with_list(non_table_lines, "dnd-feature-list")
+        for d in desc:
+            d = d.strip()
+            if not d:
+                continue  # skip empty lines
+
+            if d.startswith("TABLE"):
+                # Close any pending list before inserting table
+                if current_list:
+                    html += f"""<ul class="dnd-feature-list">{''.join(current_list)}</ul>"""
+                    current_list = []
+                html += convert_into_html_table(d, "dnd-feature-table")
+            elif d.startswith("- "):
+                d = apply_bold_formatting(d[2:].strip())
+                current_list.append(f"<li>{d}</li>")
+            else:
+                if current_list:
+                    html += f"""<ul class="dnd-feature-list">{''.join(current_list)}</ul>"""
+                    current_list = []
+                d = apply_bold_formatting(d)
+                html += f'<p class="dnd-feature-desc">{d}</p>'
+
+        # Final flush of list
+        if current_list:
+            html += f"""<ul class="dnd-feature-list">{''.join(current_list)}</ul>"""
 
         # Subfeatures
         if self.subfeatures:
@@ -60,7 +78,7 @@ class Feature():
             for sf in self.subfeatures:
                 html += sf.get_html()
             html += '</div>'
-        
+
         html += '</div>'
         return html
 
