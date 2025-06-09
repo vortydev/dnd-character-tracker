@@ -38,11 +38,16 @@
 
     // const root = "{{root}}";
 
-    let runningBuilders = false;
-    document.getElementById("runBuildersBtn")?.addEventListener("click", () => {
-        if (!runningBuilders) {
-            runningBuilders = true;
-            runMultipleBuilderScripts([
+    const runBuildersBtn = document.getElementById("runBuildersBtn");
+    let buildingResources = false;
+
+    if (runBuildersBtn && !buildingResources) {
+        runBuildersBtn.addEventListener("click", async () => {
+            buildingResources = true;
+            runBuildersBtn.disabled = true;
+            runBuildersBtn.innerText = "⚙️ Building Resources...";
+
+            await runMultipleBuilderScripts([
                 "build_features.py",
                 "build_spells.py",
                 "build_races.py",
@@ -50,9 +55,13 @@
                 "build_classes.py",
                 "build_items.py",
             ], root);
-            runningBuilders = false;
-        }
-    });
+
+            buildingResources = false;
+            runBuildersBtn.disabled = false;
+            runBuildersBtn.innerText = "⚙️ Build Resources";
+            alert("Resources successfully rebuilt!");
+        });
+    }
 </script>
     
 {% endblock %}

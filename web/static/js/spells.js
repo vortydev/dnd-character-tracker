@@ -1,3 +1,6 @@
+let groupedSpells = {};
+const spellSortState = {}; // { level: { key: "name", asc: true } }
+
 function loadSpellsFromAPI(root) {
     fetch(root+"/api/spells/get")
         .then(response => {
@@ -12,6 +15,10 @@ function loadSpellsFromAPI(root) {
             console.error("Error loading spells:", error);
             alert("Failed to load spells.");
         });
+
+    // Add search bar event listeners
+    document.getElementById("spellSearch")?.addEventListener("input", () => filterSpells());
+    document.getElementById("clearSearchBtn")?.addEventListener("click", () => clearSpellSearch());
 }
 
 function renderSpellTabsAndTables(spells) {
@@ -25,6 +32,8 @@ function renderSpellTabsAndTables(spells) {
         if (!grouped[level]) grouped[level] = [];
         grouped[level].push(spell);
     }
+
+    groupedSpells = grouped;
 
     const sortedLevels = Object.keys(grouped).map(Number).sort((a, b) => a - b);
 
@@ -55,12 +64,12 @@ function renderSpellTabsAndTables(spells) {
                 <table class="table table-striped spell-table">
                     <thead>
                         <tr>
-                            <th>Spell Name</th>
-                            <th>School</th>
-                            <th>Casting Time</th>
-                            <th>Range</th>
-                            <th>Duration</th>
-                            <th>Components</th>
+                            <th onclick="sortSpellTable(${level}, 'name')">Spell Name</th>
+                            <th onclick="sortSpellTable(${level}, 'school')">School</th>
+                            <th onclick="sortSpellTable(${level}, 'casting_time')">Casting Time</th>
+                            <th onclick="sortSpellTable(${level}, 'range')">Range</th>
+                            <th onclick="sortSpellTable(${level}, 'duration')">Duration</th>
+                            <th onclick="sortSpellTable(${level}, 'components')">Components</th>
                         </tr>
                     </thead>
                     <tbody id="${tableBodyId}"></tbody>
@@ -127,7 +136,8 @@ function formatSpellTextBlock(text, label = null) {
         const processedLine = applyTextFormatting(line);
         if (line.startsWith("- ")) {
             currentList.push(`<li>${processedLine.substring(2)}</li>`);
-        } else {
+        } 
+        else {
             if (currentList.length > 0) {
                 blocks.push(`<ul>${currentList.join("")}</ul>`);
                 currentList = [];
@@ -166,18 +176,11 @@ function toggleSpellDetails(id) {
     if (isOpen) {
         el.style.display = "none";
         mainRow.classList.remove("open");
-    } else {
+    } 
+    else {
         el.style.display = "table-row";
         mainRow.classList.add("open");
     }
-}
-
-
-function ordinal(n) {
-    if (n === 1) return "st";
-    if (n === 2) return "nd";
-    if (n === 3) return "rd";
-    return "th";
 }
 
 function openSpellURL() {
@@ -214,4 +217,75 @@ function openSpellURL() {
             }
         }, highlightDelay);
     }
+}
+
+function sortSpellTable(level, key) {
+    const state = spellSortState[level] || { key: null, asc: true };
+
+    if (state.key === key) {
+        state.asc = !state.asc; // toggle
+    } 
+    else {
+        state.key = key;
+        state.asc = true;
+    }
+
+    spellSortState[level] = state;
+    console.log(spellSortState);
+    
+
+    const spells = [...groupedSpells[level]];
+    spells.sort((a, b) => {
+        let aVal = key === 'components' ? a.components.map(c => c[0]).join(", ") : a[key] || "";
+        let bVal = key === 'components' ? b.components.map(c => c[0]).join(", ") : b[key] || "";
+
+        aVal = aVal.toString().toLowerCase();
+        bVal = bVal.toString().toLowerCase();
+
+        return state.asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+
+    renderSpellsToTable(spells, `spellTableBody-${level}`);
+}
+
+let searchTimeout;
+const searchDelay = 200;
+function filterSpells() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        const searchTerm = document.getElementById("spellSearch").value.toLowerCase().trim();
+
+        document.querySelectorAll(".tab-pane").forEach(pane => {
+            const level = pane.id.replace("level", "");
+            const rows = document.querySelectorAll(`#spellTableBody-${level} tr.spell-row`);
+            const details = document.querySelectorAll(`#spellTableBody-${level} tr.spell-details-row`);
+
+            let visibleCount = 0;
+            rows.forEach((row, i) => {
+                const text = row.textContent.toLowerCase();
+                const match = text.includes(searchTerm);
+                row.style.display = match ? "table-row" : "none";
+                details[i].style.display = "none"; // collapse details
+                if (match) visibleCount++;
+            });
+
+            const tabButton = document.querySelector(`#level${level}-tab`).parentElement;
+            if (visibleCount === 0) {
+                tabButton.style.display = "none";
+            } else {
+                tabButton.style.display = "";
+            }
+
+            if (visibleCount > 0) {
+                pane.style.display = "";
+            } else {
+                pane.style.display = "none";
+            }
+        });
+    }, searchDelay);
+}
+
+function clearSpellSearch() {
+    document.getElementById("spellSearch").value = "";
+    filterSpells();
 }

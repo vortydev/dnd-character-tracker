@@ -25,5 +25,4 @@ export async function runMultipleBuilderScripts(scripts, root = "") {
     for (const script of scripts) {
         await runBuilderScript(script, root);
     }
-    alert("Resources successfully rebuilt!");
 }

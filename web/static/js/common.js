@@ -280,16 +280,23 @@ function buildProficiencyStr(profType, profList, optProfList) {
     return '<em>Not a valid profType!</em>';
 }
 
-function levelStr(level) {
-    if (level == 1) {
-        return "1st";
-    }
-    else if (level == 2) {
-        return "2nd";
-    }
-    else {
-        return `${level}th`;
-    }
+// function levelStr(level) {
+//     if (level == 1) {
+//         return "1st";
+//     }
+//     else if (level == 2) {
+//         return "2nd";
+//     }
+//     else {
+//         return `${level}th`;
+//     }
+// }
+
+function ordinal(n) {
+    if (n === 1) return "st";
+    if (n === 2) return "nd";
+    if (n === 3) return "rd";
+    return "th";
 }
 
 function convertToHtmlTable(text, htmlClass = "dnd-feature-table") {

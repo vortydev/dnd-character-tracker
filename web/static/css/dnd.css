@@ -364,6 +364,14 @@ details.dnd-feature-section {
 }
 
 /* Spell Table */
+.spell-table > thead th {
+    cursor: pointer;
+}
+
+.spell-table > thead th:hover {
+    color: var(--dark-grey-color);
+}
+
 .spell-row {
     cursor: pointer;
 }
