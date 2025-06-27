@@ -96,6 +96,8 @@ hr {
 .underline-moutarde { text-decoration-color: var(--moutarde-color); }
 .underline-orange   { text-decoration-color: var(--orange-color); }
 .underline-grey     { text-decoration-color: var(--grey-color); }
+.underline-light-grey     { text-decoration-color: var(--light-grey-color); }
+.underline-dark-grey     { text-decoration-color: var(--dark-grey-color); }
 
 .underline-thick {
     text-decoration-thickness: 0.075em;
@@ -142,6 +144,9 @@ hr {
 }
 .text-color-light-grey {
     color: var(--light-grey-color);
+}
+.text-color-white {
+    color: var(--white-color);
 }
 
 /* Tabs (margin-left) */
@@ -253,7 +258,7 @@ details.fa-chevron > summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* gap: 0.5em; */
+    gap: 0.5em !important;
     width: 100%;
 }
 
@@ -263,7 +268,7 @@ details.fa-chevron > summary {
 
 .fit-chevron .chevron-icon {
     margin-right: 0;
-    margin-left: 0.5em;
+    /* margin-left: 0.5em; */
 }
 
 
@@ -306,6 +311,65 @@ details.fa-chevron > summary {
     width: fit-content;
 }
 
+
+/* === Modal === */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(21, 21, 21, 0.75); /* semi-transparent black */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 2rem;
+}
+
+.modal-content {
+    background-color: var(--white-color);
+    width: 100%;
+    max-width: 1000px;
+    max-height: 100%;
+    overflow: hidden;
+    padding: 2rem;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdf-viewer {
+    height: calc(100vh - 200px); 
+    border: 1px solid var(--light-grey-color);
+    border-radius: 0.75em;
+}
+
+.pdf-tag-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5em 0.25em;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.pdf-tag {
+    background-color: var(--grey-color);
+    color: var(--white-color);
+    border-radius: 1em;
+    padding: 0.3em 0.6em;
+    transition: 0.2s all ease-out;
+    cursor: default;
+}
+
+.pdf-tag:hover {
+    background-color: var(--dark-grey-color);
+}
 
 /* ===== GRID ===== */
 .grid-auto {

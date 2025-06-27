@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>PDF Library</title>
+{% endblock %}
+
+{% block main %}
+<h1>📚 <span class="underline-orange underline-thick">Library</span></h1>
+
+<div class="btnBar mt-3 mb-4">
+    <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
+</div>
+
+<table class="dnd-feature-table full mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <!-- <th>Description</th> -->
+            <th>Category</th>
+            <th>Authors</th>
+            <th>Tags</th>
+            <!-- <th>Page Count</th> -->
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pdf in pdfs %}
+        <tr>
+            <td><strong>{{ pdf.friendly_name }}</strong></td>
+            <!-- <td>{{ pdf.description }}</td> -->
+            <td>{{ pdf.category }}</td>
+            <td>
+                {% for author in pdf.authors %}
+                <span>{{ author }}{% if not loop.last %}, {% endif %}</span>
+                {% endfor %}
+            </td>
+            <td>
+                <div class="pdf-tag-list">
+                    {% for tag in pdf.tags %}
+                    <span class="pdf-tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </td>
+            <!-- <td>{{ pdf.page_count }}</td> -->
+            <td>
+                <button class="btn btn-orange"
+                        onclick="viewPDF(this)"
+                        data-filepath="{{ pdf.filepath }}"
+                        data-friendly-name="{{ pdf.friendly_name }}">
+                    View
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<section id="pdfModal" class="modal hidden">
+    <div class="modal-content border-round">
+        <div class="modal-header flex flex-center justify-between mb-3">
+            <h2 class="mb-0">📄 Viewing: <strong id="modalTitle"></strong></h2>
+            <button class="btn btn-danger" onclick="closeModal()">✖ Close</button>
+        </div>
+        <iframe id="pdfViewer" class="pdf-viewer" width="100%"></iframe>
+    </div>
+</section>
+
+<script nonce="{{ csp_nonce }}">
+    function viewPDF(buttonEl) {
+        const filepath = buttonEl.dataset.filepath;
+        const friendlyName = buttonEl.dataset.friendlyName;
+
+        const viewer = document.getElementById("pdfViewer");
+        const modal = document.getElementById("pdfModal");
+        const title = document.getElementById("modalTitle");
+
+        viewer.src = filepath;
+        title.textContent = friendlyName;
+        modal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("pdfModal");
+        const viewer = document.getElementById("pdfViewer");
+        viewer.src = "";
+        modal.classList.add("hidden");
+    }
+
+</script>
+
+{% endblock %}

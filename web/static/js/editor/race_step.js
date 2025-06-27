@@ -11,7 +11,17 @@ export async function initRaceStep() {
     const container = document.getElementById("raceContainer");
     if (!container) return;
 
-    container.innerHTML = `<div id="raceSelectorContainer"></div>`;
+    container.innerHTML = `
+        <div id="raceSummaryContainer" class="mb-3"></div>
+        <button id="addRaceBtn" class="btn btn-outline-secondary mb-2">
+            <i class="fas fa-plus"></i>${newChar.race_type ? "Change Race" : "Select Race"}
+        </button>
+        <div id="raceSelectorSlot" class="mt-2"></div>
+    `;
+
+    const addBtn = document.getElementById("addRaceBtn");
+    addBtn.textContent = newChar.race_type ? "Change Race" : "Select Race";
+    addBtn.onclick = () => renderTemporaryRaceSelector(container.querySelector("#raceSelectorSlot"));
 
     if (!window.raceListCache) {
         try {
@@ -27,7 +37,8 @@ export async function initRaceStep() {
 
     raceList = window.raceListCache;
     prepareRaceData();
-    renderRaceSelectors(container.querySelector("#raceSelectorContainer"));
+
+    if (newChar.race_type) renderRaceSummary(container.querySelector("#raceSummaryContainer"));
 }
 
 function prepareRaceData() {
@@ -96,4 +107,117 @@ function renderRaceSelectors(container) {
         subraceSelect.classList.remove("d-none");
         if (newChar.subrace_name) subraceSelect.value = newChar.subrace_name;
     }
+}
+
+function renderTemporaryRaceSelector(slot) {
+    slot.innerHTML = "";
+
+    const row = document.createElement("div");
+    row.className = "btnBar";
+
+    const raceSelect = document.createElement("select");
+    raceSelect.className = "form-select";
+    raceSelect.innerHTML = `<option disabled selected value="">Choose a Race</option>` +
+        raceList.map(r => `<option value="${r.name}">${r.name}</option>`).join("");
+
+    const subraceSelect = document.createElement("select");
+    subraceSelect.className = "form-select d-none";
+    subraceSelect.innerHTML = `<option disabled selected value="">Choose a Subrace</option>`;
+
+    raceSelect.addEventListener("change", e => {
+        const selected = e.target.value;
+        if (subraceMap[selected]) {
+            subraceSelect.innerHTML = `<option disabled selected value="">Choose a Subrace</option>` +
+                subraceMap[selected].map(sub => `<option value="${sub.name}">${sub.name}</option>`).join("");
+            subraceSelect.classList.remove("d-none");
+        } else {
+            subraceSelect.classList.add("d-none");
+        }
+    });
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.className = "btn btn-green";
+    confirmBtn.textContent = "Confirm";
+    confirmBtn.onclick = () => {
+        const race = raceSelect.value;
+        const subrace = !subraceSelect.classList.contains("d-none") ? subraceSelect.value : null;
+
+        if (!race) {
+            alert("Please select a race.");
+            return;
+        }
+
+        newChar.race_type = race;
+        newChar.subrace_name = subrace;
+
+        // Clear and render summary
+        const summary = document.getElementById("raceSummaryContainer");
+        if (summary) renderRaceSummary(summary);
+
+        // Update main button
+        const addBtn = document.getElementById("addRaceBtn");
+        if (addBtn) addBtn.textContent = "Change Race";
+
+        slot.innerHTML = "";
+        updateNextButtonState(true);
+    };
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.className = "btn btn-light";
+    cancelBtn.textContent = "Cancel";
+    cancelBtn.onclick = () => (slot.innerHTML = "");
+
+    row.append(raceSelect, subraceSelect, confirmBtn, cancelBtn);
+    slot.appendChild(row);
+}
+
+function renderRaceSummary(container) {
+    container.innerHTML = "";
+
+    const raceName = newChar.race_type;
+    const subraceName = newChar.subrace_name;
+
+    const header = document.createElement("h4");
+    header.textContent = `Selected Race: ${raceName}${subraceName ? ` – ${subraceName}` : ""}`;
+    container.appendChild(header);
+
+    const featuresBox = document.createElement("section");
+    featuresBox.className = "race-feature-box";
+    featuresBox.innerHTML = "<em>Loading features...</em>";
+    container.appendChild(featuresBox);
+
+    fetch(`/api/races/features/${encodeURIComponent(raceName)}${subraceName ? `?subrace=${encodeURIComponent(subraceName)}` : ""}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.status !== "success") {
+                featuresBox.innerHTML = "<em>Failed to load race data.</em>";
+                return;
+            }
+
+            featuresBox.innerHTML = renderRaceFeaturesFromAPI(data);
+        })
+        .catch(err => {
+            console.error("Error loading race features", err);
+            featuresBox.innerHTML = "<em>Error loading race data.</em>";
+        });
+}
+
+function renderRaceFeaturesFromAPI(data) {
+    let html = `<section class="race-feature-grid mt-2">`;
+
+    const { features = [], description } = data;
+
+    if (description) html += `<p class="dnd-feature-desc">${description}</p>`;
+
+    features.forEach(f => {
+        html += `<details class="fa-chevron class-feature-block">
+            <summary><strong>${f.name}</strong></summary>
+            <div class="class-feature-content">
+                <p class="dnd-feature-desc">${f.description}</p>
+            </div>
+        </details>`;
+    });
+
+    html += `</section>`;
+    return applyTextFormatting(html);
 }

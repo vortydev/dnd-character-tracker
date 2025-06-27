@@ -187,3 +187,23 @@ def get_class_full_features(class_name: str):
         import traceback
         traceback.print_exc()
         return jsonify({"status": "error", "message": str(e)}), 400
+
+
+# === Books ===
+import os, json
+
+@resources_bp.route(root+"/library")
+def book_index():
+    pdf_dir = os.path.join("static", "pdf")
+    # pdf_files = [f for f in os.listdir(pdf_dir) if f.endswith(".pdf")]
+    # print(pdf_files)
+
+    json_path = os.path.join(pdf_dir, "pdf_index.json")
+    with open(json_path, "r", encoding="utf-8") as f:
+        pdf_files: list[dict] = json.load(f)
+
+    for pdf in pdf_files:
+        # Add full static-relative path to each PDF
+        pdf["filepath"] = os.path.join("static", "pdf", pdf["filename"])
+
+    return render_template("pdf_list.html", root=root, pdfs=pdf_files)

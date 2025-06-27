@@ -303,6 +303,10 @@ details.dnd-feature-section {
     overflow: hidden;
 }
 
+.dnd-feature-table.full {
+    width: 100%;
+}
+
 .dnd-feature-table thead {
     background-color: #ddd;
     text-align: center;
@@ -488,6 +492,7 @@ details:open .class-features-title {
     transition: 
         border-radius 0s,
         background-color 0.2s ease-out;
+    gap: 0.5em !important;
 }
 
 .class-feature-block:hover summary {

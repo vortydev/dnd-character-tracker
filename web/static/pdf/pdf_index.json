@@ -1,0 +1,167 @@
+[
+  {
+    "friendly_name": "Dungeon Master's Guide",
+    "filename": "DungeonMastersGuide.pdf",
+    "description": "Core rulebook for dungeon masters in D&D 5e.",
+    "category": "Core Rules",
+    "tags": [
+      "rules",
+      "dm",
+      "guide"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 320
+  },
+  {
+    "friendly_name": "Elemental Evil Player's Companion",
+    "filename": "ElementalEvilPlayersCompanion.pdf",
+    "description": "Optional rules and player content themed around elemental forces.",
+    "category": "Expansion",
+    "tags": [
+      "elements",
+      "spells",
+      "races"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 25
+  },
+  {
+    "friendly_name": "Guildmaster's Guide to Ravnica",
+    "filename": "GuildmastersGuideToRavnica.pdf",
+    "description": "Magic: The Gathering crossover sourcebook.",
+    "category": "Setting",
+    "tags": [
+      "mtg",
+      "ravnica",
+      "guilds"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 256
+  },
+  {
+    "friendly_name": "Monster Manual",
+    "filename": "MonsterManual.pdf",
+    "description": "The essential bestiary of D&D monsters.",
+    "category": "Core Rules",
+    "tags": [
+      "monsters",
+      "bestiary",
+      "creatures"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 352
+  },
+  {
+    "friendly_name": "Mordenkainen's Tome of Foes",
+    "filename": "MordenkainensTomeOfFoes.pdf",
+    "description": "Lore and monsters from the D&D multiverse.",
+    "category": "Supplement",
+    "tags": [
+      "lore",
+      "monsters",
+      "multiverse"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 256
+  },
+  {
+    "friendly_name": "Player's Handbook",
+    "filename": "PlayersHandbook.pdf",
+    "description": "Core rulebook for players in D&D 5e.",
+    "category": "Core Rules",
+    "tags": [
+      "rules",
+      "classes",
+      "spells"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 320
+  },
+  {
+    "friendly_name": "Sword Coast Adventurer's Guide",
+    "filename": "SwordCoastAdventurersGuide.pdf",
+    "description": "Sourcebook detailing the Sword Coast region.",
+    "category": "Setting",
+    "tags": [
+      "sword coast",
+      "setting",
+      "lore"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 160
+  },
+  {
+    "friendly_name": "The Griffon's Saddlebag - Book One",
+    "filename": "TheGriffonsSaddlebag-BookOne_1-1.pdf",
+    "description": "Collection of homebrew magic items and content.",
+    "category": "Homebrew",
+    "tags": [
+      "items",
+      "homebrew",
+      "magic"
+    ],
+    "authors": [
+      "The Griffon's Saddlebag"
+    ],
+    "page_count": 210
+  },
+  {
+    "friendly_name": "Volo's Guide to Monsters",
+    "filename": "VolosGuideToMonsters.pdf",
+    "description": "Expanded monster lore and new playable races.",
+    "category": "Supplement",
+    "tags": [
+      "monsters",
+      "races",
+      "lore"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 224
+  },
+  {
+    "friendly_name": "Wayfinder's Guide to Eberron",
+    "filename": "WayfindersGuideToEberron.pdf",
+    "description": "Introduction to the Eberron campaign setting.",
+    "category": "Setting",
+    "tags": [
+      "eberron",
+      "setting",
+      "races"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 175
+  },
+  {
+    "friendly_name": "Xanathar's Guide to Everything",
+    "filename": "XanatharsGuideToEverything.pdf",
+    "description": "Expanded character options and rules.",
+    "category": "Supplement",
+    "tags": [
+      "rules",
+      "options",
+      "feats"
+    ],
+    "authors": [
+      "Wizards of the Coast"
+    ],
+    "page_count": 192
+  }
+]
