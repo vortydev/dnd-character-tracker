@@ -1,7 +1,7 @@
 # blueprints/admin.py
 import subprocess
 from flask import Blueprint, request, jsonify
-from config import ROOT
+from config import ROOT, ADMIN_ENABLED
 
 from registries import FeatureRegistry, SpellRegistry, RaceRegistry, ClassLevelRegistry, ClassRegistry
 from bin.feature_io import load_features_from_file
@@ -17,6 +17,11 @@ admin_bp = Blueprint("admin", __name__)
 # === Routes ===
 @admin_bp.route(root+"/admin/run-builder", methods=["POST"])
 def run_builder():
+    if not ADMIN_ENABLED:
+        return jsonify({
+            "status": "error",
+            "message": "You do not have the authorization to access this resource."
+        }), 403
     data = request.get_json()
     script_name = data.get("script")
 
@@ -41,6 +46,7 @@ def run_builder():
             "status": "error",
             "message": e.stderr or str(e)
         }), 500
+
 
 def reload_registry(script_name: str):
     registries = {

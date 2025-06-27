@@ -1,6 +1,6 @@
 # characters.py
-from flask import Blueprint, render_template, jsonify, request
-from config import ROOT
+from flask import Blueprint, render_template, jsonify, request, redirect
+from config import ROOT, CHAR_EDITOR_ENABLED
 from registries import CharacterRegistry, RaceRegistry
 from bin.character import Character
 
@@ -10,6 +10,8 @@ root = ROOT
 
 @characters_bp.route(root+'/characters', methods=['GET'])
 def page_characters():
+    if not CHAR_EDITOR_ENABLED:
+        redirect(root+'/index')
     return render_template('characters.html', root=root)
 
 
@@ -67,6 +69,8 @@ def delete_character(name):
 # === Editor ===
 @characters_bp.route(root + '/characters/editor', methods=['GET'])
 def page_character_editor():
+    if not CHAR_EDITOR_ENABLED:
+        redirect(root+'/index')
     return render_template('character_editor.html', root=root)
 
 

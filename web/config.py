@@ -14,3 +14,6 @@ FLASK_SECRET_KEY = secret_key
 FLASK_PORT = int(os.environ.get('FLASK_PORT', 8080))
 LOGIN_ACTIVATED = int(os.environ.get('LOGIN_ACTIVATED', 30))    # Minutes idle before logout
 ROOT = os.environ.get("API_ROOT", "")
+
+ADMIN_ENABLED = os.environ.get("ADMIN_ENABLED", "0") in (1, "1")
+CHAR_EDITOR_ENABLED = os.environ.get("CHAR_EDITOR_ENABLED", "0") in (1, "1")

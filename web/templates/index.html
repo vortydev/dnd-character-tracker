@@ -9,9 +9,11 @@
 <section class="index-card mt-4">
     <h1 class="text-center text-bold">Ethel's Character Tracker</h1>
 
+    {% if char_editor_enabled %}
     <div class="btnBar-c mt-4">
         <a href="{{root}}/characters" class="btn btn-primary btn-bigger">Characters</a>
     </div>
+    {% endif %}
 
     <h2 class="text-center mt-4">Resources</h2>
     <div class="btnBar-c mt-3">
@@ -25,10 +27,12 @@
         <a href="{{root}}/library" class="btn btn-orange btn-big">📚 Library</a>
     </div>
 
+    {% if admin_enabled %}
     <h2 class="text-center mt-4">Admin</h2>
     <div class="btnBar-c mt-3">
         <button id="runBuildersBtn" class="btn btn-secondary btn-big">⚙️ Build Resources</button>
     </div>
+    {% endif %}
 
     <p class="text-center text-sm text-color-grey mb-0 mt-4">v{{app_version}}</p>
     
@@ -39,10 +43,9 @@
     var root = "{{root}}";
 </script>
 
+{% if admin_enabled %}
 <script type="module" nonce="{{ csp_nonce }}">
     import { runBuilderScript, runMultipleBuilderScripts } from "{{root}}/js/builder_utils.js";
-
-    // const root = "{{root}}";
 
     const runBuildersBtn = document.getElementById("runBuildersBtn");
     let buildingResources = false;
@@ -69,5 +72,6 @@
         });
     }
 </script>
+{% endif %}
     
 {% endblock %}

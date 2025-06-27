@@ -3,7 +3,7 @@ import sys, os
 from flask import Flask
 
 # App
-from config import VERSION, FLASK_PORT
+from config import VERSION, FLASK_PORT, CHAR_EDITOR_ENABLED, ADMIN_ENABLED
 from blueprints.main import main_bp
 from blueprints.resources import resources_bp
 from blueprints.characters import characters_bp
@@ -29,10 +29,13 @@ app.register_blueprint(admin_bp)
 @app.context_processor
 def inject_app_context():
     """Insert session lifetime into the app context"""
-    return {
+    injected_data = {
         "app_version": VERSION,
         # "session_lifetime": app.config['PERMANENT_SESSION_LIFETIME'].total_seconds()
+        "char_editor_enabled": CHAR_EDITOR_ENABLED,
+        "admin_enabled": ADMIN_ENABLED,
     }
+    return injected_data
 
 
 if __name__ == '__main__':
