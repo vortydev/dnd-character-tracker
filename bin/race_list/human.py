@@ -35,6 +35,7 @@ def load_human_base():
             "Alignment": "Humans tend toward no particular alignment. The best and the worst are found among them.",
             "Languages": "You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on.",
         },
+        languages=[Language.COMMON]
     )
     return human_base
 

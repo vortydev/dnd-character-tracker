@@ -211,29 +211,29 @@ def get_race_features(race_name: str):
             return jsonify({"status": "error", "message": f"Race+subrace not found: {race_name}"}), 404
 
         features: dict[str, list[dict[str, str]]] = {"race": []}
-        seen_names = set()
+        seen_feats = set()
 
         # === Pass 1: Base race features ===
         for level, feat_list in race.feats.items():
             for f in feat_list:
-                if f.name not in seen_names:
+                if f.name not in seen_feats:
                     features["race"].append({
                         "name": f.name,
                         "description": f.description
                     })
-                    seen_names.add(f.name)
+                    seen_feats.add(f.name)
 
         # === Pass 2: Subrace features (if valid match) ===
         if subrace:
             features.update({"subrace": []})
             for level, feat_list in subrace.feats.items():
                 for f in feat_list:
-                    if f.name not in seen_names:
+                    if f.name not in seen_feats:
                         features["subrace"].append({
                             "name": f.name,
                             "description": f.description
                         })
-                        seen_names.add(f.name)
+                        seen_feats.add(f.name)
 
         # === Build description ===
         description = race.description.strip() or ""
@@ -241,11 +241,50 @@ def get_race_features(race_name: str):
         if subrace:
             subrace_description = subrace.subrace.description.strip() or ""
 
+        # === Languages ===
+        languages: list[str] = []
+        seen_langs = set()
+
+        for lang in race.languages:
+            if lang.value not in seen_langs:
+                languages.append(lang.value)
+                seen_langs.add(lang.value)
+
+        if subrace:
+            for lang in subrace.subrace.languages:
+                if lang.value not in seen_langs:
+                    languages.append(lang.value)
+                    seen_langs.add(lang.value)
+
+        # === ASI ===
+        asi = {}
+        for a, s in race.ability_score_increase.items():
+            asi[a.value] = s
+
+        if subrace:
+            for a, s in subrace.subrace.ability_score_increase.items():
+                asi[a.value] = s
+
+        # WIP === Info ===
+        age_key = "Age"
+        alignment_key = "Alignment"
+        info = {
+            "age": race.info.get(age_key),
+            "alignment": race.info.get(alignment_key),
+            "speed": race.speed,
+            "size": race.size.value,
+        }
+
+        # TODO Spells
+
         return jsonify({
             "status": "success",
             "description": description,
             "sr_description": subrace_description,
-            "features": features
+            "features": features,
+            "languages": languages,
+            "asi": asi,
+            "info": info
         })
 
     except Exception as e:

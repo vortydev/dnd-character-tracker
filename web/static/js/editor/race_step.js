@@ -5,6 +5,15 @@ import { updateNavHeader, updateNextButtonState } from "./shared_ui.js";
 let raceList = [];
 let subraceMap = {};
 
+const abilityMap = {
+    str: "Strength",
+    dex: "Dexterity",
+    con: "Constitution",
+    int: "Intelligence",
+    wis: "Wisdom",
+    cha: "Charisma"
+};
+
 export async function initRaceStep() {
     const container = document.getElementById("raceContainer");
     const addBtn = document.getElementById("addRaceBtn");
@@ -14,13 +23,6 @@ export async function initRaceStep() {
 
     // TODO Load existing race
 
-    // container.innerHTML = `
-    //     <div id="raceSummaryContainer" class="mb-3"></div>
-    //     <button id="addRaceBtn" class="btn btn-outline-secondary">
-    //         <i class="fas fa-plus"></i>${newChar.race_type ? "Change Race" : "Select Race"}
-    //     </button>
-    //     <div id="raceSelectorSlot" class="mt-3"></div>
-    // `;
     container.innerHTML = "";
 
     const summaryContainer = document.createElement("div");
@@ -102,7 +104,6 @@ function renderTemporaryRaceSelector(slot) {
         updateNextButtonState(isValidRaceSelection());
     });
 
-    // WIP
     subraceSelect.addEventListener("change", e => {
         newChar.subrace_name = e.target.value;
         updateNextButtonState(isValidRaceSelection());
@@ -132,6 +133,9 @@ function renderTemporaryRaceSelector(slot) {
 
         newChar.race_type = race;
         newChar.subrace_name = subrace;
+        console.log(`Previous | Race: ${prevRace} Subrace: ${prevRace}`);
+        console.log((`New | Race: ${race} Subrace: ${subrace}`));
+        
 
         // Refresh summary only if race or subrace changed
         if (race !== prevRace || subrace !== prevSubrace) {
@@ -169,6 +173,7 @@ function renderRaceSummary(container) {
     const subraceName = newChar.subrace_name;
 
     const header = document.createElement("h3");
+    header.className = "mb-3";
     header.textContent = `${raceName}${subraceName ? ` – ${subraceName}` : ""}`;
     container.appendChild(header);
 
@@ -182,7 +187,6 @@ function renderRaceSummary(container) {
     raceBlock.appendChild(featuresBox);
     container.appendChild(raceBlock);
 
-    // WIP
     fetch(`/api/races/features/${encodeURIComponent(raceName)}${subraceName ? `?subrace=${encodeURIComponent(subraceName)}` : ""}`)
         .then(res => res.json())
         .then(data => {
@@ -214,6 +218,14 @@ function renderRaceFeaturesFromAPI(data) {
         } = {},
         description,
         sr_description,
+        languages,
+        asi,
+        info: {
+            age: age,
+            alignment: alignment,
+            size: size,
+            speed: speed
+        } = {},
     } = data;
 
     // Optional summary header (like in class)
@@ -223,7 +235,7 @@ function renderRaceFeaturesFromAPI(data) {
     </summary>
     `;
 
-    // Optional description block
+    // Description(s)
     if (description) {
         html += `<p class="dnd-feature-desc text-color-grey mt-2"><em>${description}</em></p>`;
     }
@@ -232,8 +244,84 @@ function renderRaceFeaturesFromAPI(data) {
         html += `<p class="dnd-feature-desc text-color-grey mt-2"><em>${sr_description}</em></p>`;
     }
 
+    // Features
     html += `<section class="class-feature-grid mt-3">`;
 
+    // ASI
+    const asiList = Object.entries(asi).map(([key, value]) => {
+        const label = abilityMap[key] || key;
+        return `<li>Your ${label} score increases by ${value}.</li>`;
+    });
+    html += `
+    <details class="fa-chevron class-feature-block">
+        <summary>
+            <div class="flex-col">
+                <h5 class="class-feature-block-title">Ability Score Increase</h5>
+            </div>
+        </summary>
+        <div class="class-feature-content">
+            <ul class="dnd-feature-list">${asiList.join("")}</ul>
+        </div>
+    </details>
+    `;
+
+    // Age
+    html += `
+    <details class="fa-chevron class-feature-block">
+        <summary>
+            <div class="flex-col">
+                <h5 class="class-feature-block-title">Age</h5>
+            </div>
+        </summary>
+        <div class="class-feature-content">
+            <p class="dnd-feature-desc">${age}</p>
+        </div>
+    </details>
+    `;
+
+    // Alignment
+    html += `
+    <details class="fa-chevron class-feature-block">
+        <summary>
+            <div class="flex-col">
+                <h5 class="class-feature-block-title">Alignment</h5>
+            </div>
+        </summary>
+        <div class="class-feature-content">
+            <p class="dnd-feature-desc">${alignment}</p>
+        </div>
+    </details>
+    `;
+
+    // Size
+    html += `
+    <details class="fa-chevron class-feature-block">
+        <summary>
+            <div class="flex-col">
+                <h5 class="class-feature-block-title">Size</h5>
+            </div>
+        </summary>
+        <div class="class-feature-content">
+            <p class="dnd-feature-desc">Your size is ${size}.</p>
+        </div>
+    </details>
+    `;
+
+    // Speed
+    html += `
+    <details class="fa-chevron class-feature-block">
+        <summary>
+            <div class="flex-col">
+                <h5 class="class-feature-block-title">Speed</h5>
+            </div>
+        </summary>
+        <div class="class-feature-content">
+            <p class="dnd-feature-desc">Your base walking speed is ${speed} feet.</p>
+        </div>
+    </details>
+    `;
+
+    // Race features
     features.forEach((f, idx) => {
         html += `<details class="fa-chevron class-feature-block">
             <summary>
@@ -247,6 +335,7 @@ function renderRaceFeaturesFromAPI(data) {
         </details>`;
     });
 
+    // Subrace features
     sr_features.forEach((f, idx) => {
         html += `<details class="fa-chevron class-feature-block">
             <summary>
@@ -259,6 +348,25 @@ function renderRaceFeaturesFromAPI(data) {
             </div>
         </details>`;
     });
+
+    // Languages
+    const langList = languages.map(l => `<li>${l}</li>`).join("");
+    const langBlock = `
+    <details class="fa-chevron class-feature-block">
+        <summary>
+            <div class="flex-col">
+                <h5 class="class-feature-block-title">Languages</h5>
+            </div>
+        </summary>
+        <div class="class-feature-content">
+            <p class="dnd-feature-desc">You can speak, read and write the following languages :</p>
+            <ul class="dnd-feature-list">${langList}</ul>
+        </div>
+    </details>
+    `;
+    if (languages.length) {
+        html += langBlock;
+    }
 
     html += `</section>`;
     return applyTextFormatting(html);
