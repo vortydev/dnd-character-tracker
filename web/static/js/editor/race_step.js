@@ -212,6 +212,8 @@ function renderRaceFeaturesFromAPI(data) {
     console.log("Data", data);
     
     const {
+        name,
+        sr_name,
         features: {
             race: features = [],
             subrace: sr_features = []
@@ -257,6 +259,7 @@ function renderRaceFeaturesFromAPI(data) {
         <summary>
             <div class="flex-col">
                 <h5 class="class-feature-block-title">Ability Score Increase</h5>
+                <small class="text-color-grey">Racial Trait</small>
             </div>
         </summary>
         <div class="class-feature-content">
@@ -271,6 +274,7 @@ function renderRaceFeaturesFromAPI(data) {
         <summary>
             <div class="flex-col">
                 <h5 class="class-feature-block-title">Age</h5>
+                <small class="text-color-grey">Racial Trait</small>
             </div>
         </summary>
         <div class="class-feature-content">
@@ -285,6 +289,7 @@ function renderRaceFeaturesFromAPI(data) {
         <summary>
             <div class="flex-col">
                 <h5 class="class-feature-block-title">Alignment</h5>
+                <small class="text-color-grey">Racial Trait</small>
             </div>
         </summary>
         <div class="class-feature-content">
@@ -299,6 +304,7 @@ function renderRaceFeaturesFromAPI(data) {
         <summary>
             <div class="flex-col">
                 <h5 class="class-feature-block-title">Size</h5>
+                <small class="text-color-grey">Racial Trait</small>
             </div>
         </summary>
         <div class="class-feature-content">
@@ -313,6 +319,7 @@ function renderRaceFeaturesFromAPI(data) {
         <summary>
             <div class="flex-col">
                 <h5 class="class-feature-block-title">Speed</h5>
+                <small class="text-color-grey">Racial Trait</small>
             </div>
         </summary>
         <div class="class-feature-content">
@@ -327,6 +334,7 @@ function renderRaceFeaturesFromAPI(data) {
             <summary>
                 <div class="flex-col">
                     <h5 class="class-feature-block-title">${f.name}</h5>
+                    <small class="text-color-grey">${name} Trait</small>
                 </div>
             </summary>
             <div class="class-feature-content">
@@ -341,6 +349,7 @@ function renderRaceFeaturesFromAPI(data) {
             <summary>
                 <div class="flex-col">
                     <h5 class="class-feature-block-title">${f.name}</h5>
+                    <small class="text-color-grey">${sr_name} Trait</small>
                 </div>
             </summary>
             <div class="class-feature-content">
@@ -356,6 +365,7 @@ function renderRaceFeaturesFromAPI(data) {
         <summary>
             <div class="flex-col">
                 <h5 class="class-feature-block-title">Languages</h5>
+                <small class="text-color-grey">Racial Trait</small>
             </div>
         </summary>
         <div class="class-feature-content">

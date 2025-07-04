@@ -209,6 +209,18 @@ def get_race_features(race_name: str):
         subrace = RaceRegistry.get(race_type, subrace_name) if subrace_name else None
         if subrace_name and not subrace:
             return jsonify({"status": "error", "message": f"Race+subrace not found: {race_name}"}), 404
+        
+        # === Name ===
+        race_name = race.name.value.strip()
+        subrace_name = None
+        if subrace:
+            subrace_name = subrace.subrace.name.strip() or ""
+
+        # === Build description ===
+        description = race.description.strip() or ""
+        subrace_description = None
+        if subrace:
+            subrace_description = subrace.subrace.description.strip() or ""
 
         features: dict[str, list[dict[str, str]]] = {"race": []}
         seen_feats = set()
@@ -234,12 +246,6 @@ def get_race_features(race_name: str):
                             "description": f.description
                         })
                         seen_feats.add(f.name)
-
-        # === Build description ===
-        description = race.description.strip() or ""
-        subrace_description = None
-        if subrace:
-            subrace_description = subrace.subrace.description.strip() or ""
 
         # === Languages ===
         languages: list[str] = []
@@ -279,6 +285,8 @@ def get_race_features(race_name: str):
 
         return jsonify({
             "status": "success",
+            "name": race_name,
+            "sr_name": subrace_name,
             "description": description,
             "sr_description": subrace_description,
             "features": features,
