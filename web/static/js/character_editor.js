@@ -1,7 +1,7 @@
 // character_editor.js (main entry point)
 import { initNameStep } from './editor/name_step.js';
-import { initClassStep } from './editor/class_step.js';
 import { initRaceStep } from './editor/race_step.js';
+import { initClassStep } from './editor/class_step.js';
 import { initBackgroundStep } from './editor/background_step.js';
 import { initAbilitiesStep } from './editor/abilities_step.js';
 import { initEquipmentStep } from './editor/equipment_step.js';
@@ -9,8 +9,8 @@ import { initEquipmentStep } from './editor/equipment_step.js';
 let currentStep = 0;
 const steps = [
     initNameStep,
-    initClassStep,
     initRaceStep,
+    initClassStep,
     initBackgroundStep,
     initAbilitiesStep,
     initEquipmentStep

@@ -132,7 +132,6 @@ def api_get_classes():
 def get_class_full_features(class_name: str):
     """Return class base info (HP, proficiencies) and level-based features/spells up to given level."""
     # from registries import ClassLevelRegistry, ClassRegistry
-
     try:
         subclass = request.args.get("subclass")
         level = int(request.args.get("level", 1))
@@ -188,6 +187,70 @@ def get_class_full_features(class_name: str):
         traceback.print_exc()
         return jsonify({"status": "error", "message": str(e)}), 400
 
+
+@resources_bp.route(root + "/api/races/features/<race_name>", methods=["GET"])
+def get_race_features(race_name: str):
+    from registries import RaceRegistry
+    from bin import RaceType
+
+    try:
+        subrace_name = request.args.get("subrace", None)
+
+        # === Validate and fetch Race ===
+        try:
+            race_type = RaceType(race_name)
+        except ValueError:
+            return jsonify({"status": "error", "message": f"Invalid race name: {race_name}"}), 400
+
+        race = RaceRegistry.get(race_type)
+        if not race:
+            return jsonify({"status": "error", "message": f"Race not found: {race_name}"}), 404
+        
+        subrace = RaceRegistry.get(race_type, subrace_name)
+        if not subrace:
+            return jsonify({"status": "error", "message": f"Race+subrace not found: {race_name}"}), 404
+
+        features = []
+        seen_names = set()
+
+        # === Pass 1: Base race features ===
+        for level, feat_list in race.feats.items():
+            for f in feat_list:
+                if f.name not in seen_names:
+                    features.append({
+                        "name": f.name,
+                        "description": f.description
+                    })
+                    seen_names.add(f.name)
+
+        # === Pass 2: Subrace features (if valid match) ===
+        if subrace:
+            for level, feat_list in subrace.feats.items():
+                for f in feat_list:
+                    if f.name not in seen_names:
+                        features.append({
+                            "name": f.name,
+                            "description": f.description
+                        })
+                        seen_names.add(f.name)
+
+        # === Build description ===
+        description = race.description or ""
+        subrace_description = subrace.subrace.description if subrace else ""
+
+        return jsonify({
+            "status": "success",
+            "description": description.strip(),
+            "sub_description": subrace_description.strip(),
+            "features": features
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"status": "error", "message": str(e)}), 400
+
+    
 
 # === Books ===
 import os, json

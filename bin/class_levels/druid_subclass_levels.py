@@ -54,3 +54,45 @@ land_lvl14 = ClassLevelSpellcaster(
 
 circle_land_scl = [land_lvl2, land_lvl3, land_lvl6, land_lvl10, land_lvl14]
 druid_scl.extend(circle_land_scl)
+
+
+# === Circle of Stars ===
+stars_lvl2 = ClassLevelSpellcaster(
+    lvl=2,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_STARS,
+    features=[
+        FeatureRegistry.get("Star Map", FeatureType.SUBCLASS, ClassType.DRUID),
+        FeatureRegistry.get("Starry Form", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+stars_lvl6 = ClassLevelSpellcaster(
+    lvl=6,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_STARS,
+    features=[
+        FeatureRegistry.get("Cosmic Omen", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+stars_lvl10 = ClassLevelSpellcaster(
+    lvl=10,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_STARS,
+    features=[
+        FeatureRegistry.get("Twinkling Constellations", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+stars_lvl14 = ClassLevelSpellcaster(
+    lvl=14,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_STARS,
+    features=[
+        FeatureRegistry.get("Full of Stars", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+circle_stars_scl = [stars_lvl2, stars_lvl6, stars_lvl10, stars_lvl14]
+druid_scl.extend(circle_stars_scl)

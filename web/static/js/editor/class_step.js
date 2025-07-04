@@ -405,6 +405,10 @@ async function fetchClassFeatures(className, classLevel, subclassHeading, detail
 
             insertChevronsIntoDetailsFA();
         });
+        // .catch(err => {
+        //     console.error("Error loading class features", err);
+        //     featuresBox.innerHTML = `<em class="text-danger">Error loading class data.</em>`;
+        // });
 }
 
 function updateCharacterLevelDisplay() {

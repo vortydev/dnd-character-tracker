@@ -6,22 +6,34 @@ let raceList = [];
 let subraceMap = {};
 
 export async function initRaceStep() {
+    const container = document.getElementById("raceContainer");
+    const addBtn = document.getElementById("addRaceBtn");
+    if (!container || !addBtn) return;
+
     updateNavHeader(newChar.name || "Unnamed Character", true);
 
-    const container = document.getElementById("raceContainer");
-    if (!container) return;
+    // TODO Load existing race
 
-    container.innerHTML = `
-        <div id="raceSummaryContainer" class="mb-3"></div>
-        <button id="addRaceBtn" class="btn btn-outline-secondary mb-2">
-            <i class="fas fa-plus"></i>${newChar.race_type ? "Change Race" : "Select Race"}
-        </button>
-        <div id="raceSelectorSlot" class="mt-2"></div>
-    `;
+    // container.innerHTML = `
+    //     <div id="raceSummaryContainer" class="mb-3"></div>
+    //     <button id="addRaceBtn" class="btn btn-outline-secondary">
+    //         <i class="fas fa-plus"></i>${newChar.race_type ? "Change Race" : "Select Race"}
+    //     </button>
+    //     <div id="raceSelectorSlot" class="mt-3"></div>
+    // `;
+    container.innerHTML = "";
 
-    const addBtn = document.getElementById("addRaceBtn");
-    addBtn.textContent = newChar.race_type ? "Change Race" : "Select Race";
-    addBtn.onclick = () => renderTemporaryRaceSelector(container.querySelector("#raceSelectorSlot"));
+    const summaryContainer = document.createElement("div");
+    summaryContainer.id = "raceSummaryContainer";
+    // summaryContainer.className = "mb-3";
+    container.appendChild(summaryContainer);
+
+    const selectorSlot = document.createElement("div");
+    selectorSlot.id = "raceSelectorSlot";
+    addBtn.insertAdjacentElement("afterend", selectorSlot);
+
+    addBtn.innerHTML = newChar.race_type ? `Change Race` : `Select Race`;
+    addBtn.onclick = () => renderTemporaryRaceSelector(selectorSlot);
 
     if (!window.raceListCache) {
         try {
@@ -37,8 +49,9 @@ export async function initRaceStep() {
 
     raceList = window.raceListCache;
     prepareRaceData();
+    updateNextButtonState(isValidRaceSelection());
 
-    if (newChar.race_type) renderRaceSummary(container.querySelector("#raceSummaryContainer"));
+    if (newChar.race_type) renderRaceSummary(container);
 }
 
 function prepareRaceData() {
@@ -60,60 +73,60 @@ function prepareRaceData() {
     raceList = [...unique.values()];
 }
 
-function renderRaceSelectors(container) {
-    const raceSelect = document.createElement("select");
-    raceSelect.className = "form-select mb-3";
-    raceSelect.innerHTML = `<option disabled selected>Choose a Race</option>` +
-        raceList.map(r => `<option value="${r.name}">${r.name}</option>`).join("");
+// function renderRaceSelectors(container) {
+//     const raceSelect = document.createElement("select");
+//     raceSelect.className = "form-select mb-3";
+//     raceSelect.innerHTML = `<option disabled selected>Choose a Race</option>` +
+//         raceList.map(r => `<option value="${r.name}">${r.name}</option>`).join("");
 
-    const subraceSelect = document.createElement("select");
-    subraceSelect.className = "form-select mb-3 d-none";
-    subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>`;
+//     const subraceSelect = document.createElement("select");
+//     subraceSelect.className = "form-select mb-3 d-none";
+//     subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>`;
 
-    // Restore previous selection if it exists
-    if (newChar.race_type) raceSelect.value = newChar.race_type;
-    if (newChar.subrace_name) subraceSelect.value = newChar.subrace_name;
+//     // Restore previous selection if it exists
+//     if (newChar.race_type) raceSelect.value = newChar.race_type;
+//     if (newChar.subrace_name) subraceSelect.value = newChar.subrace_name;
 
-    raceSelect.addEventListener("change", e => {
-        const selected = e.target.value;
-        newChar.race_type = selected;
-        newChar.subrace_name = null;
-        updateNextButtonState(true);
+//     raceSelect.addEventListener("change", e => {
+//         const selected = e.target.value;
+//         newChar.race_type = selected;
+//         newChar.subrace_name = null;
+//         updateNextButtonState(true);
 
-        if (subraceMap[selected]) {
-            subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>` +
-                subraceMap[selected]
-                    .map(sub => `<option value="${sub.name}">${sub.name}</option>`)
-                    .join("");
-            subraceSelect.classList.remove("d-none");
-        } else {
-            subraceSelect.classList.add("d-none");
-        }
-    });
+//         if (subraceMap[selected]) {
+//             subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>` +
+//                 subraceMap[selected]
+//                     .map(sub => `<option value="${sub.name}">${sub.name}</option>`)
+//                     .join("");
+//             subraceSelect.classList.remove("d-none");
+//         } else {
+//             subraceSelect.classList.add("d-none");
+//         }
+//     });
 
-    subraceSelect.addEventListener("change", e => {
-        newChar.subrace_name = e.target.value;
-        updateNextButtonState(true);
-    });
+//     subraceSelect.addEventListener("change", e => {
+//         newChar.subrace_name = e.target.value;
+//         updateNextButtonState(true);
+//     });
 
-    container.append(raceSelect, subraceSelect);
+//     container.append(raceSelect, subraceSelect);
 
-    // Trigger subrace logic if returning to the step
-    if (newChar.race_type && subraceMap[newChar.race_type]) {
-        subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>` +
-            subraceMap[newChar.race_type]
-                .map(sub => `<option value="${sub.name}">${sub.name}</option>`)
-                .join("");
-        subraceSelect.classList.remove("d-none");
-        if (newChar.subrace_name) subraceSelect.value = newChar.subrace_name;
-    }
-}
+//     // Trigger subrace logic if returning to the step
+//     if (newChar.race_type && subraceMap[newChar.race_type]) {
+//         subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>` +
+//             subraceMap[newChar.race_type]
+//                 .map(sub => `<option value="${sub.name}">${sub.name}</option>`)
+//                 .join("");
+//         subraceSelect.classList.remove("d-none");
+//         if (newChar.subrace_name) subraceSelect.value = newChar.subrace_name;
+//     }
+// }
 
 function renderTemporaryRaceSelector(slot) {
     slot.innerHTML = "";
 
     const row = document.createElement("div");
-    row.className = "btnBar";
+    row.className = "d-flex align-items-center gap-2 mt-3";
 
     const raceSelect = document.createElement("select");
     raceSelect.className = "form-select";
@@ -130,10 +143,20 @@ function renderTemporaryRaceSelector(slot) {
             subraceSelect.innerHTML = `<option disabled selected value="">Choose a Subrace</option>` +
                 subraceMap[selected].map(sub => `<option value="${sub.name}">${sub.name}</option>`).join("");
             subraceSelect.classList.remove("d-none");
-        } else {
+        } 
+        else {
             subraceSelect.classList.add("d-none");
         }
+
+        updateNextButtonState(isValidRaceSelection());
     });
+
+    // WIP
+    subraceSelect.addEventListener("change", e => {
+        newChar.subrace_name = e.target.value;
+        updateNextButtonState(isValidRaceSelection());
+    });
+
 
     const confirmBtn = document.createElement("button");
     confirmBtn.className = "btn btn-green";
@@ -147,19 +170,36 @@ function renderTemporaryRaceSelector(slot) {
             return;
         }
 
+        if (!subraceSelect.classList.contains("d-none") && !subrace) {
+            alert("Please select a subrace.");
+            return;
+        }
+
+        // Store previous values to detect change
+        const prevRace = newChar.race_type;
+        const prevSubrace = newChar.subrace_name;
+
         newChar.race_type = race;
         newChar.subrace_name = subrace;
 
-        // Clear and render summary
-        const summary = document.getElementById("raceSummaryContainer");
-        if (summary) renderRaceSummary(summary);
+        // Refresh summary only if race or subrace changed
+        if (race !== prevRace || subrace !== prevSubrace) {
+            const summary = document.getElementById("raceSummaryContainer");
+            if (summary) {
+                renderRaceSummary(summary);
+            } 
+            else {
+                const mainContainer = document.getElementById("raceContainer");
+                if (mainContainer) renderRaceSummary(mainContainer);
+            }
+        }
 
         // Update main button
         const addBtn = document.getElementById("addRaceBtn");
         if (addBtn) addBtn.textContent = "Change Race";
 
         slot.innerHTML = "";
-        updateNextButtonState(true);
+        updateNextButtonState(isValidRaceSelection());
     };
 
     const cancelBtn = document.createElement("button");
@@ -177,41 +217,81 @@ function renderRaceSummary(container) {
     const raceName = newChar.race_type;
     const subraceName = newChar.subrace_name;
 
-    const header = document.createElement("h4");
-    header.textContent = `Selected Race: ${raceName}${subraceName ? ` – ${subraceName}` : ""}`;
+    const header = document.createElement("h3");
+    header.textContent = `${raceName}${subraceName ? ` – ${subraceName}` : ""}`;
     container.appendChild(header);
 
-    const featuresBox = document.createElement("section");
-    featuresBox.className = "race-feature-box";
+    const featuresBox = document.createElement("details");
+    featuresBox.className = "race-feature-box fa-chevron";
     featuresBox.innerHTML = "<em>Loading features...</em>";
     container.appendChild(featuresBox);
 
+    // WIP
     fetch(`/api/races/features/${encodeURIComponent(raceName)}${subraceName ? `?subrace=${encodeURIComponent(subraceName)}` : ""}`)
         .then(res => res.json())
         .then(data => {
             if (data.status !== "success") {
-                featuresBox.innerHTML = "<em>Failed to load race data.</em>";
+                featuresBox.innerHTML = `<em class="text-danger">Failed to load race data.</em>`;
                 return;
             }
 
             featuresBox.innerHTML = renderRaceFeaturesFromAPI(data);
+            featuresBox.setAttribute("open", "true");
+
+            insertChevronsIntoDetailsFA();
         })
         .catch(err => {
             console.error("Error loading race features", err);
-            featuresBox.innerHTML = "<em>Error loading race data.</em>";
+            featuresBox.innerHTML = `<em class="text-danger">Error loading race data.</em>`;
         });
 }
 
+// function renderRaceFeaturesFromAPI(data) {
+//     let html = `<section class="race-feature-grid mt-2">`;
+
+//     const { features = [], description } = data;
+
+//     if (description) html += `<p class="dnd-feature-desc">${description}</p>`;
+
+//     features.forEach(f => {
+//         html += `<details class="fa-chevron class-feature-block">
+//             <summary><strong>${f.name}</strong></summary>
+//             <div class="class-feature-content">
+//                 <p class="dnd-feature-desc">${f.description}</p>
+//             </div>
+//         </details>`;
+//     });
+
+//     html += `</section>`;
+//     return applyTextFormatting(html);
+// }
+
 function renderRaceFeaturesFromAPI(data) {
-    let html = `<section class="race-feature-grid mt-2">`;
+    let html = "";
 
     const { features = [], description } = data;
 
-    if (description) html += `<p class="dnd-feature-desc">${description}</p>`;
+    // Optional summary header (like in class)
+    html += `
+    <summary class="editor-race-features fit-chevron">
+        <h4 class="class-features-title">Race Features</h4>
+    </summary>
+    `;
 
-    features.forEach(f => {
+    // Optional description block
+    if (description) {
+        html += `<p class="dnd-feature-desc text-color-grey mt-2"><em>${description}</em></p>`;
+    }
+
+    html += `<section class="class-feature-grid mt-3">`;
+
+    features.forEach((f, idx) => {
         html += `<details class="fa-chevron class-feature-block">
-            <summary><strong>${f.name}</strong></summary>
+            <summary>
+                <div class="flex-col">
+                    <h5 class="class-feature-block-title">${f.name}</h5>
+                </div>
+            </summary>
             <div class="class-feature-content">
                 <p class="dnd-feature-desc">${f.description}</p>
             </div>
@@ -220,4 +300,12 @@ function renderRaceFeaturesFromAPI(data) {
 
     html += `</section>`;
     return applyTextFormatting(html);
+}
+
+function isValidRaceSelection() {
+    const hasRace = !!newChar.race_type;
+    const needsSubrace = subraceMap[newChar.race_type]?.length > 0;
+    const hasSubrace = !!newChar.subrace_name;
+
+    return hasRace && (!needsSubrace || hasSubrace);
 }
