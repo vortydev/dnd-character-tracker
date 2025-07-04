@@ -73,55 +73,6 @@ function prepareRaceData() {
     raceList = [...unique.values()];
 }
 
-// function renderRaceSelectors(container) {
-//     const raceSelect = document.createElement("select");
-//     raceSelect.className = "form-select mb-3";
-//     raceSelect.innerHTML = `<option disabled selected>Choose a Race</option>` +
-//         raceList.map(r => `<option value="${r.name}">${r.name}</option>`).join("");
-
-//     const subraceSelect = document.createElement("select");
-//     subraceSelect.className = "form-select mb-3 d-none";
-//     subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>`;
-
-//     // Restore previous selection if it exists
-//     if (newChar.race_type) raceSelect.value = newChar.race_type;
-//     if (newChar.subrace_name) subraceSelect.value = newChar.subrace_name;
-
-//     raceSelect.addEventListener("change", e => {
-//         const selected = e.target.value;
-//         newChar.race_type = selected;
-//         newChar.subrace_name = null;
-//         updateNextButtonState(true);
-
-//         if (subraceMap[selected]) {
-//             subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>` +
-//                 subraceMap[selected]
-//                     .map(sub => `<option value="${sub.name}">${sub.name}</option>`)
-//                     .join("");
-//             subraceSelect.classList.remove("d-none");
-//         } else {
-//             subraceSelect.classList.add("d-none");
-//         }
-//     });
-
-//     subraceSelect.addEventListener("change", e => {
-//         newChar.subrace_name = e.target.value;
-//         updateNextButtonState(true);
-//     });
-
-//     container.append(raceSelect, subraceSelect);
-
-//     // Trigger subrace logic if returning to the step
-//     if (newChar.race_type && subraceMap[newChar.race_type]) {
-//         subraceSelect.innerHTML = `<option disabled selected>Choose a Subrace</option>` +
-//             subraceMap[newChar.race_type]
-//                 .map(sub => `<option value="${sub.name}">${sub.name}</option>`)
-//                 .join("");
-//         subraceSelect.classList.remove("d-none");
-//         if (newChar.subrace_name) subraceSelect.value = newChar.subrace_name;
-//     }
-// }
-
 function renderTemporaryRaceSelector(slot) {
     slot.innerHTML = "";
 
@@ -221,10 +172,15 @@ function renderRaceSummary(container) {
     header.textContent = `${raceName}${subraceName ? ` – ${subraceName}` : ""}`;
     container.appendChild(header);
 
+    const raceBlock = document.createElement("section");
+    raceBlock.className = "race-block mb-3";
+
     const featuresBox = document.createElement("details");
     featuresBox.className = "race-feature-box fa-chevron";
     featuresBox.innerHTML = "<em>Loading features...</em>";
-    container.appendChild(featuresBox);
+
+    raceBlock.appendChild(featuresBox);
+    container.appendChild(raceBlock);
 
     // WIP
     fetch(`/api/races/features/${encodeURIComponent(raceName)}${subraceName ? `?subrace=${encodeURIComponent(subraceName)}` : ""}`)
@@ -246,30 +202,19 @@ function renderRaceSummary(container) {
         });
 }
 
-// function renderRaceFeaturesFromAPI(data) {
-//     let html = `<section class="race-feature-grid mt-2">`;
-
-//     const { features = [], description } = data;
-
-//     if (description) html += `<p class="dnd-feature-desc">${description}</p>`;
-
-//     features.forEach(f => {
-//         html += `<details class="fa-chevron class-feature-block">
-//             <summary><strong>${f.name}</strong></summary>
-//             <div class="class-feature-content">
-//                 <p class="dnd-feature-desc">${f.description}</p>
-//             </div>
-//         </details>`;
-//     });
-
-//     html += `</section>`;
-//     return applyTextFormatting(html);
-// }
 
 function renderRaceFeaturesFromAPI(data) {
     let html = "";
-
-    const { features = [], description } = data;
+    console.log("Data", data);
+    
+    const {
+        features: {
+            race: features = [],
+            subrace: sr_features = []
+        } = {},
+        description,
+        sr_description,
+    } = data;
 
     // Optional summary header (like in class)
     html += `
@@ -283,9 +228,26 @@ function renderRaceFeaturesFromAPI(data) {
         html += `<p class="dnd-feature-desc text-color-grey mt-2"><em>${description}</em></p>`;
     }
 
+    if (sr_description) {
+        html += `<p class="dnd-feature-desc text-color-grey mt-2"><em>${sr_description}</em></p>`;
+    }
+
     html += `<section class="class-feature-grid mt-3">`;
 
     features.forEach((f, idx) => {
+        html += `<details class="fa-chevron class-feature-block">
+            <summary>
+                <div class="flex-col">
+                    <h5 class="class-feature-block-title">${f.name}</h5>
+                </div>
+            </summary>
+            <div class="class-feature-content">
+                <p class="dnd-feature-desc">${f.description}</p>
+            </div>
+        </details>`;
+    });
+
+    sr_features.forEach((f, idx) => {
         html += `<details class="fa-chevron class-feature-block">
             <summary>
                 <div class="flex-col">

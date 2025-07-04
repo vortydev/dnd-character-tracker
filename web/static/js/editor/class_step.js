@@ -147,7 +147,7 @@ function renderClassDetailsFromAPI(classData) {
             <summary>
                 <div class="flex-col">
                     <h5 class="class-feature-block-title">Hit Points</h5>
-                    <small class="text-color-grey">${level}<sup>${ordinal(level)}</sup> level</small>
+                    <small class="text-color-grey">${1}<sup>${ordinal(1)}</sup> level</small>
                 </div>
             </summary>
             <div class="class-feature-content">
@@ -175,7 +175,7 @@ function renderClassDetailsFromAPI(classData) {
             <summary>
                 <div class="flex-col">
                     <h5 class="class-feature-block-title">Proficiencies</h5>
-                    <small class="text-color-grey">${skillChoicesStr}${level}<sup>${ordinal(level)}</sup> level</small>
+                    <small class="text-color-grey">${skillChoicesStr}${1}<sup>${ordinal(1)}</sup> level</small>
                 </div>
             </summary>
             <div class="class-feature-content">

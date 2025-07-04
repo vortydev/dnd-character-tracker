@@ -206,18 +206,18 @@ def get_race_features(race_name: str):
         if not race:
             return jsonify({"status": "error", "message": f"Race not found: {race_name}"}), 404
         
-        subrace = RaceRegistry.get(race_type, subrace_name)
-        if not subrace:
+        subrace = RaceRegistry.get(race_type, subrace_name) if subrace_name else None
+        if subrace_name and not subrace:
             return jsonify({"status": "error", "message": f"Race+subrace not found: {race_name}"}), 404
 
-        features = []
+        features: dict[str, list[dict[str, str]]] = {"race": []}
         seen_names = set()
 
         # === Pass 1: Base race features ===
         for level, feat_list in race.feats.items():
             for f in feat_list:
                 if f.name not in seen_names:
-                    features.append({
+                    features["race"].append({
                         "name": f.name,
                         "description": f.description
                     })
@@ -225,23 +225,26 @@ def get_race_features(race_name: str):
 
         # === Pass 2: Subrace features (if valid match) ===
         if subrace:
+            features.update({"subrace": []})
             for level, feat_list in subrace.feats.items():
                 for f in feat_list:
                     if f.name not in seen_names:
-                        features.append({
+                        features["subrace"].append({
                             "name": f.name,
                             "description": f.description
                         })
                         seen_names.add(f.name)
 
         # === Build description ===
-        description = race.description or ""
-        subrace_description = subrace.subrace.description if subrace else ""
+        description = race.description.strip() or ""
+        subrace_description = None
+        if subrace:
+            subrace_description = subrace.subrace.description.strip() or ""
 
         return jsonify({
             "status": "success",
-            "description": description.strip(),
-            "sub_description": subrace_description.strip(),
+            "description": description,
+            "sr_description": subrace_description,
             "features": features
         })
 
