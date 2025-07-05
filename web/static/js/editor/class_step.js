@@ -58,6 +58,8 @@ export async function initClassStep() {
     else {
         await renderExistingClasses();
     }
+
+    validateAllSkillSelections();
 }
 
 function syncClassData(container) {
@@ -119,7 +121,7 @@ function refreshAllClassSelectors() {
         if (isLevel) return; // Skip level inputs
 
         const available = getAvailableClasses();
-        select.innerHTML = `<option disabled value="">Choose a class</option>` +
+        select.innerHTML = `<option disabled value="">- Choose a class -</option>` +
             available.map(c => `<option value="${c.name}" ${c.name === selectedValue ? "selected" : ""}>${c.name}</option>`).join("");
     });
 }
@@ -266,7 +268,7 @@ async function renderTemporarySelector(slot, container) {
 
     const classSelect = document.createElement("select");
     classSelect.className = "form-control form-select class-select";
-    classSelect.innerHTML = `<option disabled selected value="">Choose a class</option>` +
+    classSelect.innerHTML = `<option disabled selected value="">- Choose a class -</option>` +
         availableClasses.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
 
     const levelSelect = document.createElement("select");
@@ -358,10 +360,14 @@ async function appendRealClassBlock(container, className, level, oldSkills = [])
 
     classHeader.append(classHeaderNameStack, row);
 
+    // WIP Class message section
+    const msgContainer = document.createElement("div");
+    msgContainer.className = "class-message-box";
+
     const details = document.createElement("details");
     details.className = "class-feature-box fa-chevron";
 
-    wrapper.append(classHeader, details);
+    wrapper.append(classHeader, msgContainer, details);
     container.appendChild(wrapper);
 
     // Fetch & render data

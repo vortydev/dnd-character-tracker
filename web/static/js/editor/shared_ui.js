@@ -21,6 +21,7 @@ export function setupSkillSelectValidation(block, charData) {
     const validate = () => {
         syncSkillSelects(block, className, charData);
         validateSkillChoicesBlock(block);
+        validateAllSkillSelections();
     };
 
     selects.forEach(select => {
@@ -134,4 +135,11 @@ export function syncSkillSelects(container, currentClass, charData) {
             opt.disabled = takenInThisBlock || takenInOtherBlock;
         });
     });
+}
+
+export function validateAllSkillSelections() {
+    const allSelects = document.querySelectorAll("select.skill-select");
+    const allSelected = Array.from(allSelects).every(s => !!s.value);
+
+    updateNextButtonState(allSelected);
 }
