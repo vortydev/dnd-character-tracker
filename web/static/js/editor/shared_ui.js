@@ -93,9 +93,26 @@ export function updateAbilityScores(char) {
 }
 
 export function getAllSelectedSkills(charData, excludeClass = null) {
-    return charData.classes
-        .filter(c => c.name !== excludeClass)
-        .flatMap(c => c.skills || []);
+    const result = new Set();
+
+    const skills = charData.abilities?.skills || {};
+
+    // Class-based skills
+    if (skills.class) {
+        for (const [cls, clsSkills] of Object.entries(skills.class)) {
+            if (cls !== excludeClass) {
+                clsSkills.forEach(skill => result.add(skill));
+            }
+        }
+    }
+
+    // Race skills
+    (skills.race || []).forEach(skill => result.add(skill));
+
+    // Background skills
+    (skills.background || []).forEach(skill => result.add(skill));
+
+    return result;
 }
 
 export function syncSkillSelects(container, currentClass, charData) {
@@ -112,7 +129,7 @@ export function syncSkillSelects(container, currentClass, charData) {
             if (opt.value === "") return;
 
             const takenInThisBlock = selectedValues.includes(opt.value) && opt.value !== current;
-            const takenInOtherBlock = otherClassSkills.includes(opt.value);
+            const takenInOtherBlock = otherClassSkills.has(opt.value);
 
             opt.disabled = takenInThisBlock || takenInOtherBlock;
         });

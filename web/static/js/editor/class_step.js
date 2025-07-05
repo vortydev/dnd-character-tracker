@@ -1,6 +1,6 @@
 // editor/class_step.js
 import { newChar } from '../character_editor.js';
-import { updateNextButtonState, updateNavHeader, setupSkillSelectValidation, updateAbilityScores } from './shared_ui.js';
+import { updateNextButtonState, updateNavHeader, setupSkillSelectValidation, getAllSelectedSkills } from './shared_ui.js';
 
 const MAX_LEVELS = 20;
 
@@ -71,17 +71,17 @@ function syncClassData(container) {
         if (!className || isNaN(level)) return;
 
         // Collect selected skills
-        const skillSelects = entry.querySelectorAll("select.skill-select");        
-        const selectedSkills = Array.from(skillSelects)
-            .map(sel => sel.value)
-            .filter(val => val && val !== "");  // Only valid selections
+        // const skillSelects = entry.querySelectorAll("select.skill-select");        
+        // const selectedSkills = Array.from(skillSelects)
+        //     .map(sel => sel.value)
+        //     .filter(val => val && val !== "");  // Only valid selections
         // console.log("Selected skills for", className, selectedSkills);
 
         
         updatedClasses.push({
             name: className,
             level: level,
-            skills: selectedSkills
+            // skills: selectedSkills
         });
     });
 
@@ -428,8 +428,10 @@ function renderSkillSelects(className, charData) {
     const container = document.querySelector(`.skill-select-container[data-class="${className}"]`);
     if (!container) return;
 
-    const selectedSkills = (charData.classes.find(c => c.name === className)?.skills) || [];
-    // console.log("Selected skills for", className, selectedSkills);
+    // const selectedSkills = (charData.classes.find(c => c.name === className)?.skills) || [];
+    const selectedSkills = (newChar.abilities?.skills?.class?.[className]) || [];
+
+    console.log("Selected skills for", className, selectedSkills);
 
 
     container.innerHTML = "";
@@ -438,9 +440,15 @@ function renderSkillSelects(className, charData) {
         const select = document.createElement("select");
         select.className = "form-control form-select skill-select mb-2";
 
-        // Build options
-        select.innerHTML = `<option value="">- Choose a ${className} Skill -</option>` +
-            skill_pool.map(skill => `<option value="${skill}">${skill}</option>`).join("");
+        const alreadySelected = getAllSelectedSkills(newChar, className); // exclude self
+
+        const buildOptions = skill_pool.map(skill => {
+            const isDisabled = alreadySelected.has(skill) && !selectedSkills.includes(skill);
+            return `<option value="${skill}" ${isDisabled ? "disabled" : ""}>${skill}</option>`;
+        }).join("");
+
+        select.innerHTML = `<option value="">- Choose a ${className} Skill -</option>` + buildOptions;
+
 
         container.appendChild(select);
 
@@ -449,7 +457,8 @@ function renderSkillSelects(className, charData) {
         }
 
         select.addEventListener("change", () => {
-            syncClassData(document.getElementById("classContainer"));
+            // syncClassData(document.getElementById("classContainer"));
+            updateClassSkillSelection(className);
             document.querySelectorAll(".class-feature-block").forEach(block =>
                 setupSkillSelectValidation(block, newChar)
             );
@@ -459,3 +468,19 @@ function renderSkillSelects(className, charData) {
     setupSkillSelectValidation(container.closest(".class-feature-block"), newChar);
 }
 
+function updateClassSkillSelection(className) {
+    const container = document.querySelector(`.skill-select-container[data-class="${className}"]`);
+    if (!container) return;
+
+    const selectedSkills = Array.from(
+        container.querySelectorAll("select.skill-select")
+    )
+    .map(sel => sel.value.trim())
+    .filter(v => v && v !== "");
+
+    if (!newChar.abilities) newChar.abilities = {};
+    if (!newChar.abilities.skills) newChar.abilities.skills = {};
+    if (!newChar.abilities.skills.class) newChar.abilities.skills.class = {};
+
+    newChar.abilities.skills.class[className] = selectedSkills;
+}
