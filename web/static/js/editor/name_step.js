@@ -13,19 +13,41 @@ export async function initNameStep() {
         return;
     }
 
+    const initialValue = input.value.trim();
+    console.log("Intial name:", initialValue);
+    
     // 🟢 Restore and revalidate if name exists
-    if (newChar.name) {
-        input.value = newChar.name;
+    if (initialValue) {        
         await validateCharacterName(
-            newChar.name,
+            initialValue,
             feedback,
-            () => updateNextButtonState(true),
+            () => {
+                newChar.name = initialValue;
+                updateNextButtonState(true);
+            },
             () => {
                 newChar.name = null;
                 updateNextButtonState(false);
             }
         );
     }
+    else {   
+        updateNextButtonState(false);
+    }
+
+    // 
+    // if (newChar.name) {
+    //     input.value = newChar.name;
+    //     await validateCharacterName(
+    //         newChar.name,
+    //         feedback,
+    //         () => updateNextButtonState(true),
+    //         () => {
+    //             newChar.name = null;
+    //             updateNextButtonState(false);
+    //         }
+    //     );
+    // }
 
     input.addEventListener("input", async () => {
         const value = input.value.trim();
@@ -51,8 +73,6 @@ export async function initNameStep() {
             }
         );
     });
-
-    updateNextButtonState(!!newChar.name);
 }
 
 async function validateCharacterName(name, feedbackEl, onValid, onInvalid) {

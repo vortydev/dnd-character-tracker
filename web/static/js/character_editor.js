@@ -11,8 +11,8 @@ const steps = [
     initNameStep,
     initRaceStep,
     initClassStep,
-    initBackgroundStep,
     initAbilitiesStep,
+    initBackgroundStep,
     initEquipmentStep
 ];
 

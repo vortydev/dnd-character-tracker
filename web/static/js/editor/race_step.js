@@ -133,8 +133,8 @@ function renderTemporaryRaceSelector(slot) {
 
         newChar.race_type = race;
         newChar.subrace_name = subrace;
-        console.log(`Previous | Race: ${prevRace} Subrace: ${prevRace}`);
-        console.log((`New | Race: ${race} Subrace: ${subrace}`));
+        // console.log(`Previous | Race: ${prevRace} Subrace: ${prevRace}`);
+        // console.log((`New | Race: ${race} Subrace: ${subrace}`));
         
 
         // Refresh summary only if race or subrace changed
@@ -209,7 +209,7 @@ function renderRaceSummary(container) {
 
 function renderRaceFeaturesFromAPI(data) {
     let html = "";
-    console.log("Data", data);
+    // console.log("Data", data);
     
     const {
         name,
