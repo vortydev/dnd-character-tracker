@@ -67,14 +67,16 @@ fig_feat_action_surge = ClassFeature(
 fig_feat_martial_archetype = ClassFeature(
     name="Martial Archetype",
     description="At 3rd level, you choose an archetype that you strive to emulate in your combat styles and techniques. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.",
-    class_type=ClassType.FIGHTER
+    class_type=ClassType.FIGHTER,
+    tags=["choice-subclass"],
 )
 
 # === Ability Score Improvement ===
 fig_feat_ability_score_improvement = ClassFeature(
     name="Ability Score Improvement",
     description="When you reach 4th level, and again at 6th, 8th, 12th, 14th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-    class_type=ClassType.FIGHTER
+    class_type=ClassType.FIGHTER,
+    tags=["asi"],
 )
 
 # === Martial Versatility (Optional) ===
@@ -83,7 +85,8 @@ fig_feat_martial_versatility = ClassFeature(
     description="Whenever you reach a level in this class that grants the Ability Score Improvement feature, you can do one of the following, as you shift the focus of your martial practice:\
         \n- Replace a fighting style you know with another fighting style available to fighters.\
         \n- If you know any maneuvers from the Battle Master archetype, you can replace one maneuver you know with a different maneuver.",
-    class_type=ClassType.FIGHTER
+    class_type=ClassType.FIGHTER,
+    tags=["optional"],
 )
 
 # === Extra Attack ===

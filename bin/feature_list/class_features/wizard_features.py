@@ -118,14 +118,16 @@ wiz_feat_arcane_recovery = ClassFeature(
 wiz_feat_arcane_tradition = ClassFeature(
     name="Arcane Tradition",
     description="When you reach 2nd level, you choose an arcane tradition, shaping your practice of magic through one of eight schools: Abjuration, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, or Transmutation. The School of Evocation is detailed at the end of the class description, and more choices are available in other sources. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.",
-    class_type=ClassType.WIZARD
+    class_type=ClassType.WIZARD,
+    tags=["choice-subclass"],
 )
 
 # === Ability Score Improvement ===
 wiz_feat_ability_score_improvement = ClassFeature(
     name="Ability Score Improvement",
     description="When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-    class_type=ClassType.WIZARD
+    class_type=ClassType.WIZARD,
+    tags=["asi"],
 )
 
 # === Spell Mastery ===

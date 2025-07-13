@@ -62,7 +62,8 @@ sorc_feat_spellcasting = ClassFeature(
 sorc_feat_sorcerous_origin = ClassFeature(
     name="Sorcerous Origin",
     description="Choose a sorcerous origin, which describes the source of your innate magical power: Draconic Bloodline, detailed at the end of the class description, or one from another source. Your choice grants you features when you choose it at 1st level and again at 6th, 14th, and 18th level.",
-    class_type=ClassType.SORCERER
+    class_type=ClassType.SORCERER,
+    tags=["choice-subclass"],
 )
 
 # === Font of Magic ===
@@ -152,7 +153,8 @@ sorc_feat_metamagic = ClassFeature(
 sorc_feat_ability_score_improvement = ClassFeature(
     name="Ability Score Improvement",
     description="When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-    class_type=ClassType.SORCERER
+    class_type=ClassType.SORCERER,
+    tags=["asi"],
 )
 
 # === Sorcerous Restoration ===

@@ -196,6 +196,29 @@ function renderClassDetailsFromAPI(classData) {
     // Class Features    
     features.forEach((f, idx) => {
         const desc = f.data.description ? `<p class="dnd-feature-desc">${f.data.description}</p>` : "";
+
+        let tagsContent = "";
+
+        if (f.data.tags?.includes("choice-subclass")) {
+            console.log("has tags: 'choice-sublass'");
+            
+            const classObj = newChar.classes.find(c => c.name === name);
+            const selected = classObj?.subclass || "";
+            const subclassList = window.classListCache.find(c => c.name === name)?.subclasses || [];
+
+            const options = ['<option value="">- Select subclass -</option>']
+                .concat(subclassList.map(sc => `<option value="${sc}" ${sc === selected ? "selected" : ""}>${sc}</option>`))
+                .join("");
+
+            tagsContent += `
+                <div class="mt-2">
+                    <label for="subclass-select-${name}" class="form-label">Subclass</label>
+                    <select class="form-control form-select subclass-select" id="subclass-select-${name}" data-class="${name}">
+                        ${options}
+                    </select>
+                </div>`;
+        }
+
         const featBlock = `<details class="fa-chevron class-feature-block">
             <summary>
                 <div class="flex-col">
@@ -205,6 +228,7 @@ function renderClassDetailsFromAPI(classData) {
             </summary>
             <div class="class-feature-content">
                 ${desc}
+                ${tagsContent}
             </div>
         </details>`;
         html += featBlock;
