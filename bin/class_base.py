@@ -24,13 +24,30 @@ class ClassType(Enum):
     WARLOCK = "Warlock"
     WIZARD = "Wizard"
     ARTIFICER = "Artificer"
+    BLOOD_HUNTER = "Blood Hunter"
 
 
 CLASS_EMOJI_MAP = {
-    ClassType.DRUID: "🌿",
+    # Martial
+    ClassType.BARBARIAN: "😡",
     ClassType.FIGHTER: "⚔️",
+    ClassType.MONK: "👊",
+    ClassType.PALADIN: "🛡️",
+    ClassType.RANGER: "🗡️",
+    ClassType.ROGUE: "🏹",
+    
+
+    # Spellcasters
+    ClassType.BARD: "🎵",
+    ClassType.CLERIC: "🙏",
+    ClassType.DRUID: "🍃",
     ClassType.SORCERER: "✨",
+    ClassType.WARLOCK: "📜",
     ClassType.WIZARD: "🪄",
+
+    # Hybrids
+    ClassType.ARTIFICER: "🛠️",
+    ClassType.BLOOD_HUNTER: "🩸",
 }
 
 
@@ -74,10 +91,21 @@ for sc, c in SUBCLASS_MAP.items():
 
 
 SUBCLASS_MIN_LEVEL = {
+    ClassType.BARBARIAN: 3,
+    ClassType.BARD: 3,
+    ClassType.CLERIC: 1,
+    ClassType.DRUID: 2,
     ClassType.FIGHTER: 3,
+    ClassType.MONK: 3,
+    ClassType.PALADIN: 3,
+    ClassType.RANGER: 3,
+    ClassType.ROGUE: 3,
     ClassType.SORCERER: 1,
+    ClassType.WARLOCK: 1,
     ClassType.WIZARD: 2,
-    # WIP
+
+    ClassType.ARTIFICER: 3,
+    ClassType.BLOOD_HUNTER: 1,
 }
 
 def validate_subclass_assignment(class_type: ClassType, level: int, subclass: SubclassType):
@@ -141,7 +169,7 @@ class Class:
             "proficiency_skill_pool": [s.value for s in self.proficiency_skill_pool],
             "proficiency_tools": [t.to_dict() for t in self.proficiency_tools],
             "skill_choices": self.skill_choices,
-            "emoji": CLASS_EMOJI_MAP.get(self.name)
+            "emoji": CLASS_EMOJI_MAP.get(self.name),
         }
         return data
 

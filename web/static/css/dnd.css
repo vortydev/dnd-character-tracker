@@ -549,3 +549,11 @@ details:open .class-features-title {
     z-index: 2;
     pointer-events: none;
 }
+
+.dnd-feature-tag {
+    background-color: var(--dark-grey-color);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.9em;
+    border-radius: 1em;
+}

@@ -6,14 +6,16 @@ from feature_types import FeatureType
 
 class Feature():
     """Represents a basic D&D 5e feature."""
-    def __init__(self, name: str, description: str, subfeatures: Optional[List["Feature"]] = None):
+    def __init__(self, name: str, description: str, subfeatures: Optional[List["Feature"]] = None, tags: Optional[List[str]] = None):
         self.name = name
         self.description = description
         self.subfeatures = subfeatures or []
+        self.tags = tags or []
 
     def __str__(self):
         sub_str = "\n  - " + "\n  - ".join(str(f) for f in self.subfeatures) if self.subfeatures else ""
-        return f"{self.name}: {self.description}{sub_str}"
+        tags_str = " (" + ", #".join(t for t in self.tags) + ")" if self.tags else ""
+        return f"{self.name}: {self.description}{tags_str}{sub_str}"
 
     def to_dict(self):
         return {
@@ -21,6 +23,7 @@ class Feature():
             "name": self.name,
             "description": self.description,
             "subfeatures": [sf.to_dict() for sf in self.subfeatures] if self.subfeatures else [],
+            "tags": [t for t in self.tags] if self.tags else [],
         }
     
     @staticmethod
@@ -30,6 +33,7 @@ class Feature():
             name=data["name"],
             description=data["description"],
             subfeatures=subfeatures,
+            tags=data.get("tags"),
         )
     
     def get_context(self) -> Optional[str]:
@@ -77,6 +81,13 @@ class Feature():
             html += '<div class="dnd-subfeatures grid-auto">'
             for sf in self.subfeatures:
                 html += sf.get_html()
+            html += '</div>'
+
+        # WIP Tags
+        if self.tags:
+            html += '<div class="dnd-feature-tags flex">'
+            for t in self.tags:
+                html += f'<span class="dnd-feature-tag">#{t}</span>'
             html += '</div>'
 
         html += '</div>'

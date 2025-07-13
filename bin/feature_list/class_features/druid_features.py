@@ -89,7 +89,8 @@ druid_feat_druid_circle = ClassFeature(
     name="Druid Circle",
     description="At 2nd level, you choose to identify with a circle of druids. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.\
         \nTABLE[Circle,, Source]: [Dreams,, Xanathar's Guide to Everything]; [Land,, Player's Handbook]; [Moon,, Player's Handbook]; [Sheperd,, Xanathar's Guide to Everything; [Spores,, Tasha's Cauldron of Everything]; [Stars,, Tasha's Cauldron of Everything]; [Wildlife,, Tasha's Cauldron of Everything]",
-    class_type=ClassType.DRUID
+    class_type=ClassType.DRUID,
+    tags=["choice-subclass"],
 )
 
 # === Wild Companion ===
@@ -97,21 +98,24 @@ druid_feat_wild_companion = ClassFeature(
     name="Wild Companion (Optional)",
     description="At 2nd level, you gain the ability to summon a spirit that assumes an animal form: as an action, you can expend a use of your Wild Shape feature to cast the Find Familiar spell, without material components.\
         \nWhen you cast the spell in this way, the familiar is a fey instead of a beast, and the familiar disappears after a number of hours equal to half your druid level.",
-    class_type=ClassType.DRUID
+    class_type=ClassType.DRUID,
+    tags=["optional"],
 )
 
 # === Ability Score Improvement ===
 druid_feat_asi = ClassFeature(
     name="Ability Score Improvement",
     description="When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-    class_type=ClassType.DRUID
+    class_type=ClassType.DRUID,
+    tags=["asi"],
 )
 
 # === Cantrip Versatility ===
 druid_feat_cantrip_vers = ClassFeature(
     name="Cantrip Versatility (Optional)",
     description="Whenever you reach a level in this class that grants the Ability Score Improvement feature, you can replace one cantrip you learned from this class's Spellcasting feature with another cantrip from the druid spell list.",
-    class_type=ClassType.DRUID
+    class_type=ClassType.DRUID,
+    tags=["optional"],
 )
 
 # === Cantrip Versatility ===
