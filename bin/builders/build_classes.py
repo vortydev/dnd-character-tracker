@@ -2,28 +2,30 @@
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from class_base import Class
-from class_registry import ClassRegistry
-from class_io import save_classes_to_file
-
+from bin.class_base import Class
+from bin.class_registry import ClassRegistry
+from bin.class_io import save_classes_to_file
+from bin.class_list.class_list import (
+    get_artificer_class, get_druid_class, get_fighter_class, get_ranger_class,
+    get_rogue_class, get_sorcerer_class, get_wizard_class,
+)
 
 def load_class_list() -> list[Class]:
     """Load and return the list of base Class objects."""
-    classes = []
-
-    from class_list.druid import get_druid_class
-    classes.append(get_druid_class())
-
-    from class_list.fighter import get_fighter_class
-    classes.append(get_fighter_class())
-
-    from class_list.sorcerer import get_sorcerer_class
-    classes.append(get_sorcerer_class())
-
-    from class_list.wizard import get_wizard_class
-    classes.append(get_wizard_class())
+    ARTIFICER = get_artificer_class()
+    DRUID = get_druid_class()
+    FIGHTER = get_fighter_class()
+    RANGER = get_ranger_class()
+    ROGUE = get_rogue_class()
+    SORCERER = get_sorcerer_class()
+    WIZARD = get_wizard_class()
 
     # === TODO Add other classes ===
+
+    classes = [
+        ARTIFICER, DRUID, FIGHTER,
+        RANGER, ROGUE, SORCERER, WIZARD,
+    ]
 
     return classes
 

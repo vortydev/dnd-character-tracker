@@ -36,6 +36,8 @@ def load_class_features() -> list[ClassFeature]:
     class_feats: list[ClassFeature] = []
     print("\n===== Class Features =====")
 
+    # TODO Artificer
+
     # === Druid ===
     print("> Creating Druid Class features")
     from feature_list.class_features.druid_features import druid_feats
@@ -45,6 +47,13 @@ def load_class_features() -> list[ClassFeature]:
     print("> Creating Fighter Class features")
     from feature_list.class_features.fighter_features import fig_feats
     class_feats.extend(fig_feats)
+
+    # === Ranger ===
+    print("> Creating Ranger Class features")
+    from feature_list.class_features.ranger_features import ran_feats
+    class_feats.extend(ran_feats)
+
+    # TODO Rogue
 
     # === Sorcerer ===
     print("> Creating Sorcerer Class features")

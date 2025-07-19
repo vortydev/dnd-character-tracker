@@ -152,6 +152,7 @@ class Class:
         self.proficiency_tools = prof_tools or []
 
         self.skill_choices = skill_choices  # e.g., choose 2 from pool
+        # TODO Add starting equipement
 
     def to_dict(self, emoji: bool=False) -> Dict:
         data = {
