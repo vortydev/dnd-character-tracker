@@ -37,9 +37,9 @@ def load_class_level_list() -> list[ClassLevel]:
     from bin.class_levels.ranger_class_levels import ranger_cl
     cl.extend(ranger_cl)
 
-    # Subclass
+    # TODO Subclass
     # from bin.class_levels.ranger_subclass_levels import ranger_scl
-    # cl.extend(fighter_scl)
+    # cl.extend(ranger_scl)
 
     # === Rogue ===
     # TODO

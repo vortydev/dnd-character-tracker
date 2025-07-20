@@ -96,3 +96,44 @@ stars_lvl14 = ClassLevelSpellcaster(
 
 circle_stars_scl = [stars_lvl2, stars_lvl6, stars_lvl10, stars_lvl14]
 druid_scl.extend(circle_stars_scl)
+
+
+# === Circle of Dreams ===
+dreams_lvl2 = ClassLevelSpellcaster(
+    lvl=2,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_DREAMS,
+    features=[
+        FeatureRegistry.get("Balm of the Summer Court", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+dreams_lvl6 = ClassLevelSpellcaster(
+    lvl=6,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_DREAMS,
+    features=[
+        FeatureRegistry.get("Hearth of Moonlight and Shadow", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+dreams_lvl10 = ClassLevelSpellcaster(
+    lvl=10,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_DREAMS,
+    features=[
+        FeatureRegistry.get("Hidden Paths", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+dreams_lvl14 = ClassLevelSpellcaster(
+    lvl=14,
+    class_type=ClassType.DRUID,
+    subclass=SubclassType.CIRCLE_DREAMS,
+    features=[
+        FeatureRegistry.get("Walker in Dreams", FeatureType.SUBCLASS, ClassType.DRUID),
+    ],
+)
+
+circle_dreams_scl = [dreams_lvl2, dreams_lvl6, dreams_lvl10, dreams_lvl14]
+druid_scl.extend(circle_dreams_scl)
