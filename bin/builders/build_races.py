@@ -24,6 +24,10 @@ def load_race_list():
     from race_list.tiefling import get_tiefling_races
     races.extend(get_tiefling_races())
 
+    # Satyr
+    from race_list.satyr import get_satyr_races
+    races.extend(get_satyr_races())
+
     # Yuan-Ti
     from race_list.yuanti import get_yuanti_races
     races.extend(get_yuanti_races())

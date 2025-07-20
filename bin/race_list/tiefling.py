@@ -300,12 +300,12 @@ def get_tiefling_races():
 
     # Tiefling Bloodlines
     bloodline_tieflings = load_bloodline_tieflings()
-    print("> Creating Tiefling Bloodline subraces")
+    # print("> Creating Tiefling Bloodline subraces")
     for bloodline in bloodline_tieflings:
         tieflings.append(create_subrace_variant(tiefling_base, bloodline))
 
     ua_tieflings = load_ua_subraces()
-    print("> Creating Unearthed Arcana Tiefling subraces")
+    # print("> Creating Unearthed Arcana Tiefling subraces")
     for ua in ua_tieflings:
         tieflings.append(create_subrace_variant(tiefling_base, ua))
 
@@ -314,7 +314,7 @@ def get_tiefling_races():
     tieflings.append(variant_tiefling_base)
 
     variant_tieflings = load_variant_tieflings()
-    print("> Creating Tiefling Variant subraces")
+    # print("> Creating Tiefling Variant subraces")
     for variant in variant_tieflings:
         tieflings.append(create_subrace_variant(variant_tiefling_base, variant))
 

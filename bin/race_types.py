@@ -10,6 +10,7 @@ class RaceType(Enum):
     HALF_ELF = "Half-Elf"
     HALF_ORC = "Half-Orc"
     HUMAN = "Human"
+    SATYR = "Satyr"
     TIEFLING = "Tiefling"
     VARIANT_HUMAN = "Variant Human"
     VARIANT_TIEFLING = "Variant Tiefling"
