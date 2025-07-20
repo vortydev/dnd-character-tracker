@@ -22,7 +22,6 @@ export function setupSkillSelectValidation(block, charData) {
         syncSkillSelects(block, className, charData);
         validateSkillChoicesBlock(block);
         validateSubclassChoicesBlock(block);
-        validateAllSkillSelections();
     };
 
     selects.forEach(select => {

@@ -47,3 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("prevStepBtn").addEventListener("click", () => goToStep(currentStep - 1));
     document.getElementById("nextStepBtn").addEventListener("click", () => goToStep(currentStep + 1));
 });
+
+export async function asyncCreateCharacter() {
+    console.log("TODO"); // TODO Hook up the create button to send character info to the server
+    
+}

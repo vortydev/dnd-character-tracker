@@ -246,7 +246,7 @@ function renderLevelBlocks(levels, cName, subclass = false, skipEmpty = false) {
         // Features
         if (entry?.features?.length) {
             const featureList = entry.features.map(f => {
-                const url = `/features?type=class&class=${cName}&name=${formatObjectNameForURL(f)}`;
+                const url = `${root}/features?type=class&class=${cName}&name=${formatObjectNameForURL(f)}`;
                 return `<li><a href="${url}">${f}</a></li>`;
             }).join("");
 

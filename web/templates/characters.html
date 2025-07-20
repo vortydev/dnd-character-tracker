@@ -15,9 +15,8 @@
 
 <section id="characterList" class="row g-4 mt-3"></section>
 
-<script>
+<script nonce="{{ csp_nonce }}">
     var root = "{{root}}";
-    window.ROOT_PATH = "{{ root }}";
 </script>
 
 {% endblock %}

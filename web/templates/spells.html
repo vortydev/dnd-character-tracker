@@ -24,7 +24,7 @@
 <!-- Spell level panes -->
 <div class="tab-content" id="spellTabsContent"></div>
 
-<script>
+<script nonce="{{ csp_nonce }}">
     var root = "{{root}}";
     document.addEventListener("DOMContentLoaded", loadSpellsFromAPI(root));
 </script>

@@ -3,7 +3,7 @@ import sys, os
 from flask import Flask
 
 # App
-from config import VERSION, FLASK_PORT, CHAR_EDITOR_ENABLED, ADMIN_ENABLED
+from config import VERSION, FLASK_PORT, CHAR_EDITOR_ENABLED, ADMIN_ENABLED, ROOT
 from blueprints.main import main_bp
 from blueprints.resources import resources_bp
 from blueprints.characters import characters_bp
@@ -16,6 +16,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Flask app initialization
 app = Flask(__name__)
 
+# Load compiled JSON data into registries
 from registries import init_registries
 init_registries()
 
@@ -31,6 +32,7 @@ def inject_app_context():
     """Insert session lifetime into the app context"""
     injected_data = {
         "app_version": VERSION,
+        "api_root": ROOT,
         # "session_lifetime": app.config['PERMANENT_SESSION_LIFETIME'].total_seconds()
         "char_editor_enabled": CHAR_EDITOR_ENABLED,
         "admin_enabled": ADMIN_ENABLED,

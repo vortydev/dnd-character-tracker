@@ -34,7 +34,8 @@
   {% include 'editor/equipment_step.html' %}
 </section>
 
-<script>
-  window.ROOT_PATH = "{{ root }}";
+<script nonce="{{ csp_nonce }}">
+  var root = "{{root}}";
+  // window.ROOT_PATH = "{{ root }}";
 </script>
 {% endblock %}

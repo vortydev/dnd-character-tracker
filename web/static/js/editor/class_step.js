@@ -1,6 +1,6 @@
 // editor/class_step.js
 import { newChar } from '../character_editor.js';
-import { updateNextButtonState, updateNavHeader, setupSkillSelectValidation, getAllSelectedSkills, validateAllSkillSelections } from './shared_ui.js';
+import { updateNextButtonState, updateNavHeader, setupSkillSelectValidation, getAllSelectedSkills } from './shared_ui.js';
 
 const MAX_LEVELS = 20;
 
@@ -58,8 +58,6 @@ export async function initClassStep() {
     else {
         await renderExistingClasses();
     }
-
-    validateAllSkillSelections();
 }
 
 function syncClassData(container) {

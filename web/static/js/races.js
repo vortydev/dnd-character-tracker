@@ -167,7 +167,7 @@ function getLinkedSpellList(spellMap, spellsRef) {
 
         const spellLinks = spellList.map(spellName => {            
             const refLevel = findSpellLevelInRefs(spellName, spellsRef);
-            const url = `/spells?level=${refLevel}&spell=${formatObjectNameForURL(spellName)}`;
+            const url = `${root}/spells?level=${refLevel}&spell=${formatObjectNameForURL(spellName)}`;
             return `<a href="${url}">${spellName}</a>`;
         }).join(", ");
 
@@ -199,7 +199,7 @@ function getLinkedFeatureList(featuresMap, featType) {
         if (!featureList.length) return "";
 
         const links = featureList.map(name => {
-            const url = `/features?type=${featType}&name=${formatObjectNameForURL(name)}`;
+            const url = `${root}/features?type=${featType}&name=${formatObjectNameForURL(name)}`;
             return `<a href="${url}">${name}</a>`;
         }).join(", ");
 

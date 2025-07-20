@@ -14,7 +14,7 @@
 
 <div id="classContainer"></div>
 
-<script>
+<script nonce="{{ csp_nonce }}">
     var root = "{{root}}";
     document.addEventListener("DOMContentLoaded", loadClassesFromAPI(root));
 </script>

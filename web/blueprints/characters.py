@@ -4,18 +4,18 @@ from config import ROOT, CHAR_EDITOR_ENABLED
 from registries import CharacterRegistry, RaceRegistry
 from bin.character import Character
 
-characters_bp = Blueprint('characters_bp', __name__)
+characters_bp = Blueprint('characters_bp', __name__, url_prefix=ROOT)
 root = ROOT
 
 
-@characters_bp.route(root+'/characters', methods=['GET'])
+@characters_bp.route('/characters', methods=['GET'])
 def page_characters():
     if not CHAR_EDITOR_ENABLED:
         redirect(root+'/index')
     return render_template('characters.html', root=root)
 
 
-@characters_bp.route(root+'/api/characters/get', methods=['GET'])
+@characters_bp.route('/api/characters/get', methods=['GET'])
 def get_all_characters():
     """
     Return all characters from the CharacterRegistry.
@@ -24,7 +24,7 @@ def get_all_characters():
     return jsonify({"characters": [char.to_dict() for char in characters]})
 
 
-@characters_bp.route(root + '/api/characters/<name>', methods=['GET'])
+@characters_bp.route('/api/characters/<name>', methods=['GET'])
 def get_character(name: str):
     try:
         char = CharacterRegistry.get(name)
@@ -33,7 +33,7 @@ def get_character(name: str):
         return jsonify({"error": f"Character '{name}' not found."}), 404
     
 
-@characters_bp.route(root + '/api/characters/save', methods=['POST'])
+@characters_bp.route('/api/characters/save', methods=['POST'])
 def save_character():
     data = request.get_json()
     try:
@@ -57,7 +57,7 @@ def save_character():
         return jsonify({"status": "error", "message": f"Unhandled error: {str(e)}"}), 400
 
 
-@characters_bp.route(root + '/api/characters/delete/<name>', methods=['DELETE'])
+@characters_bp.route('/api/characters/delete/<name>', methods=['DELETE'])
 def delete_character(name):
     try:
         CharacterRegistry.delete(name, archive=True)
@@ -67,14 +67,14 @@ def delete_character(name):
     
 
 # === Editor ===
-@characters_bp.route(root + '/characters/editor', methods=['GET'])
+@characters_bp.route('/characters/editor', methods=['GET'])
 def page_character_editor():
     if not CHAR_EDITOR_ENABLED:
         redirect(root+'/index')
     return render_template('character_editor.html', root=root)
 
 
-@characters_bp.route(root + '/api/characters/check-name/<name>', methods=['GET'])
+@characters_bp.route('/api/characters/check-name/<name>', methods=['GET'])
 def check_character_name(name: str):
     """
     Check if a character with the given name already exists.
