@@ -152,7 +152,7 @@ ran_feat_spellcasting = ClassFeature(
         ClassFeature(
             name="Spellcasting Ability",
             description="Wisdom is your spellcasting ability for your ranger spells, since your magic draws on your attunement to nature. You use your Wisdom whenever a spell refers to your spellcasting ability. In addition, you use your Wisdom modifier when setting the saving throw DC for a ranger spell you cast and when making an attack roll with one.\
-                \TABLE [Condition,, Result] : [Spell save DC,, 8 + your proficiency bonus + your Wisdom modifier]; [Spell attack modifier,, your proficiency bonus + your Wisdom modifier]",
+                \nTABLE [Condition,, Result] : [Spell save DC,, 8 + your proficiency bonus + your Wisdom modifier]; [Spell attack modifier,, your proficiency bonus + your Wisdom modifier]",
             class_type=ClassType.RANGER,
         ),
         ClassFeature(

@@ -13,7 +13,13 @@ def load_class_level_list() -> list[ClassLevel]:
     cl = []
 
     # === Artificer ===
-    # TODO
+    # TODO Class
+    from bin.class_levels.artificer_class_levels import artificer_cl
+    cl.extend(artificer_cl)
+
+    # TODO Subclass
+    # from bin.class_levels.artificer_subclass_levels import artificer_scl
+    # cl.extend(artificer_scl)
 
     # === Druid ===
     # Class
@@ -42,7 +48,13 @@ def load_class_level_list() -> list[ClassLevel]:
     # cl.extend(ranger_scl)
 
     # === Rogue ===
-    # TODO
+    # Class
+    from bin.class_levels.rogue_class_levels import rogue_cl
+    cl.extend(rogue_cl)
+
+    # TODO Subclass
+    # from bin.class_levels.rogue_subclass_levels import rogue_scl
+    # cl.extend(rogue_scl)
 
     # === Sorcerer ===
     # Class

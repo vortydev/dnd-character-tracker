@@ -4,7 +4,7 @@ from equipment import WeaponName, WeaponType, ArmorType
 from ability import AbilityType, Skill
 from items.tool_item import ToolItem, ToolType
 
-# TODO Artificer
+# WIP Artificer
 def get_artificer_class() -> Class:
     """Get Artificer Class object"""
     ARTIFICER = Class(
@@ -23,8 +23,9 @@ def get_artificer_class() -> Class:
         ],
         skill_choices=2,
         # TODO thieves tools, tinkers tools, one type of artisans tools of your choice
-        description="TODO Artificer description",
-        requisite="TODO Artificer description requisite",
+        description="Masters of invention, artificers use ingenuity and magic to unlock extraordinary capabilities in objects. They see magic as a complex system waiting to be decoded and then harnessed in their spells and inventions. You can find everything you need to play one of these inventors in the next few sections.\
+            \nArtificers use a variety of tools to channel their arcane power. To cast a spell, an artificer might use alchemist's supplies to create a potent elixir, calligrapher's supplies to inscribe a sigil of power, or tinker's tools to craft a temporary charm. The magic of artificers is tied to their tools and their talents, and few other characters can produce the right tool for a job as well as an artificer.",
+        requisite="You must have an Intelligence score of 13 or higher in order to multiclass in or out of this class.",
     )
     return ARTIFICER
 
@@ -130,8 +131,8 @@ def get_rogue_class() -> Class:
         ],
         skill_choices=4,
         # TODO tools=[ ThievesTools ],
-        description="TODO Rogue description",
-        requisite="You must have a Dexterity or Strength score of 13 or higher in order to multiclass in or out of this class.",
+        description="Rogues rely on skill, stealth, and their foes' vulnerabilities to get the upper hand in any situation. They have a knack for finding the solution to just about any problem, demonstrating a resourcefulness and versatility that is the cornerstone of any successful adventuring party.",
+        requisite="You must have a Dexterity score of 13 or higher in order to multiclass in or out of this class.",
     )
     return ROGUE
 

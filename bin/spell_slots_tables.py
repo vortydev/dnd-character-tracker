@@ -94,7 +94,31 @@ RANGER_SPELL_SLOTS_TABLE = {
     20: {1: 4, 2: 3, 3: 3, 4: 3, 5: 1},
 }
 
+ARTIFICER_SPELL_SLOTS_TABLE = {
+    1: {1: 2},
+    2: {1: 2},
+    3: {1: 3},
+    4: {1: 3},
+    5: {1: 4, 2: 2},
+    6: {1: 4, 2: 2},
+    7: {1: 4, 2: 3},
+    8: {1: 4, 2: 3},
+    9: {1: 4, 2: 3, 3: 2},
+    10: {1: 4, 2: 3, 3: 2},
+    11: {1: 4, 2: 3, 3: 3},
+    12: {1: 4, 2: 3, 3: 3},
+    13: {1: 4, 2: 3, 3: 3, 4: 1},
+    14: {1: 4, 2: 3, 3: 3, 4: 1},
+    15: {1: 4, 2: 3, 3: 3, 4: 2},
+    16: {1: 4, 2: 3, 3: 3, 4: 2},
+    17: {1: 4, 2: 3, 3: 3, 4: 3, 5: 1},
+    18: {1: 4, 2: 3, 3: 3, 4: 3, 5: 1},
+    19: {1: 4, 2: 3, 3: 3, 4: 3, 5: 2},
+    20: {1: 4, 2: 3, 3: 3, 4: 3, 5: 2},
+}
+
 SPELL_SLOTS_TABLE_MAP = {
+    ClassType.ARTIFICER: ARTIFICER_SPELL_SLOTS_TABLE,
     ClassType.DRUID: DRUID_SPELL_SLOTS_TABLE,
     ClassType.RANGER: RANGER_SPELL_SLOTS_TABLE,
     ClassType.SORCERER: SORCERER_SPELL_SLOTS_TABLE,

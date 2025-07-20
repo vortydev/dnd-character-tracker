@@ -11,8 +11,12 @@ from spell_slots_tables import get_class_level_spell_slots
 class ClassLevelType(Enum):
     BASE = "Base"
     SPELLCASTER = "Spellcaster"
-    # WIP
-    SORCERER = "Sorcerer"
+    ARTIFICER = "Artificer" # Infusions
+    BARD = "Bard" # Bardic inspiration
+    MONK = "Monk" # Ki points
+    SORCERER = "Sorcerer" # Sorcery points
+    ROGUE = "Rogue" # Sneak attack
+    # TODO Add other classes
 
 
 
@@ -82,10 +86,9 @@ class ClassLevelSpellcaster(ClassLevel):
             subclass=base.subclass,
             known_cantrips=data.get("known_cantrips", 0),
             known_spells=data.get("known_spells", 0),
-            # spell_slots=data.get("spell_slots", {}),
         )
     
-
+# Sorcerer
 class ClassLevelSorcerer(ClassLevelSpellcaster):
     """ClassLevel object for the Sorcerer class."""
     def __init__(self, lvl: int, class_type: ClassType = ClassType.SORCERER,
@@ -115,7 +118,70 @@ class ClassLevelSorcerer(ClassLevelSpellcaster):
             subclass=base.subclass,
             known_cantrips=base.known_cantrips,
             known_spells=base.known_spells,
-            # spell_slots=base.spell_slots,
             sorcery_points=data.get("sorcery_points", 0),
+        )
+    
+class ClassLevelArtificer(ClassLevelSpellcaster):
+    """ClassLevel object for the Artificer class."""
+    def __init__(self, lvl: int, class_type: ClassType = ClassType.ARTIFICER,
+                 features: List[ClassFeature] = [], subclass: Optional[SubclassType] = None,
+                 known_cantrips: int=0, known_spells: int=0,
+                 infusions_known: int=0, infused_items: int=0):
+        super().__init__(lvl, class_type, features, subclass, known_cantrips, known_spells)
+        self.infusions_known = infusions_known
+        self.infused_items = infused_items
+
+    def to_dict(self):
+        data = super().to_dict()
+        data.update({
+            "type": ClassLevelType.ARTIFICER.value,
+            "infusions_known": self.infusions_known,
+            "infused_items": self.infused_items,
+        })
+        return data
+    
+    @staticmethod
+    def from_dict(data: dict, registries: dict[str] = None) -> "ClassLevelArtificer":
+        base = ClassLevelSpellcaster.from_dict(data, registries)
+        return ClassLevelArtificer(
+            lvl=base.level,
+            class_type=ClassType(base.class_type.value),
+            features=base.features,
+            subclass=base.subclass,
+            known_cantrips=base.known_cantrips,
+            known_spells=base.known_spells,
+            infusions_known=data.get("infusions_known", 0),
+            infused_items=data.get("infused_items", 0),
+        )
+
+# Rogue
+class ClassLevelRogue(ClassLevel):
+    """ClassLevel object for the Rogue class."""
+    def __init__(self, lvl: int, class_type: ClassType,
+                 features: List[ClassFeature] = [], subclass: Optional[SubclassType] = None,
+                 sneak_attack_dice: int=1, sneak_attack_dmg:int=6):
+        super().__init__(lvl, class_type, features, subclass)
+        self.sneak_attack_dice = sneak_attack_dice
+        self.sneak_attack_dmg = sneak_attack_dmg
+        
+    def to_dict(self):
+        data = super().to_dict()
+        data.update({
+            "type": ClassLevelType.ROGUE.value,
+            "sneak_attack_dice": self.sneak_attack_dice,
+            "sneak_attack_dmg": self.sneak_attack_dmg,
+        })
+        return data
+    
+    @staticmethod
+    def from_dict(data: dict, registries: dict[str] = None) -> "ClassLevelRogue":
+        base = ClassLevel.from_dict(data, registries)
+        return ClassLevelRogue(
+            lvl=base.level,
+            class_type=ClassType(base.class_type.value),
+            features=base.features,
+            subclass=base.subclass,
+            sneak_attack_dice=data.get("sneak_attack_dice", 1),
+            sneak_attack_dmg=data.get("sneak_attack_dmg", 6),
         )
     
