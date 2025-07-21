@@ -4,7 +4,7 @@ from enum import Enum
 # ===== Subclasses =====
 # WIP
 class SubclassType(Enum):
-    # === Druid ===
+    # === DRUID Circles ===
     CIRCLE_DREAMS = "Circle of Dreams"
     CIRCLE_LAND = "Circle of the Land"
     CIRCLE_MOON = "Circle of the Moon"
@@ -12,6 +12,7 @@ class SubclassType(Enum):
     CIRCLE_SPORES = "Circle of Spores"
     CIRCLE_STARS = "Circle of Stars"
     CIRCLE_WILDLIFE = "Circle of Wildlife"
+
 
     # === FIGHTER Martial Archetypes ===
     # Player's Handbook
@@ -35,9 +36,79 @@ class SubclassType(Enum):
     ECHO_KNIGHT = "Echo Knight"
 
 
-    # === SORCERER Sorcerous Origins ===
-    DRACONIC_BLOODLINE = "Draconic Bloodline"
+    # === MONK Monastic Traditions ===
+    ASTRAL_SELF = "Astral Self"
+    ASCENDANT_DRAGON = "Ascendant Dragon"
+    DRUNKEN_MASTER = "Drunken Master"
+    FOUR_ELEMENTS = "Four Elements"
+    KENSEI = "Kensei"
+    LONG_DEATH = "Long Death"
+    MERCY = "Mercy"
+    OPEN_HAND = "Open Hand"
+    SHADOW = "Shadow"
+    SUN_SOUL = "Sun Soul"
 
+
+    # === RANGER Conclaves ===
+    BEAST_MASTER = "Beast Master"
+    FEY_WANDERER = "Fey Wanderer"
+    GLOOM_STALKER = "Gloom Stalker"
+    HORIZON_WALKER = "Horizon Walker"
+    HUNTER = "Hunter"
+    MONSTER_SLAYER = "Monster Slayer"
+    SWARMKEEPER = "Swarmkeeper"
+    DRAKEWARDEN = "Drakewarden"
+
+
+    # === ROGUE Roguish Archetype ===
+    ARCANE_TRICKSTER = "Arcane Trickster"
+    ASSASSIN = "Assassin"
+    INQUISITIVE = "Inquisitive"
+    MASTERMIND = "Mastermind"
+    PHANTOM = "Phantom"
+    SCOUT = "Scout"
+    SOULKNIFE = "Soulknife"
+    SWASHBUCKLER = "Swashbuckler"
+    THIEF = "Thief"
+
+
+    # === SORCERER Sorcerous Origins ===
+    # Player's Handbook
+    DRACONIC_BLOODLINE = "Draconic Bloodline"
+    WILD_MAGIC = "Wild Magic"
+
+    # Xanathar's Guide to Everything
+    DIVINE_SOUL = "Divine Soul"
+    SHADOW_MAGIC = "Shadow Magic"
+    STORM_SORCERY = "Storm Sorcery"
+
+    # Tasha's Cauldron of Everything
+    ABERRANT_MIND = "Aberrant Mind"
+    CLOCKWORK_SOUL = "Clockwork Soul"
+
+    # Dragonlance: Shadow of the Dragon Queen
+    LUNAR_SORCERY = "Lunar Sorcery"
+
+
+    # === WARLOCK Otherwrdly Patron ===
+    # Player's Handbook
+    ARCHFEY = "Archfey"
+    FIEND = "Fiend"
+    GREAT_OLD_ONE = "Great Old One"
+
+    # Xanathar's Guide to Everything
+    CELESTIAL = "Celestial"
+    HEXBLADE = "Hexblade"
+
+    # Tasha's Cauldron of Everything
+    FATHOMLESS = "Fathomless"
+    GENIE = "Genie"
+
+    # Van Richten's Guide to Ravenloft
+    UNDEAD = "Undead"
+
+    # Sword Coast Adventurer's Guide
+    UNDYING = "Undying"
 
     # === WIZARD Arcane Traditions ===
     # Player's Handbook
@@ -56,3 +127,9 @@ class SubclassType(Enum):
     ORDER_OF_SCRIBES = "Order of Scribes"
     GRAVITURGY_MAGIC = "Graviturgy Magic"
     CHRONURGY_MAGIC = "Chronurgy Magic"
+
+    # === ARTIFICER Specialist ===
+    ALCHEMIST = "Alchemist"
+    ARMORER = "Armorer"
+    ARTILLERIST = "Artillerist"
+    BATTLE_SMITH = "Battle Smith"

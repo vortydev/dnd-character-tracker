@@ -35,7 +35,6 @@ CLASS_EMOJI_MAP = {
     ClassType.PALADIN: "🛡️",
     ClassType.RANGER: "🗡️",
     ClassType.ROGUE: "🏹",
-    
 
     # Spellcasters
     ClassType.BARD: "🎵",
@@ -53,6 +52,19 @@ CLASS_EMOJI_MAP = {
 
 # === Mapping ===
 SUBCLASS_MAP = {
+    # TODO Barbarian
+    # TODO Bard
+    # TODO Cleric
+
+    # Druid
+    SubclassType.CIRCLE_DREAMS: ClassType.DRUID,
+    SubclassType.CIRCLE_LAND: ClassType.DRUID,
+    SubclassType.CIRCLE_MOON: ClassType.DRUID,
+    SubclassType.CIRCLE_SHEPERD: ClassType.DRUID,
+    SubclassType.CIRCLE_SPORES: ClassType.DRUID,
+    SubclassType.CIRCLE_STARS: ClassType.DRUID,
+    SubclassType.CIRCLE_WILDLIFE: ClassType.DRUID,
+    
     # Fighter
     SubclassType.BATTLE_MASTER: ClassType.FIGHTER,
     SubclassType.CHAMPION: ClassType.FIGHTER,
@@ -65,8 +77,61 @@ SUBCLASS_MAP = {
     SubclassType.BANNERET: ClassType.FIGHTER,
     SubclassType.ECHO_KNIGHT: ClassType.FIGHTER,
 
-    # WIP Sorcerer
+    # Monk
+    SubclassType.ASTRAL_SELF: ClassType.MONK,
+    SubclassType.ASCENDANT_DRAGON: ClassType.MONK,
+    SubclassType.DRUNKEN_MASTER: ClassType.MONK,
+    SubclassType.FOUR_ELEMENTS: ClassType.MONK,
+    SubclassType.KENSEI: ClassType.MONK,
+    SubclassType.LONG_DEATH: ClassType.MONK,
+    SubclassType.MERCY: ClassType.MONK,
+    SubclassType.OPEN_HAND: ClassType.MONK,
+    SubclassType.SHADOW: ClassType.MONK,
+    SubclassType.SUN_SOUL: ClassType.MONK,
+
+    # TODO Paladin
+    
+    # Ranger
+    SubclassType.BEAST_MASTER: ClassType.RANGER,
+    SubclassType.FEY_WANDERER: ClassType.RANGER,
+    SubclassType.GLOOM_STALKER: ClassType.RANGER,
+    SubclassType.HORIZON_WALKER: ClassType.RANGER,
+    SubclassType.HUNTER: ClassType.RANGER,
+    SubclassType.MONSTER_SLAYER: ClassType.RANGER,
+    SubclassType.SWARMKEEPER: ClassType.RANGER,
+    SubclassType.DRAKEWARDEN: ClassType.RANGER,
+    
+    # Rogue
+    SubclassType.ARCANE_TRICKSTER: ClassType.ROGUE,
+    SubclassType.ASSASSIN: ClassType.ROGUE,
+    SubclassType.INQUISITIVE: ClassType.ROGUE,
+    SubclassType.MASTERMIND: ClassType.ROGUE,
+    SubclassType.PHANTOM: ClassType.ROGUE,
+    SubclassType.SCOUT: ClassType.ROGUE,
+    SubclassType.SOULKNIFE: ClassType.ROGUE,
+    SubclassType.SWASHBUCKLER: ClassType.ROGUE,
+    SubclassType.THIEF: ClassType.ROGUE,
+
+    # Sorcerer
+    SubclassType.ABERRANT_MIND: ClassType.SORCERER,
+    SubclassType.CLOCKWORK_SOUL: ClassType.SORCERER,
     SubclassType.DRACONIC_BLOODLINE: ClassType.SORCERER,
+    SubclassType.DIVINE_SOUL: ClassType.SORCERER,
+    SubclassType.LUNAR_SORCERY: ClassType.SORCERER,
+    SubclassType.SHADOW_MAGIC: ClassType.SORCERER,
+    SubclassType.STORM_SORCERY: ClassType.SORCERER,
+    SubclassType.WILD_MAGIC: ClassType.SORCERER,
+
+    # Warlock
+    SubclassType.ARCHFEY: ClassType.WARLOCK,
+    SubclassType.CELESTIAL: ClassType.WARLOCK,
+    SubclassType.FATHOMLESS: ClassType.WARLOCK,
+    SubclassType.FIEND: ClassType.WARLOCK,
+    SubclassType.GENIE: ClassType.WARLOCK,
+    SubclassType.GREAT_OLD_ONE: ClassType.WARLOCK,
+    SubclassType.HEXBLADE: ClassType.WARLOCK,
+    SubclassType.UNDEAD: ClassType.WARLOCK,
+    SubclassType.UNDYING: ClassType.WARLOCK,
 
     # Wizard
     SubclassType.ABJURATION: ClassType.WIZARD,
@@ -82,6 +147,14 @@ SUBCLASS_MAP = {
     SubclassType.ORDER_OF_SCRIBES: ClassType.WIZARD,
     SubclassType.GRAVITURGY_MAGIC: ClassType.WIZARD,
     SubclassType.CHRONURGY_MAGIC: ClassType.WIZARD,
+
+    # Artificer
+    SubclassType.ALCHEMIST: ClassType.ARTIFICER,
+    SubclassType.ARMORER: ClassType.ARTIFICER,
+    SubclassType.ARTILLERIST: ClassType.ARTIFICER,
+    SubclassType.BATTLE_SMITH: ClassType.ARTIFICER,
+
+    # TODO Blood Hunter
 }
 
 
