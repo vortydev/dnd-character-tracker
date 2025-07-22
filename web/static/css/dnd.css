@@ -557,3 +557,68 @@ details:open .class-features-title {
     font-size: 0.9em;
     border-radius: 1em;
 }
+
+/* WIP */
+.spell-level-block h3 {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.25em;
+}
+
+.spell-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.spell-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #fefefe;
+    max-width: 400px;
+    transition: box-shadow 0.3s ease;
+}
+
+.spell-card:hover {
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.spell-toggle-btn {
+    display: block;
+    margin: 1rem auto 0;
+    padding: 0.3rem 0.75rem;
+    background-color: #eee;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.spell-toggle-btn.active {
+    background-color: #ddd;
+}
+
+.spell-info ul {
+    padding-left: 1rem;
+    list-style-type: disc;
+}
+
+
+/* WIP CHARACTER SHEET */
+.roll-state-toggle {
+  margin-left: .25rem;
+  padding: 0 .25rem;
+  font-size: .75rem;
+  line-height: 1;
+  border: 1px solid var(--grey-color);
+  border-radius: .25rem;
+  background: transparent;
+  cursor: pointer;
+}
+[data-roll-state="adv"] .roll-state-toggle {
+  border-color: var(--success-color, green);
+  font-weight: bold;
+}
+[data-roll-state="dis"] .roll-state-toggle {
+  border-color: var(--danger-color, red);
+  font-weight: bold;
+}

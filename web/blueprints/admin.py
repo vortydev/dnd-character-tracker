@@ -9,13 +9,11 @@ from bin.spell_io import load_spells_from_file
 from bin.race_io import load_races_from_file
 from bin.class_level_io import load_class_levels_from_file
 
-
-root = ROOT
 admin_bp = Blueprint("admin", __name__)
 
 
 # === Routes ===
-@admin_bp.route(root+"/admin/run-builder", methods=["POST"])
+@admin_bp.route(ROOT+"/admin/run-builder", methods=["POST"])
 def run_builder():
     if not ADMIN_ENABLED:
         return jsonify({
@@ -64,3 +62,4 @@ def reload_registry(script_name: str):
         ClassLevelRegistry.load_bulk(load_class_levels_from_file(registries=registries))
     elif script_name == "build_classes.py":
         ClassRegistry.register_defaults()
+    # TODO elif Rebuild characters 

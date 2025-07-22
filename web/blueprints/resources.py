@@ -4,7 +4,6 @@ from registries import FeatureRegistry, SpellRegistry, RaceRegistry, ClassLevelR
 from bin import ClassType, SubclassType, Spell, FeatureType
 
 resources_bp = Blueprint('resources_bp', __name__)
-root = ROOT
 
 
 # ===== Helper Functions =====
@@ -18,11 +17,11 @@ def build_spells_ref(spells_ref: dict[int, list[str]], spells: dict[int, list[Sp
 
 
 # ===== Features =====
-@resources_bp.route(root+'/features', methods=['GET'])
+@resources_bp.route(ROOT+'/features', methods=['GET'])
 def page_features():
-    return render_template('features.html', root=root)
+    return render_template('features.html', ROOT=ROOT)
 
-@resources_bp.route(root+'/api/features/get', methods=['GET'])
+@resources_bp.route(ROOT+'/api/features/get', methods=['GET'])
 def api_get_features():
     base_feats = []
     race_feats = []
@@ -57,11 +56,11 @@ def api_get_features():
 
 
 # ===== Spells =====
-@resources_bp.route(root+'/spells', methods=['GET'])
+@resources_bp.route(ROOT+'/spells', methods=['GET'])
 def page_spells():
-    return render_template('spells.html', root=root)
+    return render_template('spells.html', ROOT=ROOT)
 
-@resources_bp.route(root+'/api/spells/get', methods=['GET'])
+@resources_bp.route(ROOT+'/api/spells/get', methods=['GET'])
 def api_get_spells():
     spell_list: list[dict[str]] = []
     for _, spell in SpellRegistry.all().items():
@@ -70,11 +69,11 @@ def api_get_spells():
 
 
 # ===== Races =====
-@resources_bp.route(root+'/races', methods=['GET'])
+@resources_bp.route(ROOT+'/races', methods=['GET'])
 def page_races():
-    return render_template('races.html', root=root)
+    return render_template('races.html', ROOT=ROOT)
 
-@resources_bp.route(root+'/api/races/get', methods=['GET'])
+@resources_bp.route(ROOT+'/api/races/get', methods=['GET'])
 def api_get_races():
     race_list: list[dict[str]] = []
     spells_ref: dict[int, list[str]] = {}
@@ -88,7 +87,7 @@ def api_get_races():
 
     return jsonify({"race_list": race_list, "spells_ref": spells_ref})
 
-@resources_bp.route(root + '/api/races/summary', methods=['GET'])
+@resources_bp.route(ROOT+'/api/races/summary', methods=['GET'])
 def api_get_race_summaries():
     """
     Return a simplified list of race names and their subraces.
@@ -106,11 +105,11 @@ def api_get_race_summaries():
 
 
 # ===== Classes =====
-@resources_bp.route(root+'/classes', methods=['GET'])
+@resources_bp.route(ROOT+'/classes', methods=['GET'])
 def page_classes():
-    return render_template('classes.html', root=root)
+    return render_template('classes.html', ROOT=ROOT)
 
-@resources_bp.route(root+'/api/classes/get', methods=['GET'])
+@resources_bp.route(ROOT+'/api/classes/get', methods=['GET'])
 def api_get_classes():
     class_list: list[dict] = []
     level_list: list[dict] = []
@@ -128,7 +127,7 @@ def api_get_classes():
         "level_list": level_list
     })
 
-@resources_bp.route(root + '/api/classes/features/<class_name>', methods=['GET'])
+@resources_bp.route(ROOT + '/api/classes/features/<class_name>', methods=['GET'])
 def get_class_full_features(class_name: str):
     """Return class base info (HP, proficiencies) and level-based features/spells up to given level."""
     # from registries import ClassLevelRegistry, ClassRegistry
@@ -188,7 +187,7 @@ def get_class_full_features(class_name: str):
         return jsonify({"status": "error", "message": str(e)}), 400
 
 
-@resources_bp.route(root + "/api/races/features/<race_name>", methods=["GET"])
+@resources_bp.route(ROOT+"/api/races/features/<race_name>", methods=["GET"])
 def get_race_features(race_name: str):
     from registries import RaceRegistry
     from bin import RaceType
@@ -305,7 +304,7 @@ def get_race_features(race_name: str):
 # === Books ===
 import os, json
 
-@resources_bp.route(root+"/library")
+@resources_bp.route(ROOT+"/library")
 def book_index():
     pdf_dir = os.path.join("static", "pdf")
     # pdf_files = [f for f in os.listdir(pdf_dir) if f.endswith(".pdf")]
@@ -319,4 +318,4 @@ def book_index():
         # Add full static-relative path to each PDF
         pdf["filepath"] = os.path.join("static", "pdf", pdf["filename"])
 
-    return render_template("pdf_list.html", root=root, pdfs=pdf_files)
+    return render_template("pdf_list.html", ROOT=ROOT, pdfs=pdf_files)

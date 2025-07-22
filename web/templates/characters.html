@@ -3,6 +3,7 @@
 {% block head %}
 <title>Characters ~ Ethel's Character Tracker</title>
 <script nonce="{{ csp_nonce }}" src="{{root}}/js/characters.js"></script>
+<script nonce="{{ csp_nonce }}" type="module" src="{{root}}/js/character_sheet.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -11,9 +12,12 @@
 <div class="btnBar mt-3 mb-4">
     <a href="{{root}}/index" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Back</a>
     <a href="{{root}}/characters/editor" class="btn btn-green"><i class="fas fa-plus"></i> New Character</a>
+    <a href="{{root}}/characters/spells" class="btn btn-blue">Character Spells</a>
 </div>
 
 <section id="characterList" class="row g-4 mt-3"></section>
+
+{% include 'partials/character_sheet.html' %}
 
 <script nonce="{{ csp_nonce }}">
     var root = "{{root}}";
