@@ -83,9 +83,9 @@ def load_subclass_features() -> list[SubclassFeature]:
     # === Druid ===
     print("> Creating Druid Subclass features")
     from feature_list.subclass_features.druid_circle_features import circle_of_the_land, circle_of_stars, circle_of_dreams
-    subclass_feats.extend(circle_of_the_land)
-    subclass_feats.extend(circle_of_stars)
     subclass_feats.extend(circle_of_dreams)
+    subclass_feats.extend(circle_of_stars)
+    subclass_feats.extend(circle_of_the_land)
 
     # === Fighter ===
     print("> Creating Fighter Subclass features")
@@ -94,7 +94,8 @@ def load_subclass_features() -> list[SubclassFeature]:
 
     # === Sorcerer ===
     print("> Creating Sorcerer Subclass features")
-    from feature_list.subclass_features.sorcerer_origin_features import draconic_bloodline
+    from feature_list.subclass_features.sorcerer_origin_features import draconic_bloodline, divine_soul
+    subclass_feats.extend(divine_soul)
     subclass_feats.extend(draconic_bloodline)
 
     # === Wizard ===

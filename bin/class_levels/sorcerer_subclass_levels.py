@@ -51,3 +51,43 @@ db_lvl18 = ClassLevelSorcerer(
 
 draconic_bloodline_scl = [db_lvl1, db_lvl6, db_lvl14, db_lvl18]
 sorcerer_scl.extend(draconic_bloodline_scl)
+
+# === Divine Soul ===
+ds_lvl1 = ClassLevelSorcerer(
+    lvl=1,
+    class_type=ClassType.SORCERER,
+    subclass=SubclassType.DIVINE_SOUL,
+    features=[
+        FeatureRegistry.get("Divine Magic", FeatureType.SUBCLASS, ClassType.SORCERER),
+        FeatureRegistry.get("Favored by the Gods", FeatureType.SUBCLASS, ClassType.SORCERER),
+    ],
+    known_cantrips=4,
+)
+
+ds_lvl6 = ClassLevelSorcerer(
+    lvl=6,
+    class_type=ClassType.SORCERER,
+    subclass=SubclassType.DIVINE_SOUL,
+    features=[FeatureRegistry.get("Empowered Healing", FeatureType.SUBCLASS, ClassType.SORCERER)],
+    known_cantrips=5
+)
+
+ds_lvl14 = ClassLevelSorcerer(
+    lvl=14,
+    class_type=ClassType.SORCERER,
+    subclass=SubclassType.DIVINE_SOUL,
+    features=[FeatureRegistry.get("Angelic Form", FeatureType.SUBCLASS, ClassType.SORCERER)],
+    known_cantrips=6
+)
+
+ds_lvl18 = ClassLevelSorcerer(
+    lvl=18,
+    class_type=ClassType.SORCERER,
+    subclass=SubclassType.DIVINE_SOUL,
+    features=[FeatureRegistry.get("Unearthly Recovery", FeatureType.SUBCLASS, ClassType.SORCERER)],
+    known_cantrips=6
+)
+
+divine_soul_scl = [ds_lvl1, ds_lvl6, ds_lvl14, ds_lvl18]
+sorcerer_scl.extend(divine_soul_scl)
+
