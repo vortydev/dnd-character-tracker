@@ -20,7 +20,7 @@ FeatureRegistry.load_bulk(features)
 
 # ===== Elf =====
 def load_elf_base():
-    human_base = Race(
+    elf_base = Race(
         name=RaceType.ELF,
         description="Elves are a magical people of otherworldly grace, living in places of ethereal beauty, in the midst of ancient forests or in silvery spires glittering with faerie light, where soft music drifts through the air and gentle fragrances waft on the breeze. Elves love nature and magic, art and artistry, music and poetry.",
         speed=30,
@@ -40,7 +40,7 @@ def load_elf_base():
         },
         languages=[Language.COMMON, Language.ELVISH]
     )
-    return human_base
+    return elf_base
 
 
 def load_elf_subraces():
@@ -100,7 +100,7 @@ def load_elf_subraces():
 
 
 def get_elf_races():
-    """Load a list of defined Human Races"""
+    """Load a list of defined Elf Races"""
     races: list[Race] = [] # Empty array
     
     elf_base = load_elf_base()

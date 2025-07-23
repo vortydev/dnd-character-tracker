@@ -9,6 +9,7 @@ class RaceType(Enum):
     GNOME = "Gnome"
     HALF_ELF = "Half-Elf"
     HALF_ORC = "Half-Orc"
+    HALFLING = "Halfling"
     HUMAN = "Human"
     SATYR = "Satyr"
     TIEFLING = "Tiefling"
