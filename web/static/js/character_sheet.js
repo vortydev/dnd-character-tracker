@@ -8,7 +8,6 @@ const sheetData = {
         wis: { base: 14, race: 0, misc: 0 },
         cha: { base: 20, race: 0, misc: 0 },
     },
-    // proficiencyBonus Omitted
     saves: { str: 1, dex: 0, con: 1, int: 0, wis: 0, cha: 1 },
     saveMisc: {},
     skills: {
@@ -333,7 +332,7 @@ export function loadCharSheetTiles(opts) {
     } = opts || {};
     if (!data) return;
 
-    // Determine PB
+    // Proficiency Bonus
     const pb = proficiencyBonusOverride != null
         ? toInt(proficiencyBonusOverride, 2)
         : (toInt(data.proficiencyBonus, NaN) || getPBFromLevel(level));
@@ -387,7 +386,7 @@ export function loadProficiencyBonusCard(cardSel, level, pb){
   card.dataset.pb = pb;
   card.title = pbBreakdownStr(level, pb);          // native tooltip fallback
   card.dataset.tooltip = card.title;               // for custom tooltip system
-  card.classList.add('tt-host');                   // if using custom tooltip CSS from earlier
+  card.classList.add('tt-host');                   // WIP if using custom tooltip CSS from earlier
 }
 
 
@@ -411,4 +410,6 @@ document.addEventListener("DOMContentLoaded", () => {
             profCardSel: '.char-prof-bonus-card',
         });
     }
+
+    insertChevronsIntoDetailsFA();
 });

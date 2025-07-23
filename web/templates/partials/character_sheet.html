@@ -56,6 +56,13 @@
                 </div>
             </article>
 
+            <article class="char-passive-wisdom-card char-border-grey p-2">
+                <div class="text-center">
+                    <span class="char-passive-wisdom"></span>
+                    <label class="char-field-label">Passive Wisdom (Perception)</label>
+                </div>
+            </article>
+
             <!-- Saving Throws - vertical tile -->
             {% include 'partials/sheet_saving_throws.html' %}
 
@@ -66,27 +73,134 @@
         <div class="char-sheet-column">
             <div class="flex-c">
                 <div class="char-ac char-stat-block char-field-wrapper char-border-grey text-center">
-                    <p class="char-ac-stat">10</p>
+                    <p class="char-ac-stat char-ability-score">10</p>
                     <label class="char-field-label">Armor Class</label>
                 </div>
 
                 <div class="char-ini char-stat-block char-field-wrapper char-border-grey text-center">
-                    <p class="char-ini-stat">10</p>
+                    <p class="char-ini-stat char-ability-score">0</p>
                     <label class="char-field-label">Initiative</label>
                 </div>
 
                 <div class="char-speed char-stat-block char-field-wrapper char-border-grey text-center">
-                    <p class="char-speed-stat">30 ft</p>
+                    <p class="char-speed-stat char-ability-score">30 ft</p>
                     <label class="char-field-label">Speed</label>
                 </div>
             </div>
 
+            <article class="char-field-wrapper char-border-grey text-center p-2">
+                <p>Current HP : <span id="currentHP">0</span></p>
+                <p>Max HP : <span id="maxHP">0</span></p>
+                <p>Temp HP : <span id="tempHP">0</span></p>
+                <label class="char-field-label">Hit Point</label>
+            </article>
+
+            <article class="char-field-wrapper char-border-grey text-center p-2">
+                <p>Total : <span id="totalHitDice">0dN</span></p>
+                <p>Class 1 : <span id="">0dN</span></p>
+                <label class="char-field-label">Hit Dice</label>
+            </article>
+
+            <article class="char-field-wrapper char-border-grey text-center p-2">
+                <p>Successes</p>
+                <p>Failures</p>
+                <label class="char-field-label">Death Saves</label>
+            </article>
+
+        </div>
+
+        <div class="char-sheet-column">
+            <!-- Equipment - vertical tile -->
+            {% include 'partials/sheet_equipment_tile.html' %}
+
+            <!-- Attacks - vertical tile -->
+            {% include 'partials/sheet_attack_tile.html' %}
+
+        </div>
+
+        <div class="char-sheet-column">
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charPersonnalityTraits" class="form-control"></textarea>
+                <label class="char-field-label">Personnality Traits</label>
+            </article>
+
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charIdeals" class="form-control"></textarea>
+                <label class="char-field-label">Ideals</label>
+            </article>
+
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charBonds" class="form-control"></textarea>
+                <label class="char-field-label">Bonds</label>
+            </article>
+
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charflaws" class="form-control"></textarea>
+                <label class="char-field-label">Flaws</label>
+            </article>
+
+        </div>
+
+        <div class="char-sheet-column">
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charAppearance" class="form-control"></textarea>
+                <label class="char-field-label">Character Appearance</label>
+            </article>
+
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charBackstory" class="form-control"></textarea>
+                <label class="char-field-label">Character Backstory</label>
+            </article>
+
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charAllies" class="form-control"></textarea>
+                <label class="char-field-label">Allies & Organisations</label>
+            </article>
+
+            <article class="char-text-block char-field-wrapper char-border-grey text-center p-2">
+                <textarea id="charTreasure" class="form-control"></textarea>
+                <label class="char-field-label">Treasure</label>
+            </article>
+
+        </div>
+
+        <div class="char-sheet-column">
+            <article id="featuresSection" class="char-field-wrapper char-border-grey text-center p-2">
+                <section class="mb-3">
+                    <details class="fa-chevron" open>
+                        <summary><h4>Racial Traits</h4></summary>
+                        <textarea id="raceFeatures" class="form-control"></textarea>
+                    </details>
+                </section>
+
+                <section class="mb-3">
+                    <details class="fa-chevron" open>
+                        <summary><h4>Class Features</h4></summary>
+                        <textarea id="classFeatures" class="form-control"></textarea>
+                    </details>
+
+                </section>
+
+                <section class="mb-3">
+                    <details class="fa-chevron" open>
+                        <summary><h4>Other Features</h4></summary>
+                        <textarea id="otherFeatures" class="form-control"></textarea>
+                    </details>
+
+                </section>
+
+                <label class="char-field-label">Features & Traits</label>
+            </article>
+        </div>
+
+        <div class="char-sheet-column">
+            <!-- Spellcasting - horizontal tile -->
+            {% include 'partials/sheet_spellcasting.html' %}
         </div>
 
     </section>
 
     <style nonce="{{ csp_nonce }}">
-
         .char-border-grey {
             border: solid 0.2rem var(--grey-color);
             border-radius: 1rem;
@@ -134,6 +248,7 @@
             margin-bottom: 0;
             font-size: 0.9rem;
             color: var(--dark-grey-color);
+            text-align: center;
         }
 
         .char-name-text {
@@ -193,6 +308,8 @@
             padding: 0.5rem;
             border: var(--grey-color) solid 0.2rem;
             border-radius: 1rem;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Saving throws */
@@ -245,6 +362,40 @@
         .saving-throw-row[data-state="adv"] .roll-state-toggle {
             background-color: var(--green-color);
         } */
+
+        .char-text-block {
+            max-width: 25rem;
+            height: fit-content;
+        }
+
+        .currency-card-bar {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .currency-card-bar.vertical {
+            flex-direction: column;
+            width: fit-content;
+        }
+
+        .currency-card-tile {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border: solid 0.15rem var(--grey-color);
+            border-radius: 0.5rem;
+        }
+
+        .currency-card-tile .form-control {
+            width: 100px;
+        }
     </style>
 
 </article>

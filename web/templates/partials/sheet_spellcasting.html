@@ -1,0 +1,53 @@
+<article>
+    <script nonce="{{ csp_nonce }}" type="module" src="{{ root }}/js/character_spells.js"></script>
+    <h2>Spellcasting</h2>
+    <section>
+        <div id="spellsKnownContainer" class="char-border-grey p-2 flex-col">
+            <div>
+                <label for="knownCantrips">Cantrips known:</label><span id="knownCantrips" class="">N</span>
+            </div>
+
+            <div>
+                <label for="knownSpells">Spells known:</label><span id="knownSpells" class="">N</span>
+            </div>
+
+            <div>
+                <label for="preparedSpells">Spells prepared:</label><span id="preparedSpells" class="">X/Y</span>
+            </div>
+            
+            <p>Spell save = 8 + PROF + CASTING mod</p>
+            <p>Spell attack mod = PROF + CASTING mod</p>
+        </div>
+
+        <div id="spellsFilterContainer" class="char-border-grey p-2">
+            <h3>Filters</h3>
+            <div class="form-checkbox">
+                <input type="checkbox" class="">
+                <label for="">Show prepared only</label>
+            </div>
+            <div class="form-checkbox">
+                <input type="checkbox" class="">
+                <label for="">Show damage and range</label>
+            </div>
+            <div class="form-checkbox">
+                <input type="checkbox" class="" disabled>
+                <label for="">Show description</label>
+            </div>
+        </div>
+
+    </section>
+
+    <section>
+        <h3>Spell Slots</h3>
+        <div id="spellSlots" class="btnBar">
+            <h4>I</h4>
+            <h4>II</h4>
+            <h4>III</h4>
+            <h4>IV</h4>
+            <h4>V</h4>
+        </div>
+
+    </section>
+
+    <section id="spellCardsContainer"></section>
+</article>
