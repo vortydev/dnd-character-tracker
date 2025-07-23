@@ -41,17 +41,46 @@
         {% include 'partials/sheet_ability_scores.html' %}
 
         <div class="char-sheet-column">
+
             <article class="char-inspiration char-border-grey p-2">
                 <div class="text-center">
                     <input type="checkbox" id="inspirationCheckbox">
                     <label for="inspirationCheckbox" class="char-field-label">Inspiration</label>
                 </div>
             </article>
+
+            <article class="char-prof-bonus-card char-border-grey p-2">
+                <div class="text-center">
+                    <span class="char-prof-bonus"></span>
+                    <label class="char-field-label">Proficiency Bonus</label>
+                </div>
+            </article>
+
             <!-- Saving Throws - vertical tile -->
             {% include 'partials/sheet_saving_throws.html' %}
 
             <!-- Skills - vertical tile -->
             {% include 'partials/sheet_skills.html' %}
+        </div>
+
+        <div class="char-sheet-column">
+            <div class="flex-c">
+                <div class="char-ac char-stat-block char-field-wrapper char-border-grey text-center">
+                    <p class="char-ac-stat">10</p>
+                    <label class="char-field-label">Armor Class</label>
+                </div>
+
+                <div class="char-ini char-stat-block char-field-wrapper char-border-grey text-center">
+                    <p class="char-ini-stat">10</p>
+                    <label class="char-field-label">Initiative</label>
+                </div>
+
+                <div class="char-speed char-stat-block char-field-wrapper char-border-grey text-center">
+                    <p class="char-speed-stat">30 ft</p>
+                    <label class="char-field-label">Speed</label>
+                </div>
+            </div>
+
         </div>
 
     </section>
@@ -93,7 +122,7 @@
         .char-sheet-column {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .char-field-wrapper {
@@ -153,6 +182,16 @@
         .char-ability-score-mod {
             font-weight: bold;
             font-size: 1.25rem;
+        }
+
+        .char-prof-bonus {
+            font-weight: bold;
+        }
+
+        .char-stat-block {
+            padding: 0.5rem;
+            border: var(--grey-color) solid 0.2rem;
+            border-radius: 1rem;
         }
 
         /* Saving throws */

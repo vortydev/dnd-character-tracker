@@ -179,6 +179,18 @@ function skillBreakdownStr(skillName, abName, abMod, lvl, pb, misc) {
     return parts.join(' + ') + ` = ${formatMod(tot)}`;
 }
 
+function pbBreakdownStr(level, pb){
+  // Human-readable explain
+  let bracket;
+  if (level >= 17) bracket = "17–20";
+  else if (level >= 13) bracket = "13–16";
+  else if (level >= 9)  bracket = "9–12";
+  else if (level >= 5)  bracket = "5–8";
+  else bracket = "1–4";
+  return `Level ${level} (range ${bracket}) ⇒ Proficiency Bonus ${formatMod(pb)}`;
+}
+
+
 
 // ====== ABILITY SCORES TILE ===================================================
 /**
@@ -316,6 +328,7 @@ export function loadCharSheetTiles(opts) {
         abilityVerticalSel = '.char-ability-score-container.vertical',
         saveSel = '.saving-throw-container',
         skillsSel = null,
+        profCardSel='.char-prof-bonus-card',
         data,
     } = opts || {};
     if (!data) return;
@@ -324,6 +337,8 @@ export function loadCharSheetTiles(opts) {
     const pb = proficiencyBonusOverride != null
         ? toInt(proficiencyBonusOverride, 2)
         : (toInt(data.proficiencyBonus, NaN) || getPBFromLevel(level));
+
+    loadProficiencyBonusCard(profCardSel, level, pb);
 
     // Abilities
     loadAbilityScores(abilitySel, data.abilities);
@@ -338,7 +353,8 @@ export function loadCharSheetTiles(opts) {
         const all = document.querySelectorAll(saveSel);
         saveContainer = all[0] || null;
         skillsContainer = all[1] || null;
-    } else {
+    } 
+    else {
         saveContainer = document.querySelector(saveSel);
         skillsContainer = document.querySelector(skillsSel);
     }
@@ -363,6 +379,18 @@ export function loadCharSheetTiles(opts) {
     }
 }
 
+export function loadProficiencyBonusCard(cardSel, level, pb){
+  const card = (typeof cardSel === 'string') ? document.querySelector(cardSel) : cardSel;
+  if (!card) return;
+  const span = card.querySelector('.char-prof-bonus');
+  if (span) span.textContent = formatMod(pb);
+  card.dataset.pb = pb;
+  card.title = pbBreakdownStr(level, pb);          // native tooltip fallback
+  card.dataset.tooltip = card.title;               // for custom tooltip system
+  card.classList.add('tt-host');                   // if using custom tooltip CSS from earlier
+}
+
+
 function syncRollStateAttrs(row, state){
   // clear
   row.removeAttribute('data-state-adv');
@@ -380,6 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loadCharSheetTiles({
             level: 12,
             data: sheetData,
+            profCardSel: '.char-prof-bonus-card',
         });
     }
 });
