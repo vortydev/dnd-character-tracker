@@ -29,86 +29,97 @@
     font-weight: bold;
     color: var(--black-color);
 }
+
 .damage-dice::selection {
     color: var(--white-color);
     background-color: var(--dark-grey-color);
 }
 
-.damage-acid { 
-    color: var(--dnd-acid-color); 
+.damage-acid {
+    color: var(--dnd-acid-color);
 }
+
 .damage-acid::selection {
     color: var(--black-color);
     background-color: var(--dnd-acid-color);
 }
 
-.damage-cold { 
-    color: var(--dnd-cold-color); 
+.damage-cold {
+    color: var(--dnd-cold-color);
 }
+
 .damage-cold::selection {
     color: var(--black-color);
     background-color: var(--dnd-cold-color);
 }
 
-.damage-fire { 
-    color: var(--dnd-fire-color); 
+.damage-fire {
+    color: var(--dnd-fire-color);
 }
+
 .damage-fire::selection {
     color: var(--white-color);
     background-color: var(--dnd-fire-color);
 }
 
-.damage-force { 
-    color: var(--dnd-force-color); 
+.damage-force {
+    color: var(--dnd-force-color);
 }
+
 .damage-force::selection {
     color: var(--white-color);
     background-color: var(--dnd-force-color);
 }
 
-.damage-lightning { 
-    color: var(--dnd-lightning-color); 
+.damage-lightning {
+    color: var(--dnd-lightning-color);
 }
+
 .damage-lightning::selection {
     color: var(--white-color);
     background-color: var(--dnd-lightning-color);
 }
 
-.damage-necrotic { 
-    color: var(--dnd-necrotic-color); 
+.damage-necrotic {
+    color: var(--dnd-necrotic-color);
 }
+
 .damage-necrotic::selection {
     color: var(--black-color);
     background-color: var(--dnd-necrotic-color);
 }
 
-.damage-poison { 
-    color: var(--dnd-poison-color); 
+.damage-poison {
+    color: var(--dnd-poison-color);
 }
+
 .damage-poison::selection {
     color: var(--black-color);
     background-color: var(--dnd-poison-color);
 }
 
-.damage-radiant { 
-    color: var(--dnd-radiant-color); 
+.damage-radiant {
+    color: var(--dnd-radiant-color);
 }
+
 .damage-radiant::selection {
     color: var(--black-color);
     background-color: var(--dnd-radiant-color);
 }
 
-.damage-thunder { 
-    color: var(--dnd-thunder-color); 
+.damage-thunder {
+    color: var(--dnd-thunder-color);
 }
+
 .damage-thunder::selection {
     color: var(--white-color);
     background-color: var(--dnd-thunder-color);
 }
 
-.damage-psychic { 
-    color: var(--dnd-psychic-color); 
+.damage-psychic {
+    color: var(--dnd-psychic-color);
 }
+
 .damage-psychic::selection {
     color: var(--black-color);
     background-color: var(--dnd-psychic-color);
@@ -120,6 +131,7 @@
 .damage-slashing {
     color: var(--dnd-physical-color);
 }
+
 .damage-physical::selection,
 .damage-piercing::selection,
 .damage-bludgeoning::selection,
@@ -132,10 +144,12 @@
 [class^="healing"] {
     color: var(--dnd-healing-color);
 }
+
 [class^="healing"]::selection {
     color: var(--black-color);
     background-color: var(--dnd-healing-color);
 }
+
 .healing-dice {
     font-weight: bold;
 }
@@ -145,6 +159,7 @@
     color: var(--green-color);
     font-weight: bold;
 }
+
 .advantage::selection {
     color: var(--white-color);
     background-color: var(--green-color);
@@ -154,6 +169,7 @@
     color: var(--red-color);
     font-weight: bold;
 }
+
 .disadvantage::selection {
     color: var(--white-color);
     background-color: var(--red-color);
@@ -162,6 +178,7 @@
 .resistance {
     color: var(--dnd-resistance-color);
 }
+
 .resistance::selection {
     color: var(--black-color);
     background-color: var(--dnd-resistance-color);
@@ -170,6 +187,7 @@
 .immune {
     color: var(--dnd-immunity-color);
 }
+
 .immune::selection {
     color: var(--black-color);
     background-color: var(--dnd-immunity-color);
@@ -178,6 +196,7 @@
 .vulnerable {
     color: var(--dnd-vulnerable-color);
 }
+
 .vulnerable::selection {
     color: var(--black-color);
     background-color: var(--dnd-vulnerable-color);
@@ -187,6 +206,7 @@
 .currency-gold {
     color: var(--dnd-gold-color);
 }
+
 .currency-gold::selection {
     color: var(--black-color);
     background-color: var(--dnd-gold-color);
@@ -327,6 +347,7 @@ details.dnd-feature-section {
 .dnd-feature-table thead tr:first-child th:first-child {
     border-top-left-radius: 0.45em;
 }
+
 .dnd-feature-table thead tr:first-child th:last-child {
     border-top-right-radius: 0.45em;
 }
@@ -335,6 +356,7 @@ details.dnd-feature-section {
 .dnd-feature-table tbody tr:last-child td:first-child {
     border-bottom-left-radius: 0.45em;
 }
+
 .dnd-feature-table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 0.45em;
 }
@@ -345,11 +367,11 @@ details.dnd-feature-section {
 }
 
 /* Zebra striping and hover */
-.dnd-feature-table > tbody > tr:nth-child(odd) {
+.dnd-feature-table>tbody>tr:nth-child(odd) {
     background-color: #f5f5f5;
 }
 
-.dnd-feature-table > tbody > tr:hover {
+.dnd-feature-table>tbody>tr:hover {
     background-color: #eee;
 }
 
@@ -368,11 +390,11 @@ details.dnd-feature-section {
 }
 
 /* Spell Table */
-.spell-table > thead th {
+.spell-table>thead th {
     cursor: pointer;
 }
 
-.spell-table > thead th:hover {
+.spell-table>thead th:hover {
     color: var(--dark-grey-color);
 }
 
@@ -406,7 +428,8 @@ details.dnd-feature-section {
 }
 
 .spell-row.open:hover {
-    background-color: var(--purple-color); /* no hover change */
+    background-color: var(--purple-color);
+    /* no hover change */
 }
 
 .spell-details-row td {
@@ -489,7 +512,7 @@ details:open .class-features-title {
     padding: 0.5em 0.25em;
     border-radius: 0.6125em;
     border-bottom: 0.15em solid transparent;
-    transition: 
+    transition:
         border-radius 0s,
         background-color 0.2s ease-out;
     gap: 0.5em !important;
@@ -580,7 +603,7 @@ details:open .class-features-title {
 }
 
 .spell-card:hover {
-    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 .spell-toggle-btn {
@@ -605,20 +628,23 @@ details:open .class-features-title {
 
 /* WIP CHARACTER SHEET */
 .roll-state-toggle {
-  margin-left: .25rem;
-  padding: 0 .25rem;
-  font-size: .75rem;
-  line-height: 1;
-  border: 1px solid var(--grey-color);
-  border-radius: .25rem;
-  background: transparent;
-  cursor: pointer;
+    padding: 0 0.25rem;
+    font-size: .8rem;
+    /* line-height: 1; */
+    border: 1px solid var(--grey-color);
+    border-radius: .5rem;
+    /* background: transparent; */
+    /* background-color: var(--light-grey-color); */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
+
 [data-roll-state="adv"] .roll-state-toggle {
-  border-color: var(--success-color, green);
-  font-weight: bold;
+    border-color: var(--green-color, green);
+    background-color: var(--green-color-shadow);
 }
+
 [data-roll-state="dis"] .roll-state-toggle {
-  border-color: var(--danger-color, red);
-  font-weight: bold;
+    border-color: var(--red-color, red);
+    background-color: var(--red-color-shadow);
 }

@@ -220,7 +220,7 @@ export function loadAbilityScores(containerSel, abilitiesData) {
 /**
  * Update Saving Throws.
  * Expects rows: .saving-throw-row[data-ability-type]
- * Cols: <i> marker, .saving-throw-mod span, .saving-throw-ability p (unchanged)
+ * Cols: <span> marker, .saving-throw-mod span, .saving-throw-ability p (unchanged)
  *
  * @param {string|Element} containerSel - saving throw tile container
  * @param {Object} abilitiesData - same as for loadAbilityScores()
@@ -244,7 +244,7 @@ export function loadSavingThrows(containerSel, abilitiesData, proficiencyBonus, 
         const profBonus = lvl === 2 ? proficiencyBonus * 2 : lvl === 1 ? proficiencyBonus : 0;
         const total = baseMod + profBonus + misc;
 
-        const markEl = qs(row, 'i, .save-proficiency-status'); // support markup variations
+        const markEl = qs(row, 'span, .save-proficiency-status'); // support markup variations
         const modEl = qs(row, '.saving-throw-mod');
         if (markEl) markEl.textContent = markForProf(lvl);
         if (modEl) modEl.textContent = formatMod(total);
