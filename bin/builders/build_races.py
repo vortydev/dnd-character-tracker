@@ -16,6 +16,19 @@ def load_race_list():
     from race_list.elf import get_elf_races
     races.extend(get_elf_races())
 
+    # Gnome
+    from race_list.gnome import get_gnome_races
+    races.extend(get_gnome_races())
+
+    # Half-Elf
+    from race_list.half_elf import get_half_elf_races
+    races.extend(get_half_elf_races())
+
+    # Halfling
+    from race_list.halfling import get_halfling_races
+    races.extend(get_halfling_races())
+
+
     # Human
     from race_list.human import get_human_races
     races.extend(get_human_races())

@@ -117,6 +117,21 @@ def load_race_features() -> list[RaceFeature]:
     from feature_list.race_features.elf_features import elf_feats
     race_feats.extend(elf_feats)
 
+    # Gnome
+    print("> Creating Gnome features")
+    from feature_list.race_features.gnome_features import gnome_feats
+    race_feats.extend(gnome_feats)
+
+    # Half-Elf
+    print("> Creating Half-Elf features")
+    from feature_list.race_features.half_elf_features import half_elf_feats
+    race_feats.extend(half_elf_feats)
+
+    # Halfling
+    print("> Creating Halfling features")
+    from feature_list.race_features.halfling_features import halfling_feats
+    race_feats.extend(halfling_feats)
+    
     # Human
     print("> Creating Human features")
     from feature_list.race_features.human_features import human_variant_feats
