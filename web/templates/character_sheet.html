@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Characters ~ Ethel's Character Tracker</title>
+<script nonce="{{ csp_nonce }}" type="module" src="{{root}}/js/character_sheet.js"></script>
+<link nonce="{{ csp_nonce }}" href="{{root}}/css/character_sheet.css" rel="stylesheet" />
+{% endblock %}
+
+{% block main %}
+<h1 class="underline-primary underline-thick">Character Sheet</h1>
+
+<div class="btnBar mt-3 mb-4">
+    <a href="{{root}}/characters" class="btn btn-light-grey"><i class="fas fa-arrow-left"></i>Character List</a>
+</div>
+
+{% include 'partials/sheet_base.html' %}
+
+<script nonce="{{ csp_nonce }}">
+    var root = "{{root}}";
+</script>
+
+{% endblock %}

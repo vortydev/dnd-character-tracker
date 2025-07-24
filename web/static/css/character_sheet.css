@@ -1,0 +1,218 @@
+/* WIP CHARACTER SHEET */
+.char-border-grey {
+    border: solid 0.2rem var(--grey-color);
+    border-radius: 1rem;
+}
+
+.char-sheet {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+    border: var(--grey-color) solid 0.2rem;
+    border-radius: 1rem;
+}
+
+.char-sheet p {
+    margin-bottom: 0;
+}
+
+.char-sheet-header {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.char-sheet-page {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.char-sheet-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.char-field-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.char-field-label {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: var(--dark-grey-color);
+    text-align: center;
+}
+
+.char-name-text {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.char-info {
+    display: grid;
+    gap: 0.5rem 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    width: fit-content;
+    padding: 1rem;
+    border: var(--grey-color) solid 0.2rem;
+    border-radius: 1rem;
+}
+
+/* Abilities */
+.char-ability-score-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    width: 100%;
+}
+
+.char-ability-score-container.vertical {
+    grid-template-columns: minmax(110px, 1fr);
+    width: fit-content;
+    height: fit-content;
+}
+
+.char-ability-score-card {
+    display: flex;
+    flex-direction: column;
+    min-width: fit-content;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: var(--grey-color) solid 0.2rem;
+    border-radius: 1rem;
+}
+
+.char-ability-score {
+    font-size: 1.5rem;
+}
+
+.char-ability-score-mod {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.char-prof-bonus {
+    font-weight: bold;
+}
+
+.char-stat-block {
+    padding: 0.5rem;
+    border: var(--grey-color) solid 0.2rem;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Saving throws */
+.saving-throw-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    /* width: fit-content; */
+    height: fit-content;
+    padding: 0.5rem;
+    border: var(--grey-color) solid 0.2rem;
+    border-radius: 1rem;
+}
+
+.saving-throw-row {
+    display: grid;
+    grid-template-columns: 1rem 2rem auto 1.75rem;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+}
+
+.saving-throw-mod,
+.skill-mod {
+    text-align: center;
+}
+
+/* Skills */
+.skill-row {
+    display: grid;
+    grid-template-columns: 1.25rem 2rem auto 2.5rem 1.75rem;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+}
+
+.skill-ability-hint {
+    color: var(--grey-color);
+    /* text-align: center; */
+}
+
+/* .roll-state-toggle {
+    background-color: var(--light-grey-color);
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.125rem;
+    transition: all 0.2s ease-in-out;
+    font-weight: bold;
+}
+
+.saving-throw-row[data-state="adv"] .roll-state-toggle {
+    background-color: var(--green-color);
+} */
+
+.char-text-block {
+    max-width: 25rem;
+    height: fit-content;
+}
+
+.currency-card-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.currency-card-bar.vertical {
+    flex-direction: column;
+    width: fit-content;
+}
+
+.currency-card-tile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: solid 0.15rem var(--grey-color);
+    border-radius: 0.5rem;
+}
+
+.currency-card-tile .form-control {
+    width: 100px;
+}
+
+.roll-state-toggle {
+    padding: 0 0.25rem;
+    font-size: .8rem;
+    /* line-height: 1; */
+    border: 1px solid var(--grey-color);
+    border-radius: .5rem;
+    /* background: transparent; */
+    /* background-color: var(--light-grey-color); */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+[data-roll-state="adv"] .roll-state-toggle {
+    border-color: var(--green-color, green);
+    background-color: var(--green-color-shadow);
+}
+
+[data-roll-state="dis"] .roll-state-toggle {
+    border-color: var(--red-color, red);
+    background-color: var(--red-color-shadow);
+}

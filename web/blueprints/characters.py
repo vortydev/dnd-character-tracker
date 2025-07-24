@@ -82,6 +82,6 @@ def check_character_name(name: str):
     return jsonify({"exists": exists})
 
 # WIP
-@characters_bp.route(ROOT+'/characters/spells', methods=['GET'])
-def page_character_spells():
-    return render_template('character_spells.html', root=ROOT)
+@characters_bp.route(ROOT+'/characters/sheet', methods=['GET'])
+def page_character_sheet():
+    return render_template('character_sheet.html', root=ROOT)

@@ -624,27 +624,3 @@ details:open .class-features-title {
     padding-left: 1rem;
     list-style-type: disc;
 }
-
-
-/* WIP CHARACTER SHEET */
-.roll-state-toggle {
-    padding: 0 0.25rem;
-    font-size: .8rem;
-    /* line-height: 1; */
-    border: 1px solid var(--grey-color);
-    border-radius: .5rem;
-    /* background: transparent; */
-    /* background-color: var(--light-grey-color); */
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-[data-roll-state="adv"] .roll-state-toggle {
-    border-color: var(--green-color, green);
-    background-color: var(--green-color-shadow);
-}
-
-[data-roll-state="dis"] .roll-state-toggle {
-    border-color: var(--red-color, red);
-    background-color: var(--red-color-shadow);
-}
