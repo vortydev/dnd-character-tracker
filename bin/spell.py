@@ -3,6 +3,7 @@ from enum import Enum
 from typing import Optional, List
 from common import ActionCost
 from common import Source
+from class_base import ClassType
 
 
 class SpellSchool(Enum):
@@ -45,6 +46,7 @@ class Spell:
         material_description: Optional[List[str]] = None,
         tags: Optional[List[SpellTag]] = None,
         source: Source = Source.PHB,
+        spell_lists: Optional[List[ClassType]] = None,
     ):
         self.name = name
         self.level = level  # 0 for cantrips
@@ -59,6 +61,7 @@ class Spell:
         self.material_description = material_description or []
         self.tags = tags or []
         self.source = source
+        self.spell_lists = spell_lists or [] # WIP
 
     def __str__(self):
         level_str = "Cantrip" if self.level == 0 else f"Level {self.level}"

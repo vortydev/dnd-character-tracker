@@ -1,9 +1,74 @@
 # spell_list/lvl0_spell_list.py
 from typing import List
-from common import ActionCost
+from common import ActionCost, Source
 from spell import Spell, SpellSchool, SpellComponent
+from class_base import ClassType
 
 # === Define spells ===
+can_acid_splash = Spell(
+    name="Acid Splash",
+    level=0,
+    school=SpellSchool.CONJURATION,
+    action_cost=ActionCost.ACTION,
+    description="You hurl a bubble of acid. Choose one creature you can see within range, or choose two creatures you can see within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage.",
+    higher_levels="This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+    duration="Instantaneous",
+    casting_time="1 action",
+    s_range="60 feet",
+    components=[
+        SpellComponent.V, SpellComponent.S
+    ],
+    spell_lists=[
+        ClassType.ARTIFICER,
+        ClassType.SORCERER,
+        ClassType.WIZARD,
+    ],
+)
+
+can_blade_ward = Spell(
+    name="Blade Ward",
+    level=0,
+    school=SpellSchool.ABJURATION,
+    action_cost=ActionCost.ACTION,
+    description="You extend your hand and trace a sigil of warding in the air.\
+        Until the end of your next turn, you have resistance against bludgeoning, piercing, and slashing damage dealt by weapon attacks.",
+    duration="1 round",
+    casting_time="1 action",
+    s_range="Self",
+    components=[
+        SpellComponent.V, SpellComponent.S
+    ],
+    spell_lists=[
+        ClassType.BARD,
+        ClassType.SORCERER,
+        ClassType.WARLOCK,
+        ClassType.WIZARD,
+    ],
+)
+
+can_booming_blade = Spell(
+    name="Booming Blade",
+    level=0,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="You brandish the weapon used in the spell's casting and mak a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack's normal effects and then becomes sheathed in booming energy until the start of your next turn. If the target willingly moves 5 feet or more before then, the target takes 1d8 thunder damage, and the spell ends.",
+    higher_levels="At 5th level, the melee attack deals an extra 1d8 thunder damage to the target on a hit, and the damage the target takes for moving increases to 2d8. Both damage rolls increase by 1d8 at 11th level (2d8 and 3d8) and again at 17th level (3d8 and 4d8).",
+    duration="1 round",
+    casting_time="1 action",
+    s_range="Self (5-foot radius)",
+    components=[
+        SpellComponent.S, SpellComponent.M
+    ],
+    material_description=["a melee weapon weapon worth at least 1 sp"],
+    source=Source.TCOE,
+    spell_lists=[
+        ClassType.ARTIFICER,
+        ClassType.SORCERER,
+        ClassType.WARLOCK,
+        ClassType.WIZARD,
+    ],
+)
+
 can_dancing_lights = Spell(
     name="Dancing Lights",
     level=0,
@@ -186,6 +251,8 @@ can_vicious_mockery = Spell(
 
 # === Array of Cantrips ===
 lvl0_spells: List[Spell] = [
+    can_acid_splash,
+    can_blade_ward, can_booming_blade,
     can_dancing_lights,
     can_friends,
     can_light,
