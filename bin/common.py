@@ -64,6 +64,7 @@ class Source(Enum):
     MM = "Monster Manual"
     VGTM = "Volo's Guide to Monsters"
     XGTE = "Xanathar's Guide to Everything"
+    TCOE = "Tasha's Cauldron of Everything"
     MTOF = "Mordenkainen's Tome of Foes"
     SCAG = "Sword Coast Adventurer's Guide"
     UA = "Unearthed Arcana"

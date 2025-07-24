@@ -2,6 +2,7 @@
 from typing import List
 from common import ActionCost
 from spell import Spell, SpellSchool, SpellComponent, SpellTag
+from class_base import ClassType
 
 # === Define spells ===
 lvl3_call_lightning = Spell(
@@ -17,6 +18,25 @@ lvl3_call_lightning = Spell(
     casting_time="1 action",
     s_range="120 feet",
     components=[SpellComponent.V, SpellComponent.S],
+)
+
+lvl3_counterspell = Spell(
+    name="Counterspell",
+    level=3,
+    school=SpellSchool.ABJURATION,
+    action_cost=ActionCost.REACTION,
+    description="You attempt to interrupt a creature in the progress of casting a spell. If the creature is casting a spell of 3rd level or lower, the spell fails and has no other effect.\
+        If it is casting a spell of 4th level or higher, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a success, the creature's spell fails and has no effect.",
+    higher_levels="When you cast this spell using a spell slot of 4th level or higher, the interrupted spell has no effect if its level is less than or equal to the level of the spell slot you used.",
+    duration="Intantaneous",
+    casting_time="1 reaction, which you take when you see a creature within 60 feet of you casting a spell.",
+    s_range="60 feet",
+    components=[SpellComponent.S],
+    spell_lists=[
+        ClassType.SORCERER,
+        ClassType.WARLOCK,
+        ClassType.WIZARD
+    ],
 )
 
 lvl3_create_food_water = Spell(
@@ -43,6 +63,25 @@ lvl3_daylight = Spell(
     casting_time="1 action",
     s_range="60 feet",
     components=[SpellComponent.V, SpellComponent.S],
+)
+
+lvl3_fireball = Spell(
+    name="Fireball",
+    level=3,
+    school=SpellSchool.EVOCATION,
+    action_cost=ActionCost.ACTION,
+    description="A bright streak flashes from your pointing finger to a point you choose within range then blossoms with a low roar into an explosion of flame.\
+        Each creature in a 20-foot radius must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one.\
+            The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried.",
+    higher_levels="When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
+    duration="1 hour",
+    casting_time="1 action",
+    s_range="150 feet",
+    components=[SpellComponent.V, SpellComponent.S, SpellComponent.M],
+    material_description=["a tiny ball of bat guano and sulfur"],
+    spell_lists=[
+        ClassType.SORCERER, ClassType.WIZARD,
+    ],
 )
 
 lvl3_gaseous_form = Spell(
@@ -209,8 +248,9 @@ lvl3_water_walk = Spell(
 
 # === Array of Level 3 spells ===
 lvl3_spells: List[Spell] = [
-    lvl3_call_lightning, lvl3_create_food_water,
+    lvl3_call_lightning, lvl3_counterspell, lvl3_create_food_water,
     lvl3_daylight,
+    lvl3_fireball,
     lvl3_gaseous_form,
     lvl3_haste,
     lvl3_lightning_bolt,
