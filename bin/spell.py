@@ -15,6 +15,7 @@ class SpellSchool(Enum):
     ILLUSION = "Illusion"
     NECROMANCY = "Necromancy"
     TRANSMUTATION = "Transmutation"
+    UNKNOWN = "Unknown"
 
 class SpellComponent(Enum):
     V = "Verbal"     # The spell requires you to speak aloud

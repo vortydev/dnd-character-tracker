@@ -8,8 +8,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 DEFAULT_PATH = os.path.join(DATA_DIR, "spells.json")
 
-def save_spells_to_file(spells: list[Spell], path: str = DEFAULT_PATH):
+def save_spells_to_file(spells: list[Spell], path: str = DEFAULT_PATH, api:bool=False):
     """Save a list of Spell objects to a JSON file."""
+    if api:
+        API_DIR = os.path.join(DATA_DIR, "api")
+        os.makedirs(API_DIR)
+        path = os.path.join(API_DIR, "spells.json")
+
     with open(path, "w", encoding="utf-8") as f:
         json.dump([s.to_dict() for s in spells], f, indent=2)
 

@@ -197,3 +197,4 @@ pyrightconfig.json
 
 # ===== Project-specific =====
 data/*.json
+data/api/*.json
