@@ -37,8 +37,24 @@
 
     <section class="char-sheet-page">
 
-        <!-- Ability Scores - vertical or horizontal tile -->
-        {% include 'partials/sheet_ability_scores.html' %}
+        <div class="char-sheet-row">
+            <!-- Ability Scores - vertical or horizontal tile -->
+            {% include 'partials/sheet/ability_scores_tile.html' %}
+
+            <!-- Proficiency Bonus -->
+            <article class="char-prof-bonus-card char-border-grey p-2">
+                <div class="flex-col">
+                    <label class="char-field-label">Proficiency</label>
+                    <span class="char-prof-bonus char-ability-score text-center"></span>
+                    <label class="char-field-label">Bonus</label>
+                </div>
+            </article>
+
+
+        </div>
+        
+        <!-- WIP HP card -->
+        {% include 'partials/sheet/hp_card.html' %}
 
         <div class="char-sheet-column">
 
@@ -49,25 +65,11 @@
                 </div>
             </article>
 
-            <article class="char-prof-bonus-card char-border-grey p-2">
-                <div class="text-center">
-                    <span class="char-prof-bonus"></span>
-                    <label class="char-field-label">Proficiency Bonus</label>
-                </div>
-            </article>
-
-            <article class="char-passive-wisdom-card char-border-grey p-2">
-                <div class="text-center">
-                    <span class="char-passive-wisdom"></span>
-                    <label class="char-field-label">Passive Wisdom (Perception)</label>
-                </div>
-            </article>
-
-            <!-- Saving Throws - vertical tile -->
-            {% include 'partials/sheet_saving_throws.html' %}
+            <!-- Saving Throws -->
+            {% include 'partials/sheet/saving_throws_card.html' %}
 
             <!-- Skills - vertical tile -->
-            {% include 'partials/sheet_skills.html' %}
+            {% include 'partials/sheet/skills_card.html' %}
         </div>
 
         <div class="char-sheet-column">
@@ -89,13 +91,6 @@
             </div>
 
             <article class="char-field-wrapper char-border-grey text-center p-2">
-                <p>Current HP : <span id="currentHP">0</span></p>
-                <p>Max HP : <span id="maxHP">0</span></p>
-                <p>Temp HP : <span id="tempHP">0</span></p>
-                <label class="char-field-label">Hit Point</label>
-            </article>
-
-            <article class="char-field-wrapper char-border-grey text-center p-2">
                 <p>Total : <span id="totalHitDice">0dN</span></p>
                 <p>Class 1 : <span id="">0dN</span></p>
                 <label class="char-field-label">Hit Dice</label>
@@ -105,6 +100,72 @@
                 <p>Successes</p>
                 <p>Failures</p>
                 <label class="char-field-label">Death Saves</label>
+            </article>
+
+            <article class="char-field-wrapper char-border-grey text-center p-2">
+
+                <article class="char-passive-perception-card char-border-grey p-2">
+                    <div class="text-center">
+                        <span class="char-passive-wisdom"></span>
+                        <label class="char-field-label">Passive Perception</label>
+                    </div>
+                </article>
+
+                <article class="char-passive-investigation-card char-border-grey p-2">
+                    <div class="text-center">
+                        <span class="char-passive-wisdom"></span>
+                        <label class="char-field-label">Passive Investigation</label>
+                    </div>
+                </article>
+
+                <article class="char-passive-insight-card char-border-grey p-2">
+                    <div class="text-center">
+                        <span class="char-passive-wisdom"></span>
+                        <label class="char-field-label">Passive Insight</label>
+                    </div>
+                </article>
+
+                <label class="char-field-label">Senses</label>
+            </article>
+
+            <!-- WIP -->
+            <article class="char-field-wrapper char-border-grey text-center p-2">
+                <div>
+                    <label for="prof-armor">Armor</label>
+                    <span><em>armors</em></span>
+                </div>
+                <hr>
+
+                <div>
+                    <label for="prof-weapons">Weapons</label>
+                    <span><em>weapons</em></span>
+                </div>
+                <hr>
+
+                <div>
+                    <label for="prof-tools">Tools</label>
+                    <span><em>tools</em></span>
+                </div>
+                <hr>
+
+                <div>
+                    <label for="prof-lang">Languages</label>
+                    <span>Common</span>
+                </div>
+                <hr>
+
+                <label class="char-field-label">Proficiencies & Training</label>
+            </article>
+
+            <!-- WIP -->
+            <article class="char-field-wrapper char-border-grey text-center p-2">
+                <div>
+                    <label for="">Defenses</label>
+                </div>
+
+                <div>
+                    <label for="prof-lang">Conditions</label>
+                </div>
             </article>
 
         </div>
@@ -168,14 +229,18 @@
             <article id="featuresSection" class="char-field-wrapper char-border-grey text-center p-2">
                 <section class="mb-3">
                     <details class="fa-chevron" open>
-                        <summary><h4>Racial Traits</h4></summary>
+                        <summary>
+                            <h4>Racial Traits</h4>
+                        </summary>
                         <textarea id="raceFeatures" class="form-control"></textarea>
                     </details>
                 </section>
 
                 <section class="mb-3">
                     <details class="fa-chevron" open>
-                        <summary><h4>Class Features</h4></summary>
+                        <summary>
+                            <h4>Class Features</h4>
+                        </summary>
                         <textarea id="classFeatures" class="form-control"></textarea>
                     </details>
 
@@ -183,7 +248,9 @@
 
                 <section class="mb-3">
                     <details class="fa-chevron" open>
-                        <summary><h4>Other Features</h4></summary>
+                        <summary>
+                            <h4>Other Features</h4>
+                        </summary>
                         <textarea id="otherFeatures" class="form-control"></textarea>
                     </details>
 
@@ -199,9 +266,5 @@
         </div>
 
     </section>
-
-    <style nonce="{{ csp_nonce }}">
-
-    </style>
 
 </article>

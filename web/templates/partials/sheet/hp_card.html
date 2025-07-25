@@ -1,0 +1,141 @@
+<article class="char-field-wrapper char-border-grey text-center hp-card">
+    <div class="hp-card-content">
+        <div class="hp-card-options">
+            <button class="hp-card-btn btn btn-green"><span class="btn-label">Heal</span></button>
+            <input class="hp-card-input form-control" type="number" aria-label="Hit Points Adjustement" min="0"
+                max="1000000000" id="adjustHpInput" value="">
+            <button class="hp-card-btn btn btn-danger"><span class="btn-label">Damage</span></button>
+        </div>
+
+        <div class="hp-card-container">
+            <div class="hp-card-innerContainer">
+                <div class="hp-card-item">
+                    <label class="hp-card-label" for=""
+                        aria-label="Current hit points 0, change current hit points">Current</label>
+                    <button id="" class="hp-card-valueButton hp-card-number">10</button>
+                </div>
+
+                <div class="hp-card-item">
+                    <div class="hp-card-spacer"></div>
+                    <span class="hp-card-number hp-card-slash">/</span>
+                </div>
+
+                <div class="hp-card-item">
+                    <label class="hp-card-label" aria-hidden="true">Max</label>
+                    <div class="hp-card-number hp-card-maxContainer">
+                        <span>10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hp-card-item">
+                <label class="hp-card-label" for=""
+                    aria-label="">Temp</label>
+                <button id="" class="hp-card-valueButton hp-card-number">--</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <label class="char-field-label">Hit Points</label>
+
+    <style nonce="{{ csp_nonce }}">
+        .hp-card {
+            min-width: fit-content;
+            height: fit-content;
+        }
+
+        .hp-card-content {
+            display: flex;
+            flex-direction: row;
+            gap: 0.75rem;
+            display: flex;
+            max-height: 100%;
+            padding: .5rem .25rem .5rem 1rem;
+            position: inherit;
+        }
+
+        .hp-card-container {
+            /* container-type: inline-size; */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            width: 100%;
+            gap: 1rem;
+        }
+
+        .hp-card-innerContainer {
+            display: flex;
+            flex-direction: row;
+            gap: 0.75rem;
+        }
+
+        .hp-card-item {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            position: -webkit-sticky;
+            position: sticky;
+        }
+
+        .hp-card-label {
+            color: var(--grey-color);
+            font-size: .813rem;
+            font-weight: 700;
+            height: 1em;
+            margin: 0 0 .375rem;
+            text-transform: uppercase;
+        }
+
+        .hp-card-valueButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .hp-card-spacer {
+            margin: 0 0 .375rem;
+            min-height: .813rem;
+        }
+
+        .hp-card-number {
+            color: var(--black-color);
+            font-size: 1.625rem;
+            font-weight: 500;
+            line-height: 1.2;
+            padding: 0;
+        }
+
+        .hp-card-slash {
+            align-content: center;
+            color: var(--grey-color);
+        }
+
+        .hp-card-maxContainer {
+            align-items: center;
+            display: flex;
+            gap: .375rem;
+        }
+
+
+        .hp-card-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.188rem;
+        }
+
+        .hp-card-btn {
+            font-size: 0.8rem;
+        }
+
+        .hp-card-input {
+            background-color: var(--theme-background) !important;
+            border-color: var(--theme-color) !important;
+            color: var(--theme-contrast) !important;
+            text-align: center;
+            width: 4.375rem;
+        }
+    </style>
+</article>

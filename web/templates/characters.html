@@ -3,6 +3,9 @@
 {% block head %}
 <title>Characters ~ Ethel's Character Tracker</title>
 <script nonce="{{ csp_nonce }}" src="{{root}}/js/characters.js"></script>
+<script nonce="{{ csp_nonce }}">
+    var root = "{{root}}";
+</script>
 {% endblock %}
 
 {% block main %}
@@ -15,9 +18,5 @@
 </div>
 
 <section id="characterList" class="row g-4 mt-3"></section>
-
-<script nonce="{{ csp_nonce }}">
-    var root = "{{root}}";
-</script>
 
 {% endblock %}

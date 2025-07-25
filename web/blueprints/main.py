@@ -49,4 +49,9 @@ def redirect_index():
 @main_bp.route(ROOT+"/index", methods=["GET"])
 def index():
     """Renders the landing page"""
-    return render_template("index.html", ROOT=ROOT)
+    return render_template("index.html", root=ROOT)
+
+@main_bp.route(ROOT+"/blank", methods=["GET"])
+def blank():
+    """Renders a blank page"""
+    return render_template("blank.html", root=ROOT)

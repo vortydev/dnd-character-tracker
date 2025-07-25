@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Blank</title>
+<script nonce="{{ csp_nonce }}">
+    var root = "{{root}}";
+</script>
+{% endblock %}
+
+{% block main %}
+
+<div class="btnBar mt-3 mb-4">
+    <a href="{{root}}/index" class="btn btn-light-grey btn-big"><i class="fas fa-arrow-left"></i>Back</a>
+</div>
+
+{% include 'partials/plume.html' %}
+
+{% endblock %}

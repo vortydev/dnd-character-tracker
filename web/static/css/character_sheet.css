@@ -29,6 +29,14 @@
     display: flex;
     gap: 2rem;
     flex-wrap: wrap;
+    width: 100%;
+}
+
+.char-sheet-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
 }
 
 .char-sheet-column {

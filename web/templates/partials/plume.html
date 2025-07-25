@@ -1,0 +1,79 @@
+<style nonce="{{ csp_nonce }}">
+    body {
+        margin: 0;
+        background: #111;
+        overflow: hidden;
+    }
+
+    .feather {
+        position: absolute;
+        width: 64px;
+        height: auto;
+        pointer-events: none;
+        transform-origin: center;
+    }
+</style>
+
+<script nonce="{{ csp_nonce }}">
+    const FEATHER_IMAGES = [
+        "plume_courbe_jaune.png",
+        "plume_courbe_acier.png",
+        "plume_courbe_turquoise.png"
+    ];
+    const MAX_FEATHERS = 10;
+    const IMG_PATH = `${root}/img`
+
+    function createFeather() {
+        const plume = FEATHER_IMAGES[Math.floor(Math.random() * FEATHER_IMAGES.length)];
+        const plumePath = `${IMG_PATH}/${plume}`;
+        
+        const img = document.createElement("img");
+        img.src = plumePath;
+        img.className = "feather";
+
+        const startX = Math.random() * window.innerWidth;
+        const endX = startX + (Math.random() * 200 - 100);
+        const duration = 8000 + Math.random() * 4000;
+        const rotation = (Math.random() * 360 - 180);
+
+        img.style.left = `${startX}px`;
+        img.style.top = `-100px`;
+        img.style.opacity = "0.8";
+        document.body.appendChild(img);
+
+        const startTime = performance.now();
+
+        function animate(time) {
+            const elapsed = time - startTime;
+            const progress = elapsed / duration;
+
+            if (progress < 1) {
+                const x = startX + Math.sin(progress * Math.PI * 2) * 50;
+                const y = progress * window.innerHeight;
+                const rot = rotation * progress;
+
+                // Fade out toward the end (last 20% of the fall)
+                let opacity = 0.8;
+                if (progress > 0.8) {
+                    opacity = 0.8 * (1 - (progress - 0.8) / 0.2); // linearly go to 0
+                }
+
+                img.style.transform = `translate(${x - startX}px, ${y}px) rotate(${rot}deg)`;
+                img.style.opacity = opacity.toFixed(2);
+                requestAnimationFrame(animate);
+            } 
+            else {
+                img.remove();
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    setInterval(() => {
+        if (document.querySelectorAll('.feather').length < MAX_FEATHERS) {
+            createFeather();
+        }
+    }, 2000);
+
+</script>
